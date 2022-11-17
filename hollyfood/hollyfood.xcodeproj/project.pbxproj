@@ -1,0 +1,639 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EF1EA7DD292572E200E83D6A /* hollyfoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA7DC292572E200E83D6A /* hollyfoodApp.swift */; };
+		EF1EA7DF292572E200E83D6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA7DE292572E200E83D6A /* ContentView.swift */; };
+		EF1EA7E1292572E300E83D6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF1EA7E0292572E300E83D6A /* Assets.xcassets */; };
+		EF1EA7E4292572E300E83D6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF1EA7E3292572E300E83D6A /* Preview Assets.xcassets */; };
+		EF1EA7E6292572E300E83D6A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA7E5292572E300E83D6A /* Persistence.swift */; };
+		EF1EA7E9292572E300E83D6A /* hollyfood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA7E7292572E300E83D6A /* hollyfood.xcdatamodeld */; };
+		EF1EA7F3292572E300E83D6A /* hollyfoodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA7F2292572E300E83D6A /* hollyfoodTests.swift */; };
+		EF1EA7FD292572E300E83D6A /* hollyfoodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA7FC292572E300E83D6A /* hollyfoodUITests.swift */; };
+		EF1EA7FF292572E300E83D6A /* hollyfoodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA7FE292572E300E83D6A /* hollyfoodUITestsLaunchTests.swift */; };
+		EF1EA80F2925746D00E83D6A /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA80E2925746D00E83D6A /* UserViewModel.swift */; };
+		EF1EA8112925747700E83D6A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA8102925747700E83D6A /* User.swift */; };
+		EF1EA8172925839400E83D6A /* Authentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA8162925839400E83D6A /* Authentification.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EF1EA7EF292572E300E83D6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF1EA7D1292572E200E83D6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EF1EA7D8292572E200E83D6A;
+			remoteInfo = hollyfood;
+		};
+		EF1EA7F9292572E300E83D6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF1EA7D1292572E200E83D6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EF1EA7D8292572E200E83D6A;
+			remoteInfo = hollyfood;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EF1EA7D9292572E200E83D6A /* hollyfood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hollyfood.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF1EA7DC292572E200E83D6A /* hollyfoodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hollyfoodApp.swift; sourceTree = "<group>"; };
+		EF1EA7DE292572E200E83D6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		EF1EA7E0292572E300E83D6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EF1EA7E3292572E300E83D6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EF1EA7E5292572E300E83D6A /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		EF1EA7E8292572E300E83D6A /* hollyfood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = hollyfood.xcdatamodel; sourceTree = "<group>"; };
+		EF1EA7EE292572E300E83D6A /* hollyfoodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hollyfoodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF1EA7F2292572E300E83D6A /* hollyfoodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hollyfoodTests.swift; sourceTree = "<group>"; };
+		EF1EA7F8292572E300E83D6A /* hollyfoodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hollyfoodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF1EA7FC292572E300E83D6A /* hollyfoodUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hollyfoodUITests.swift; sourceTree = "<group>"; };
+		EF1EA7FE292572E300E83D6A /* hollyfoodUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hollyfoodUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EF1EA80E2925746D00E83D6A /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		EF1EA8102925747700E83D6A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		EF1EA8162925839400E83D6A /* Authentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentification.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EF1EA7D6292572E200E83D6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF1EA7EB292572E300E83D6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF1EA7F5292572E300E83D6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EF1EA7D0292572E200E83D6A = {
+			isa = PBXGroup;
+			children = (
+				EF1EA7DB292572E200E83D6A /* hollyfood */,
+				EF1EA7F1292572E300E83D6A /* hollyfoodTests */,
+				EF1EA7FB292572E300E83D6A /* hollyfoodUITests */,
+				EF1EA7DA292572E200E83D6A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EF1EA7DA292572E200E83D6A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EF1EA7D9292572E200E83D6A /* hollyfood.app */,
+				EF1EA7EE292572E300E83D6A /* hollyfoodTests.xctest */,
+				EF1EA7F8292572E300E83D6A /* hollyfoodUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EF1EA7DB292572E200E83D6A /* hollyfood */ = {
+			isa = PBXGroup;
+			children = (
+				EF1EA80D2925744B00E83D6A /* ViewModel */,
+				EF1EA80C2925744400E83D6A /* Model */,
+				EF1EA80B2925743700E83D6A /* View */,
+				EF1EA7DC292572E200E83D6A /* hollyfoodApp.swift */,
+				EF1EA7DE292572E200E83D6A /* ContentView.swift */,
+				EF1EA7E0292572E300E83D6A /* Assets.xcassets */,
+				EF1EA7E5292572E300E83D6A /* Persistence.swift */,
+				EF1EA7E7292572E300E83D6A /* hollyfood.xcdatamodeld */,
+				EF1EA7E2292572E300E83D6A /* Preview Content */,
+			);
+			path = hollyfood;
+			sourceTree = "<group>";
+		};
+		EF1EA7E2292572E300E83D6A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				EF1EA7E3292572E300E83D6A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		EF1EA7F1292572E300E83D6A /* hollyfoodTests */ = {
+			isa = PBXGroup;
+			children = (
+				EF1EA7F2292572E300E83D6A /* hollyfoodTests.swift */,
+			);
+			path = hollyfoodTests;
+			sourceTree = "<group>";
+		};
+		EF1EA7FB292572E300E83D6A /* hollyfoodUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EF1EA7FC292572E300E83D6A /* hollyfoodUITests.swift */,
+				EF1EA7FE292572E300E83D6A /* hollyfoodUITestsLaunchTests.swift */,
+			);
+			path = hollyfoodUITests;
+			sourceTree = "<group>";
+		};
+		EF1EA80B2925743700E83D6A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EF1EA8162925839400E83D6A /* Authentification.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EF1EA80C2925744400E83D6A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EF1EA8102925747700E83D6A /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EF1EA80D2925744B00E83D6A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EF1EA80E2925746D00E83D6A /* UserViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EF1EA7D8292572E200E83D6A /* hollyfood */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF1EA802292572E300E83D6A /* Build configuration list for PBXNativeTarget "hollyfood" */;
+			buildPhases = (
+				EF1EA7D5292572E200E83D6A /* Sources */,
+				EF1EA7D6292572E200E83D6A /* Frameworks */,
+				EF1EA7D7292572E200E83D6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hollyfood;
+			productName = hollyfood;
+			productReference = EF1EA7D9292572E200E83D6A /* hollyfood.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EF1EA7ED292572E300E83D6A /* hollyfoodTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF1EA805292572E300E83D6A /* Build configuration list for PBXNativeTarget "hollyfoodTests" */;
+			buildPhases = (
+				EF1EA7EA292572E300E83D6A /* Sources */,
+				EF1EA7EB292572E300E83D6A /* Frameworks */,
+				EF1EA7EC292572E300E83D6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EF1EA7F0292572E300E83D6A /* PBXTargetDependency */,
+			);
+			name = hollyfoodTests;
+			productName = hollyfoodTests;
+			productReference = EF1EA7EE292572E300E83D6A /* hollyfoodTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EF1EA7F7292572E300E83D6A /* hollyfoodUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF1EA808292572E300E83D6A /* Build configuration list for PBXNativeTarget "hollyfoodUITests" */;
+			buildPhases = (
+				EF1EA7F4292572E300E83D6A /* Sources */,
+				EF1EA7F5292572E300E83D6A /* Frameworks */,
+				EF1EA7F6292572E300E83D6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EF1EA7FA292572E300E83D6A /* PBXTargetDependency */,
+			);
+			name = hollyfoodUITests;
+			productName = hollyfoodUITests;
+			productReference = EF1EA7F8292572E300E83D6A /* hollyfoodUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EF1EA7D1292572E200E83D6A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					EF1EA7D8292572E200E83D6A = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
+					EF1EA7ED292572E300E83D6A = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = EF1EA7D8292572E200E83D6A;
+					};
+					EF1EA7F7292572E300E83D6A = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = EF1EA7D8292572E200E83D6A;
+					};
+				};
+			};
+			buildConfigurationList = EF1EA7D4292572E200E83D6A /* Build configuration list for PBXProject "hollyfood" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EF1EA7D0292572E200E83D6A;
+			productRefGroup = EF1EA7DA292572E200E83D6A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EF1EA7D8292572E200E83D6A /* hollyfood */,
+				EF1EA7ED292572E300E83D6A /* hollyfoodTests */,
+				EF1EA7F7292572E300E83D6A /* hollyfoodUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EF1EA7D7292572E200E83D6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF1EA7E4292572E300E83D6A /* Preview Assets.xcassets in Resources */,
+				EF1EA7E1292572E300E83D6A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF1EA7EC292572E300E83D6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF1EA7F6292572E300E83D6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EF1EA7D5292572E200E83D6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF1EA8172925839400E83D6A /* Authentification.swift in Sources */,
+				EF1EA7E6292572E300E83D6A /* Persistence.swift in Sources */,
+				EF1EA7DF292572E200E83D6A /* ContentView.swift in Sources */,
+				EF1EA8112925747700E83D6A /* User.swift in Sources */,
+				EF1EA7E9292572E300E83D6A /* hollyfood.xcdatamodeld in Sources */,
+				EF1EA80F2925746D00E83D6A /* UserViewModel.swift in Sources */,
+				EF1EA7DD292572E200E83D6A /* hollyfoodApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF1EA7EA292572E300E83D6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF1EA7F3292572E300E83D6A /* hollyfoodTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF1EA7F4292572E300E83D6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF1EA7FD292572E300E83D6A /* hollyfoodUITests.swift in Sources */,
+				EF1EA7FF292572E300E83D6A /* hollyfoodUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EF1EA7F0292572E300E83D6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EF1EA7D8292572E200E83D6A /* hollyfood */;
+			targetProxy = EF1EA7EF292572E300E83D6A /* PBXContainerItemProxy */;
+		};
+		EF1EA7FA292572E300E83D6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EF1EA7D8292572E200E83D6A /* hollyfood */;
+			targetProxy = EF1EA7F9292572E300E83D6A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		EF1EA800292572E300E83D6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EF1EA801292572E300E83D6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EF1EA803292572E300E83D6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"hollyfood/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "HollyfoodApp-IOS.hollyfood";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EF1EA804292572E300E83D6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"hollyfood/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "HollyfoodApp-IOS.hollyfood";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EF1EA806292572E300E83D6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "HollyfoodApp-IOS.hollyfoodTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hollyfood.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/hollyfood";
+			};
+			name = Debug;
+		};
+		EF1EA807292572E300E83D6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "HollyfoodApp-IOS.hollyfoodTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hollyfood.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/hollyfood";
+			};
+			name = Release;
+		};
+		EF1EA809292572E300E83D6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "HollyfoodApp-IOS.hollyfoodUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = hollyfood;
+			};
+			name = Debug;
+		};
+		EF1EA80A292572E300E83D6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "HollyfoodApp-IOS.hollyfoodUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = hollyfood;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EF1EA7D4292572E200E83D6A /* Build configuration list for PBXProject "hollyfood" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF1EA800292572E300E83D6A /* Debug */,
+				EF1EA801292572E300E83D6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF1EA802292572E300E83D6A /* Build configuration list for PBXNativeTarget "hollyfood" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF1EA803292572E300E83D6A /* Debug */,
+				EF1EA804292572E300E83D6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF1EA805292572E300E83D6A /* Build configuration list for PBXNativeTarget "hollyfoodTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF1EA806292572E300E83D6A /* Debug */,
+				EF1EA807292572E300E83D6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF1EA808292572E300E83D6A /* Build configuration list for PBXNativeTarget "hollyfoodUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF1EA809292572E300E83D6A /* Debug */,
+				EF1EA80A292572E300E83D6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EF1EA7E7292572E300E83D6A /* hollyfood.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EF1EA7E8292572E300E83D6A /* hollyfood.xcdatamodel */,
+			);
+			currentVersion = EF1EA7E8292572E300E83D6A /* hollyfood.xcdatamodel */;
+			path = hollyfood.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = EF1EA7D1292572E200E83D6A /* Project object */;
+}
