@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22E0DFC593289289E32B84B2 /* Pods_hollyfood.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B65FEED53BF6C061D261E78 /* Pods_hollyfood.framework */; };
 		EF1EA7DD292572E200E83D6A /* hollyfoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA7DC292572E200E83D6A /* hollyfoodApp.swift */; };
 		EF1EA7DF292572E200E83D6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA7DE292572E200E83D6A /* ContentView.swift */; };
 		EF1EA7E1292572E300E83D6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF1EA7E0292572E300E83D6A /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 		EF1EA80F2925746D00E83D6A /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA80E2925746D00E83D6A /* UserViewModel.swift */; };
 		EF1EA8112925747700E83D6A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA8102925747700E83D6A /* User.swift */; };
 		EF1EA8172925839400E83D6A /* Authentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA8162925839400E83D6A /* Authentification.swift */; };
+		EFFC56EE2926C65F003D2134 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFC56ED2926C65F003D2134 /* Statics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B65FEED53BF6C061D261E78 /* Pods_hollyfood.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hollyfood.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DFD2BC07066C504EA1F9278 /* Pods-hollyfood.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hollyfood.debug.xcconfig"; path = "Target Support Files/Pods-hollyfood/Pods-hollyfood.debug.xcconfig"; sourceTree = "<group>"; };
+		C3D0185CCF59D047465FB350 /* Pods-hollyfood.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hollyfood.release.xcconfig"; path = "Target Support Files/Pods-hollyfood/Pods-hollyfood.release.xcconfig"; sourceTree = "<group>"; };
 		EF1EA7D9292572E200E83D6A /* hollyfood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hollyfood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF1EA7DC292572E200E83D6A /* hollyfoodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hollyfoodApp.swift; sourceTree = "<group>"; };
 		EF1EA7DE292572E200E83D6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +59,7 @@
 		EF1EA80E2925746D00E83D6A /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		EF1EA8102925747700E83D6A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EF1EA8162925839400E83D6A /* Authentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentification.swift; sourceTree = "<group>"; };
+		EFFC56ED2926C65F003D2134 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22E0DFC593289289E32B84B2 /* Pods_hollyfood.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +88,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		34BA5A4244C1FFC5445791BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B65FEED53BF6C061D261E78 /* Pods_hollyfood.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		83DD5A52B721B354DFF23607 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9DFD2BC07066C504EA1F9278 /* Pods-hollyfood.debug.xcconfig */,
+				C3D0185CCF59D047465FB350 /* Pods-hollyfood.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		EF1EA7D0292572E200E83D6A = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +112,8 @@
 				EF1EA7F1292572E300E83D6A /* hollyfoodTests */,
 				EF1EA7FB292572E300E83D6A /* hollyfoodUITests */,
 				EF1EA7DA292572E200E83D6A /* Products */,
+				83DD5A52B721B354DFF23607 /* Pods */,
+				34BA5A4244C1FFC5445791BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,6 +130,7 @@
 		EF1EA7DB292572E200E83D6A /* hollyfood */ = {
 			isa = PBXGroup;
 			children = (
+				EFFC56EC2926C644003D2134 /* Utils */,
 				EF1EA80D2925744B00E83D6A /* ViewModel */,
 				EF1EA80C2925744400E83D6A /* Model */,
 				EF1EA80B2925743700E83D6A /* View */,
@@ -166,6 +193,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		EFFC56EC2926C644003D2134 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				EFFC56ED2926C65F003D2134 /* Statics.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -173,9 +208,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EF1EA802292572E300E83D6A /* Build configuration list for PBXNativeTarget "hollyfood" */;
 			buildPhases = (
+				B59EFF28C72A0E02066A11D0 /* [CP] Check Pods Manifest.lock */,
 				EF1EA7D5292572E200E83D6A /* Sources */,
 				EF1EA7D6292572E200E83D6A /* Frameworks */,
 				EF1EA7D7292572E200E83D6A /* Resources */,
+				A373383BCF6A2E815A576793 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -291,6 +328,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A373383BCF6A2E815A576793 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hollyfood/Pods-hollyfood-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hollyfood/Pods-hollyfood-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hollyfood/Pods-hollyfood-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B59EFF28C72A0E02066A11D0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-hollyfood-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EF1EA7D5292572E200E83D6A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -302,6 +381,7 @@
 				EF1EA8112925747700E83D6A /* User.swift in Sources */,
 				EF1EA7E9292572E300E83D6A /* hollyfood.xcdatamodeld in Sources */,
 				EF1EA80F2925746D00E83D6A /* UserViewModel.swift in Sources */,
+				EFFC56EE2926C65F003D2134 /* Statics.swift in Sources */,
 				EF1EA7DD292572E200E83D6A /* hollyfoodApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,6 +535,7 @@
 		};
 		EF1EA803292572E300E83D6A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DFD2BC07066C504EA1F9278 /* Pods-hollyfood.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -483,6 +564,7 @@
 		};
 		EF1EA804292572E300E83D6A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3D0185CCF59D047465FB350 /* Pods-hollyfood.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

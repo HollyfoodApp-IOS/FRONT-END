@@ -1,0 +1,6 @@
+framework module Pods_hollyfood {
+  umbrella header "Pods-hollyfood-umbrella.h"
+
+  export *
+  module * { export * }
+}

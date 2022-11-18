@@ -105,8 +105,8 @@ struct Home: View {
 
 struct Login: View{
     
-    @State var email = ""
-    @State var password = ""
+    @ObservedObject var viewModel = UserViewModel()
+    @State private var isShowingDetailView = false
     
     var body : some View{
         
@@ -119,7 +119,7 @@ struct Login: View{
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                TextField("Email", text: $email)
+                TextField("Email", text: $viewModel.email)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(5)
@@ -132,7 +132,7 @@ struct Login: View{
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                TextField("password", text: $password)
+                TextField("password", text: $viewModel.password)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(5)
@@ -151,20 +151,28 @@ struct Login: View{
             .padding(.horizontal, 25)
             .padding(.top, 25)
             
-            Button(action: {}){
-                Text("Login")
-                    .font(.system(size: 20))
-                    .foregroundColor(.white)
-                    .fontWeight(.bold)
-                    .padding(.vertical)
-                    .frame(width: UIScreen.main.bounds.width - 50)
-                    .background(
-                        LinearGradient(gradient: .init(colors: [Color("Color"), Color("Color 1")]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
-                    .cornerRadius(8)
-            }
-            .padding(.horizontal, 25)
-            .padding(.top, 25)
+            
+                
+                Button("Login",action: {
+                    
+                    viewModel.LogIn(email: viewModel.email , password:viewModel.password , onSuccess: {isShowingDetailView = true} , onError: {
+                        (errorMessage)in
+                    })
+                    
+                })
+                .font(.system(size: 20))
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .padding(.vertical)
+                .frame(width: UIScreen.main.bounds.width - 50)
+                .background(
+                    LinearGradient(gradient: .init(colors: [Color("Color"), Color("Color 1")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                )
+                .cornerRadius(8)
+                .padding(.horizontal, 25)
+                .padding(.top, 25)
+                
+            
             
             Button(action: {}) {
                 HStack(spacing: 35){
@@ -212,11 +220,9 @@ struct Login: View{
 
 struct SignUp: View{
     
-    @State var name = ""
-    @State var email = ""
-    @State var password = ""
-    @State var confirmPassword = ""
-    @State var phone = ""
+    @ObservedObject var viewModel = UserViewModel()
+    @State private var isShowingDetailView = false
+
     
     var body : some View{
         
@@ -224,12 +230,12 @@ struct SignUp: View{
             
             VStack(alignment: .leading, spacing: 15){
                 
-                Text("Email")
+                Text("Full Name")
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                TextField("Email", text: $email)
+                TextField("Full Name", text: $viewModel.fullname)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(5)
@@ -242,7 +248,7 @@ struct SignUp: View{
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                TextField("Email", text: $email)
+                TextField("Email", text: $viewModel.email)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(5)
@@ -255,7 +261,7 @@ struct SignUp: View{
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                TextField("password", text: $password)
+                TextField("password", text: $viewModel.password)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(5)
@@ -268,7 +274,7 @@ struct SignUp: View{
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                TextField("Phone Number", text: $password)
+                TextField("Phone Number", text: $viewModel.phone)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(5)
@@ -276,31 +282,29 @@ struct SignUp: View{
                     .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
                     .font(.system(size: 14))
                 
-                Button(action: {}) {
-                    Text("Forget Password")
-                        .font(.system(size: 14))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color("Color"))
-                }
-        
             }
             .padding(.horizontal, 25)
             .padding(.top, 25)
             
-            Button(action: {}){
-                Text("Login")
-                    .font(.system(size: 20))
-                    .foregroundColor(.white)
-                    .fontWeight(.bold)
-                    .padding(.vertical)
-                    .frame(width: UIScreen.main.bounds.width - 50)
-                    .background(
-                        LinearGradient(gradient: .init(colors: [Color("Color"), Color("Color 1")]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
-                    .cornerRadius(8)
-            }
-            .padding(.horizontal, 15)
-            .padding(.top, 10)
+                
+                Button("Sign Up",action: {
+                    
+                    viewModel.SignUp(user: User(fullname: viewModel.fullname, email:viewModel.email, password: viewModel.password, phone: viewModel.phone, address: "", role: "Admin"), onSuccess: {isShowingDetailView = true} )
+
+                })
+                .font(.system(size: 20))
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .padding(.vertical)
+                .frame(width: UIScreen.main.bounds.width - 50)
+                .background(
+                    LinearGradient(gradient: .init(colors: [Color("Color"), Color("Color 1")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                )
+                .cornerRadius(8)
+                .padding(.horizontal, 15)
+                .padding(.top, 10)
+                
+            
 
             
             Button(action: {}) {
@@ -309,7 +313,7 @@ struct SignUp: View{
                         .font(.system(size: 26))
                         .foregroundColor(Color("Color"))
                     
-                    Text("Login With Face ID")
+                    Text("Sign Up With Face ID")
                         .font(.system(size: 20))
                         .foregroundColor(Color("Color"))
                     
@@ -319,7 +323,7 @@ struct SignUp: View{
                 .background(RoundedRectangle(cornerRadius: 8).stroke(Color("Color"), lineWidth: 1))
             }
             .padding(.horizontal, 25)
-            
+            .padding(.top, 10)
             /*
              HStack(spacing: 30){
                 ForEach(social, id: \.self){name in
