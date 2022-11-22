@@ -19,34 +19,28 @@ class UserViewModel: ObservableObject {
     
     static let sharedInstance = UserViewModel()
     
-    func LogIn(email: String,password: String ,onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
+    func LogIn(email: String,password: String ,onSuccess: @escaping() -> Void, onError: @escaping() -> Void)   {
         
-        AF.request(Statics.URL+"user/login" , method: .post, parameters: ["email": email,"password": password] ,encoding: JSONEncoding.default)
-            .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
-            .responseJSON {
-                (response) in
-                switch response.result {
-                case .success(let JSON):
-                    print("success \(JSON)")
+        
+        // print("login with success")
+        AF.request(Statics.URL+"user/login" ,
+                   method: .post,
+                   parameters: [ "email" : email, "password" : password ],encoding: URLEncoding.default).validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"]).responseData{
+                
+                response in
+                switch response.result{
+                case.success:
                     onSuccess()
+                                    
                     
-                case .failure(let error):
-                    //print("request failed \(error)")
-                    onError(error.localizedDescription)
-                    
-                    //response in debugPrint(response)
-                    if error != nil {
-                        onError(error.localizedDescription)
-                        return
-                        
-                    }                }
+                case .failure:
+                    onError()
+                }
             }
-        //print("email : ",email)
-        //print("password",password)
-        
+            .responseJSON{(response) in print(response)}
     }
-    
+        
     func SignUp(user: User,onSuccess: @escaping() -> Void) {
         
         print(user)
@@ -65,13 +59,15 @@ class UserViewModel: ObservableObject {
                 response in
                 switch response.result {
                 case .success:
-                    print("success")
                     onSuccess()
+                    
                 case let .failure(error):
                     print(error)
+                        
                     
                 }
             }
     }
 
 }
+

@@ -21,7 +21,7 @@ struct Tab_Previews: PreviewProvider {
 
 struct Main: View{
     
-    @State var selectedTab = "homekit"
+    @State var selectedTab = ""
     
     init() {
         UITabBar.appearance().isHidden = true
@@ -63,7 +63,7 @@ struct Main: View{
                                 .frame(width: 25, height:25)
                                 .foregroundColor(selectedTab == image ? getColor(image: image) : Color.white)
                                 .padding(selectedTab == image ? 15 : 0)
-                                .background(Color.white.opacity(selectedTab == image ? 1 : 0).clipShape(Circle()))
+                                .background(Color("Color 1").opacity(selectedTab == image ? 1 : 0).clipShape(Circle()))
                                 .matchedGeometryEffect(id: image, in: animation)
                                 .offset(x: selectedTab == image ? (reader.frame(in: .global).minX - reader.frame(in: .global).midX) : 0, y: selectedTab == image ? -50 : 0)
                         })
@@ -93,11 +93,11 @@ struct Main: View{
         
         switch image {
         case "person.fill":
-            return Color("Color 1")
+            return Color.white
         case "fork.knife":
-            return Color("Color 1")
+            return Color.white
         case "homekit":
-            return Color("Color 1")
+            return Color.white
         default:
             return Color.blue
             
