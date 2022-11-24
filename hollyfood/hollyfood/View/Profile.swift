@@ -13,18 +13,20 @@ struct Profile: View {
         
         NavigationView {
             List {
-                HStack(spacing: 159){
+                HStack(spacing: 10){
+                    
+                    Button(action: {}) {
+                        Image(systemName: "square.and.pencil")
+                            .font(.system(size: 26))
+                            .foregroundColor(Color("Color"))
+                    }
+
                     Text("Username")
-                        .font(.system(size: 20))
+                        .font(.system(size: 25))
                         .foregroundColor(Color("Color"))
                     
-                    NavigationLink(destination: EditProfile().navigationBarBackButtonHidden(true)){
+                    NavigationLink(destination: EditProfile().navigationBarBackButtonHidden(false)){
                         
-                        Button(action: {}) {
-                            Image(systemName: "square.and.pencil")
-                                .font(.system(size: 26))
-                                .foregroundColor(Color("Color"))
-                        }
                     }
 
                     

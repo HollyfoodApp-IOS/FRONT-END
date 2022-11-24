@@ -2,69 +2,81 @@
 //  ResetPassword.swift
 //  hollyfood
 //
-//  Created by Khairi on 22/11/2022.
+//  Created by Khairi on 24/11/2022.
 //
 
 import SwiftUI
 
 struct ResetPassword: View {
-    var body: some View {
-        ResetPasswordHome()
-    }
-}
-
-struct ResetPassword_Previews: PreviewProvider {
-    static var previews: some View {
-        ResetPassword()
-    }
-}
-
-
-struct ResetPasswordHome: View {
     
     @ObservedObject var viewModel = UserViewModel()
-    @State var reset = false
-
+    @State var login = false
+    @State var alert = false
+    @State var error = ""
+    @State var confirmPassword = ""
+    @Binding var codeP : String
+    
     var body: some View {
         
         NavigationView
         {
-            VStack{
-                Image("logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 70, height: 70)
-                    .padding(.top, 25)
+            ZStack{
                 
-                    ZStack{
+                ZStack(alignment: .topTrailing) {
+                    
+                    VStack{
                         
-                        ZStack(alignment: .topTrailing) {
-                            
+                        Image("logo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 70, height: 70)
+                            .padding(.top, 25)
+                                                
                             GeometryReader{_ in
-                                
-                                VStack{
                                     
-                                    VStack(alignment: .leading, spacing: 20){
+                                    VStack{
                                         
-                                        Text("Enter your email to reset your password")
-                                            .font(.system(size: 20))
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.gray)
-                                            .padding(.top, 200)
-                                        
-                                        TextField("Email", text: $viewModel.email)
-                                            .padding()
-                                            .background(Color.white)
-                                            .cornerRadius(5)
-                                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                                            .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
-                                            .font(.system(size: 20))
-                                    }
-                                    
-                                    NavigationLink(destination: Tab().navigationBarBackButtonHidden(true), isActive: $reset){
-                                        
-                                        Button(action: {
+                                        VStack(alignment: .leading, spacing: 15){
                                             
+
+                                            Text("Enter New Password")
+                                                .font(.system(size: 18))
+                                                .fontWeight(.bold)
+                                                .foregroundColor(.gray)
+                                                .padding(.top, 50)
+                                            
+                                            TextField("New Password", text: $viewModel.password)
+                                                .padding()
+                                                .background(Color.white)
+                                                .cornerRadius(5)
+                                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
+                                                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                                                .font(.system(size: 20))
+                                            
+                                            Text("Confirm Password")
+                                                .font(.system(size: 18))
+                                                .fontWeight(.bold)
+                                                .foregroundColor(.gray)
+                                                .padding(.top, 10)
+                                            
+                                            TextField("Confirm Password", text: $confirmPassword)
+                                                .padding()
+                                                .background(Color.white)
+                                                .cornerRadius(5)
+                                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
+                                                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                                                .font(.system(size: 20))
+
+
+                                            
+
+                                        }
+                                        .padding(.horizontal, 25)
+                                        .padding(.top, 25)
+                                        
+                                            
+                                        Button(action: {
+                                            self.verify()
                                         })
                                         {
                                             
@@ -82,17 +94,70 @@ struct ResetPasswordHome: View {
                                         .cornerRadius(8)
                                         .padding(.horizontal, 25)
                                         .padding(.top, 25)
-                                        
-                                        
+                                            
+    
+                                        }
                                     }
-
-                                    
                                 }
-                            }
-                        }
-                    }
+                    
+
+                }
+                
+                if self.alert
+                {
+                    
+                    ErrorView(alert: self.$alert, error: self.$error)
+                }
 
             }
         }
     }
+    
+    func verify(){
+        
+        if viewModel.password != "" && confirmPassword != ""
+        {
+            if(viewModel.password == confirmPassword)
+            {
+                viewModel.resetPassword(code:codeP, password:viewModel.password,
+                                                        
+                onSuccess: {
+                    login = true
+                    self.error = "Password Reset Successfully"
+                    self.alert.toggle()
+                    Authentification()
+                    
+                },
+                                        
+                onError: {
+                    self.error = "Error"
+                    self.alert.toggle()
+
+                })
+
+            }
+            else
+            {
+                self.error = "Password Mismatch"
+                self.alert.toggle()
+            }
+        }
+        else
+        {
+            self.error = "Please fill all the contents properly"
+            self.alert.toggle()
+        }
+            
+    }
+
 }
+
+struct ResetPassword_Previews: PreviewProvider {
+    
+    @State static var code : String = ""
+    
+    static var previews: some View {
+        ResetPassword(codeP : $code)
+    }
+}
+

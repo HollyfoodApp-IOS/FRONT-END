@@ -117,7 +117,7 @@ struct Login: View{
     @State var color = Color.black.opacity(0.7)
     @State var alert = false
     @State var error = ""
-    @State var reset = false
+    @State var forgotPassword = false
     
     var body : some View{
         
@@ -181,20 +181,32 @@ struct Login: View{
                             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
                             .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
                             
-                            
-                            NavigationLink(destination: ResetPassword(), isActive: $reset){
-                              
-                                Button(action: { reset=true }) {
-                                    Text("Forget Password")
-                                        .font(.system(size: 14))
-                                        .fontWeight(.bold)
-                                        .foregroundColor(Color("Color"))
+                            HStack(spacing:110)
+                            {
+                                NavigationLink(destination: ForgotPassword(), isActive: $forgotPassword){
+                                  
+                                    Button(action: { forgotPassword=true }) {
+                                        Text("Forgot Password")
+                                            .font(.system(size: 14))
+                                            .fontWeight(.bold)
+                                            .foregroundColor(Color("Color"))
+                                    }
+                                    .padding(.top, 10)
+
                                 }
-                                .padding(.top, 10)
+                                
+                                  
+                                    Button(action: { }) {
+                                        Text("Confirm Account")
+                                            .font(.system(size: 14))
+                                            .fontWeight(.bold)
+                                            .foregroundColor(Color("Color"))
+                                    }
+                                    .padding(.top, 10)
 
                                 
                             }
-
+                            
                             
                         }
                         .padding(.horizontal, 25)
@@ -209,7 +221,6 @@ struct Login: View{
                                 self.verify()
                             })
                             {
-                                
                                 Text("Login")
                                     .font(.system(size: 20))
                                     .foregroundColor(.white)
@@ -227,8 +238,6 @@ struct Login: View{
                             
                             
                         }
-
-                        
                         
                         Button(action: {}) {
                             HStack(spacing: 35){
@@ -526,7 +535,6 @@ struct SignUp: View{
 
 
         }
-            
         
     }
     
@@ -552,7 +560,6 @@ struct SignUp: View{
                 self.alert.toggle()
                 return
             }
-            
                         
             if viewModel.password != confirmPassword {
                 
@@ -639,7 +646,7 @@ struct ErrorView : View {
             .cornerRadius(15)
         }
         .padding(.horizontal, 35)
-        .padding(.top, 70)
+        .padding(.top, 140)
         .background(Color.black.opacity(0.35).edgesIgnoringSafeArea(.all))
     }
 }
