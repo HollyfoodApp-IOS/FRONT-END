@@ -18,7 +18,6 @@ struct Authentification_Previews: PreviewProvider {
         Authentification()
     }
 }
-
 struct Home: View {
     
     @State var index = 0
@@ -118,7 +117,8 @@ struct Login: View{
     @State var alert = false
     @State var error = ""
     @State var forgotPassword = false
-    
+    @State var verifyAccount = false
+
     var body : some View{
         
         ZStack{
@@ -181,7 +181,7 @@ struct Login: View{
                             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
                             .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
                             
-                            HStack(spacing:110)
+                            HStack(spacing:125)
                             {
                                 NavigationLink(destination: ForgotPassword(), isActive: $forgotPassword){
                                   
@@ -195,16 +195,17 @@ struct Login: View{
 
                                 }
                                 
-                                  
-                                    Button(action: { }) {
-                                        Text("Confirm Account")
+                                NavigationLink(destination: VerifyAccount(), isActive: $verifyAccount){
+                                    
+                                    Button(action: {verifyAccount=true }) {
+                                        Text("Verify Account")
                                             .font(.system(size: 14))
                                             .fontWeight(.bold)
                                             .foregroundColor(Color("Color"))
                                     }
                                     .padding(.top, 10)
-
-                                
+                                    
+                                }
                             }
                             
                             
@@ -293,16 +294,34 @@ struct Login: View{
     
     func verify(){
         
-        if viewModel.email != "" && viewModel.password != ""{
+        if viewModel.email != "" && viewModel.password != ""
+        {
             
-            viewModel.LogIn(email: viewModel.email , password:viewModel.password , onSuccess: {isLogin = true} , onError: {
-            
-                self.error = "Invalid email or password"
-                self.alert.toggle()
-                print(isLogin)
-                return
-            })
+            viewModel.LogIn(email: viewModel.email , password:viewModel.password, onSuccess: {(message) in
                 
+                print("Message is "+message)
+                if(message == "Invalid Email Or Password")
+                {
+                    self.error = "Invalid email or password"
+                    self.alert.toggle()
+                    print(isLogin)
+                    return
+                }
+                else if(message == "Account Not Verified Yet")
+                {
+                    self.error = "Account Not Verified Yet"
+                    self.alert.toggle()
+                    print(isLogin)
+                    return
+                }
+                else
+                {
+                    isLogin = true
+                }
+                
+            })
+
+                            
         }
         else{
             self.error = "Please fill all the contents properly"
@@ -329,7 +348,7 @@ struct SignUp: View{
             ZStack(alignment: .topTrailing) {
                 GeometryReader{_ in
                     VStack{
-                        
+    
                         VStack(alignment: .leading, spacing: 8){
                             
                             Text("Full Name")

@@ -28,6 +28,7 @@
 		EF77E74C292FD43D00ABEA9B /* ForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77E74B292FD43D00ABEA9B /* ForgotPassword.swift */; };
 		EF77E74E292FE89800ABEA9B /* ResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77E74D292FE89800ABEA9B /* ResetPassword.swift */; };
 		EF77E750292FF31900ABEA9B /* CodeVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77E74F292FF31900ABEA9B /* CodeVerification.swift */; };
+		EF88C6932930EAB6002600C2 /* VerifyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF88C6922930EAB6002600C2 /* VerifyAccount.swift */; };
 		EFBAC425292BDA1B00F44908 /* EditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBAC424292BDA1B00F44908 /* EditProfile.swift */; };
 		EFFC56EE2926C65F003D2134 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFC56ED2926C65F003D2134 /* Statics.swift */; };
 /* End PBXBuildFile section */
@@ -76,6 +77,7 @@
 		EF77E74B292FD43D00ABEA9B /* ForgotPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassword.swift; sourceTree = "<group>"; };
 		EF77E74D292FE89800ABEA9B /* ResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassword.swift; sourceTree = "<group>"; };
 		EF77E74F292FF31900ABEA9B /* CodeVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeVerification.swift; sourceTree = "<group>"; };
+		EF88C6922930EAB6002600C2 /* VerifyAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyAccount.swift; sourceTree = "<group>"; };
 		EFBAC424292BDA1B00F44908 /* EditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
 		EFFC56ED2926C65F003D2134 /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,6 +202,7 @@
 				EF77E74B292FD43D00ABEA9B /* ForgotPassword.swift */,
 				EF77E74D292FE89800ABEA9B /* ResetPassword.swift */,
 				EF77E74F292FF31900ABEA9B /* CodeVerification.swift */,
+				EF88C6922930EAB6002600C2 /* VerifyAccount.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				EF1EA7E9292572E300E83D6A /* hollyfood.xcdatamodeld in Sources */,
 				EF1EA80F2925746D00E83D6A /* UserViewModel.swift in Sources */,
 				EFBAC425292BDA1B00F44908 /* EditProfile.swift in Sources */,
+				EF88C6932930EAB6002600C2 /* VerifyAccount.swift in Sources */,
 				EF77E74C292FD43D00ABEA9B /* ForgotPassword.swift in Sources */,
 				EF77E74E292FE89800ABEA9B /* ResetPassword.swift in Sources */,
 				EFFC56EE2926C65F003D2134 /* Statics.swift in Sources */,

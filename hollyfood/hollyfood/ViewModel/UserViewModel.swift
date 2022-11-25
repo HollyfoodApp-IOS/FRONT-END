@@ -17,27 +17,49 @@ class UserViewModel: ObservableObject {
     var address : String = ""
     var role : String = ""
     var resetPasswordCode : String = ""
+    var verificationCode : String = ""
+    static var session: User?
     
     static let sharedInstance = UserViewModel()
     
-    func LogIn(email: String,password: String ,onSuccess: @escaping() -> Void, onError: @escaping() -> Void)   {
+    func LogIn(email: String,password: String , onSuccess: @escaping(_ message : String) -> Void)   {
         
             AF.request(Statics.URL+"user/login" ,
                    method: .post,
-                   parameters: [ "email" : email, "password" : password ],encoding: URLEncoding.default).validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"]).responseData{
+                   parameters: [ "email" : email, "password" : password ],
+                   encoding: JSONEncoding.default)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseJSON{
                 
-                response in
+                (response) in
                 switch response.result{
-                case.success:
-                    onSuccess()
-                                    
+                case .success(let JSON):
+                    //print("Logged In \(JSON )")
+                    let response = JSON as! NSDictionary
+                    let message = response.object(forKey: "message") as? String ?? ""
                     
-                case .failure:
-                    onError()
+                    if message == ""
+                    {
+                        let fullname = response.object(forKey: "fullname") as? String ?? ""
+                        let email = response.object(forKey: "email") as? String ?? ""
+                        let phone = response.object(forKey: "phone") as? String ?? ""
+                        let role = response.object(forKey: "role") as? String ?? ""
+                        
+                        print("Email is: \(email )")
+                        print("Full Name is:   \(fullname )")
+                        print("Phone is: \(phone )")
+                        print("Role is: \(role )")
+
+                        Self.session = User(fullname: fullname, email: email, password: "", phone: phone, address: "", role: role)
+                    }
+
+                    onSuccess(message)
+                    
+                case .failure(let JSON):
+                    print(JSON)
                 }
             }
-            .responseJSON{(response) in print(response)}
     }
         
     func SignUp(user: User,onSuccess: @escaping() -> Void) {
@@ -51,7 +73,7 @@ class UserViewModel: ObservableObject {
             "address": user.address,
             "role" : user.role
         ]
-        AF.request(Statics.URL+"user",
+        AF.request(Statics.URL+"user/register",
                    method: .post,
                    parameters:parametres, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
@@ -135,6 +157,29 @@ class UserViewModel: ObservableObject {
             }
             .responseJSON{(response) in print(response)}
     }
+    
+    func verifyAccount(email: String, code:String, onSuccess: @escaping() -> Void, onError: @escaping() -> Void)   {
+        
+            AF.request(Statics.URL+"user/verifyAccount" ,
+                       method: .post,
+                       parameters: [ "email" : email, "code" : code],encoding: URLEncoding.default)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseData{
+                response in
+                switch response.result{
+                case.success:
+                    onSuccess()
+                                    
+                    
+                case .failure:
+                    onError()
+                }
+            }
+            .responseJSON{(response) in print(response)}
+    }
+
+    
 
 
 

@@ -1,23 +1,19 @@
 //
-//  ResetPassword.swift
+//  VerifyAccount.swift
 //  hollyfood
 //
-//  Created by Khairi on 24/11/2022.
+//  Created by Khairi on 25/11/2022.
 //
 
 import SwiftUI
 
-struct ResetPassword: View {
+struct VerifyAccount: View {
     
     @ObservedObject var viewModel = UserViewModel()
-    @State var login = false
     @State var alert = false
     @State var error = ""
-    @State var confirmPassword = ""
-    @Binding var codeP : String
     
     var body: some View {
-        
         NavigationView
         {
             ZStack{
@@ -39,13 +35,13 @@ struct ResetPassword: View {
                                         VStack(alignment: .leading, spacing: 15){
                                             
 
-                                            Text("Enter New Password")
+                                            Text("Enter Email")
                                                 .font(.system(size: 18))
                                                 .fontWeight(.bold)
                                                 .foregroundColor(.gray)
                                                 .padding(.top, 50)
                                             
-                                            TextField("New Password", text: $viewModel.password)
+                                            TextField("Email", text: $viewModel.email)
                                                 .padding()
                                                 .background(Color.white)
                                                 .cornerRadius(5)
@@ -53,13 +49,13 @@ struct ResetPassword: View {
                                                 .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
                                                 .font(.system(size: 20))
                                             
-                                            Text("Confirm Password")
+                                            Text("Enter Verification Code")
                                                 .font(.system(size: 18))
                                                 .fontWeight(.bold)
                                                 .foregroundColor(.gray)
                                                 .padding(.top, 10)
                                             
-                                            TextField("Confirm Password", text: $confirmPassword)
+                                            TextField("Verification Code", text: $viewModel.verificationCode)
                                                 .padding()
                                                 .background(Color.white)
                                                 .cornerRadius(5)
@@ -80,7 +76,7 @@ struct ResetPassword: View {
                                         })
                                         {
                                             
-                                            Text("Reset Password")
+                                            Text("Verify Account")
                                                 .font(.system(size: 20))
                                                 .foregroundColor(.white)
                                                 .fontWeight(.bold)
@@ -111,34 +107,28 @@ struct ResetPassword: View {
 
             }
         }
+
     }
     
     func verify(){
         
-        if viewModel.password != "" && confirmPassword != ""
+        if viewModel.email != "" && viewModel.verificationCode != ""
         {
-            if(viewModel.password == confirmPassword)
-            {
-                viewModel.resetPassword(code:codeP, password:viewModel.password,
-                                                        
-                onSuccess: {
-                    login = true
-                    self.error = "Password Reset Successfully"
-                    self.alert.toggle()                    
-                },
-                                        
-                onError: {
-                    self.error = "Error"
-                    self.alert.toggle()
-
-                })
-
-            }
-            else
-            {
-                self.error = "Password Mismatch"
+            viewModel.verifyAccount(email:viewModel.email, code:viewModel.verificationCode,
+                                                    
+            onSuccess: {
+                self.error = "Account Verified Successfully"
                 self.alert.toggle()
-            }
+                viewModel.email = ""
+                viewModel.verificationCode = ""
+            },
+                                    
+            onError: {
+                self.error = "Invalid Email or Code"
+                self.alert.toggle()
+
+            })
+
         }
         else
         {
@@ -150,12 +140,8 @@ struct ResetPassword: View {
 
 }
 
-struct ResetPassword_Previews: PreviewProvider {
-    
-    @State static var code : String = ""
-    
+struct VerifyAccount_Previews: PreviewProvider {
     static var previews: some View {
-        ResetPassword(codeP : $code)
+        VerifyAccount()
     }
 }
-

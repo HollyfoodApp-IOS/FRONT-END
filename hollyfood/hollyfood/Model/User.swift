@@ -27,6 +27,7 @@ struct User {
         self.role = role
     }
     
+    
 }
 
 struct UserDataModel: Decodable {
