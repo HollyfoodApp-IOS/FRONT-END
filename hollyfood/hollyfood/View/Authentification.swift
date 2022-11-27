@@ -9,7 +9,15 @@ import SwiftUI
 
 struct Authentification: View {
     var body: some View {
-        Home()
+        
+        NavigationView()
+        {
+            Home()
+                .navigationTitle("")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarHidden(true)
+        }
+
     }
 }
 
@@ -25,85 +33,89 @@ struct Home: View {
     
     var body: some View {
         
-        NavigationView
-        {
-            VStack{
-                Image("logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 70, height: 70)
-                
-                HStack(spacing: 0 ){
-                    Button(action: {
-                        withAnimation(.spring()){
-                            index = 0
-                        }
-                    }){
-                        VStack{
-                            Text("Login")
-                                .font(.system(size: 20))
-                                .fontWeight(.bold)
-                                .foregroundColor(index == 0 ? .black : .gray)
-                            
-                            //slide animation
-                            ZStack{
-                                Capsule()
-                                    .fill(Color.black.opacity(0.04))
-                                    .frame(height: 4)
-                                
-                                if index == 0{
-                                    Capsule()
-                                        .fill(Color("Color"))
-                                        .frame(height: 4)
-                                        .matchedGeometryEffect(id: "Tab", in: name)
-                                }
-                            }
-                                
-                        }
-                    }
-                    
-                    Button(action: {
-                        withAnimation(.spring()){
-                            index = 1
-                        }
-                    }){
-                        VStack{
-                            Text("Sign Up")
-                                .font(.system(size: 20))
-                                .fontWeight(.bold)
-                                .foregroundColor(index == 1 ? .black : .gray)
-                            
-                            ZStack{
-                                Capsule()
-                                    .fill(Color.black.opacity(0.04))
-                                    .frame(height: 4)
-                                
-                                if index == 1{
-                                    Capsule()
-                                        .fill(Color("Color"))
-                                        .frame(height: 4)
-                                        .matchedGeometryEffect(id: "Tab", in: name)
-                                }
-                            }
-                                
-                        }
-                    }
-                }
-                .padding(.top, 30)
-                
-                if(index == 0){
-                    Login()
-                }
-                else
-                {
-                    SignUp()
-                }
+        VStack{
+            HStack{
                 
                 Spacer()
-            }
-        }
+                
+                Image("shape")
+                    .frame(height:40)
 
-     
+            }
+
+            Image("logo")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 70, height: 70)
+            
+            HStack(spacing: 0 ){
+                Button(action: {
+                    withAnimation(.spring()){
+                        index = 0
+                    }
+                }){
+                    VStack{
+                        Text("Login")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .foregroundColor(index == 0 ? .black : .gray)
+                        
+                        //slide animation
+                        ZStack{
+                            Capsule()
+                                .fill(Color.black.opacity(0.04))
+                                .frame(height: 4)
+                            
+                            if index == 0{
+                                Capsule()
+                                    .fill(Color("Color"))
+                                    .frame(height: 4)
+                                    .matchedGeometryEffect(id: "Tab", in: name)
+                            }
+                        }
+                            
+                    }
+                }
+                
+                Button(action: {
+                    withAnimation(.spring()){
+                        index = 1
+                    }
+                }){
+                    VStack{
+                        Text("Sign Up")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .foregroundColor(index == 1 ? .black : .gray)
+                        
+                        ZStack{
+                            Capsule()
+                                .fill(Color.black.opacity(0.04))
+                                .frame(height: 4)
+                            
+                            if index == 1{
+                                Capsule()
+                                    .fill(Color("Color"))
+                                    .frame(height: 4)
+                                    .matchedGeometryEffect(id: "Tab", in: name)
+                            }
+                        }
+                            
+                    }
+                }
+            }
+            .padding(.top, 30)
+            
+            if(index == 0){
+                Login()
+            }
+            else
+            {
+                SignUp()
+            }
+            
+            Spacer()
+        }
         
     }
 }
@@ -349,7 +361,7 @@ struct SignUp: View{
                 GeometryReader{_ in
                     VStack{
     
-                        VStack(alignment: .leading, spacing: 8){
+                        VStack(alignment: .leading, spacing: 10){
                             
                             Text("Full Name")
                                 .font(.caption)
@@ -495,11 +507,8 @@ struct SignUp: View{
                             .padding(.horizontal, 25)
                             .padding(.top, 25)
 
-                            
                         
-
-                        
-                        Button(action: {
+                        /*Button(action: {
                             
                         }) {
                             HStack(spacing: 35){
@@ -517,9 +526,7 @@ struct SignUp: View{
                             .background(RoundedRectangle(cornerRadius: 8).stroke(Color("Color"), lineWidth: 1))
                         }
                         .padding(.horizontal, 25)
-                        .padding(.top, 10)
-                        
-                        
+                        .padding(.top, 10)*/
                         
                         /*
                          HStack(spacing: 30){

@@ -8,8 +8,19 @@
 import SwiftUI
 
 struct Tab: View {
+    
+        
     var body: some View {
-        Main()
+        
+        NavigationView()
+        {
+            Main()
+                .navigationTitle("")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarHidden(true)
+        }
+
+        
     }
 }
 
@@ -21,23 +32,25 @@ struct Tab_Previews: PreviewProvider {
 
 struct Main: View{
     
-    @State var selectedTab = ""
+    
+    @State var selectedTab = "homekit"
     
     init() {
         UITabBar.appearance().isHidden = true
     }
     
-    @State var xAxis: CGFloat = 0
+    @State var xAxis: CGFloat = 46.0
     
     @Namespace var animation
 
     var body: some View{
         
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+            
             TabView(selection: $selectedTab){
                 Profile()
                     .ignoresSafeArea(.all, edges: .all)
-                    .tag("person.fill")
+                    .tag("gearshape.fill")
                 Restaurants()
                     .ignoresSafeArea(.all, edges: .all)
                     .tag("fork.knife")
@@ -51,6 +64,7 @@ struct Main: View{
                     GeometryReader {reader in
                         Button(action: {
                             withAnimation(.spring()){
+
                                 selectedTab = image
                                 xAxis = reader.frame(in: .global).minX
                             }
@@ -67,11 +81,6 @@ struct Main: View{
                                 .matchedGeometryEffect(id: image, in: animation)
                                 .offset(x: selectedTab == image ? (reader.frame(in: .global).minX - reader.frame(in: .global).midX) : 0, y: selectedTab == image ? -50 : 0)
                         })
-                        .onAppear(perform: {
-                            if image == tabs.first{
-                                xAxis = reader.frame(in: .global).minX
-                            }
-                        })
                     }
                     
                     .frame(width: 25, height:25)
@@ -84,7 +93,7 @@ struct Main: View{
             .background(Color("Color 1").clipShape(CustomShape(xAxis: xAxis)).cornerRadius(12))
             .padding(.horizontal)
             // bottom edge
-            .padding(.bottom,UIApplication.shared.windows.first?.safeAreaInsets.bottom)
+            .padding(.bottom, UIApplication.shared.windows.first?.safeAreaInsets.bottom)
         }
         .ignoresSafeArea(.all, edges: .bottom)
     }
@@ -92,7 +101,7 @@ struct Main: View{
     func getColor(image: String)->Color{
         
         switch image {
-        case "person.fill":
+        case "gearshape.fill":
             return Color.white
         case "fork.knife":
             return Color.white
@@ -105,7 +114,7 @@ struct Main: View{
     }
 }
 
-var tabs = ["homekit", "fork.knife", "person.fill"]
+var tabs = ["homekit", "fork.knife", "gearshape.fill"]
 
 struct CustomShape: Shape{
     

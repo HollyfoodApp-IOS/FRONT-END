@@ -7,7 +7,7 @@
 
 import SwiftUI
 
- @main
+@main
 struct hollyfoodApp: App {
     let persistenceController = PersistenceController.shared
 

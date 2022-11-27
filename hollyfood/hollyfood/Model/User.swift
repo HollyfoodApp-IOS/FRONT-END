@@ -31,6 +31,7 @@ struct User {
 }
 
 struct UserDataModel: Decodable {
+    
     var fullname : String
     var email : String
     var password : String
@@ -39,6 +40,7 @@ struct UserDataModel: Decodable {
     var role : String
     
     enum CodingKeys: String, CodingKey {
+        
         case fullname
         case email
         case password
