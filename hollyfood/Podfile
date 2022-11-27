@@ -7,6 +7,7 @@ target 'hollyfood' do
 
   # Pods for hollyfood
   pod 'Alamofire'
-  Pod 'GoogleSignIn'
+
+  pod 'GoogleSignIn'
 
 end
