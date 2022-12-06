@@ -54,7 +54,7 @@ struct CustomTabView : View {
             }
             .padding(.horizontal, 25)
             .padding(.vertical, 5)
-            .background(Color("Color 1"))
+            .background(Color("PrimaryColor"))
             .clipShape(Capsule())
             .shadow(color: Color.black.opacity(0.15), radius: 5, x: 5, y: 5)
             .shadow(color: Color.black.opacity(0.15), radius: 5, x: -5, y: -5)

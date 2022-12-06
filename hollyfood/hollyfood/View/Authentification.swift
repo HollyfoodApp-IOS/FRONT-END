@@ -6,14 +6,36 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 struct Authentification: View {
     var body: some View {
         
+        //let signInConfig = GIDConfiguration(clientID: "185174827966-ab4gm3hb6onf2bmj7i01cdk450sbuqi6.apps.googleusercontent.com")
+        
+        /*
+         func application(
+           _ app: UIApplication,
+           open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+         ) -> Bool {
+           var handled: Bool
+
+           handled = GIDSignIn.sharedInstance.handle(url)
+           if handled {
+             return true
+           }
+
+           // Handle other custom URL types.
+
+           // If not handled by this app, return false.
+           return false
+         }
+         */
+        
         NavigationView()
         {
             Home()
-                .navigationTitle("")
+                .navigationTitle("Back")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarHidden(true)
         }
@@ -34,6 +56,7 @@ struct Home: View {
     var body: some View {
         
         VStack{
+            
             HStack{
                 
                 Spacer()
@@ -68,7 +91,7 @@ struct Home: View {
                             
                             if index == 0{
                                 Capsule()
-                                    .fill(Color("Color"))
+                                    .fill(Color("PrimaryColor"))
                                     .frame(height: 4)
                                     .matchedGeometryEffect(id: "Tab", in: name)
                             }
@@ -95,7 +118,7 @@ struct Home: View {
                             
                             if index == 1{
                                 Capsule()
-                                    .fill(Color("Color"))
+                                    .fill(Color("PrimaryColor"))
                                     .frame(height: 4)
                                     .matchedGeometryEffect(id: "Tab", in: name)
                             }
@@ -201,7 +224,7 @@ struct Login: View{
                                         Text("Forgot Password")
                                             .font(.system(size: 14))
                                             .fontWeight(.bold)
-                                            .foregroundColor(Color("Color"))
+                                            .foregroundColor(Color("PrimaryColor"))
                                     }
                                     .padding(.top, 10)
 
@@ -213,7 +236,7 @@ struct Login: View{
                                         Text("Verify Account")
                                             .font(.system(size: 14))
                                             .fontWeight(.bold)
-                                            .foregroundColor(Color("Color"))
+                                            .foregroundColor(Color("PrimaryColor"))
                                     }
                                     .padding(.top, 10)
                                     
@@ -241,7 +264,7 @@ struct Login: View{
                                     .padding(.vertical)
                                     .frame(width: UIScreen.main.bounds.width - 50)
                                     .background(
-                                        LinearGradient(gradient: .init(colors: [Color("Color"), Color("Color 1")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                        LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("PrimaryColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
                                     )
                                 
                             }
@@ -256,16 +279,16 @@ struct Login: View{
                             HStack(spacing: 35){
                                 Image(systemName: "faceid")
                                     .font(.system(size: 26))
-                                    .foregroundColor(Color("Color"))
+                                    .foregroundColor(Color("PrimaryColor"))
                                 
                                 Text("Login With Face ID")
                                     .font(.system(size: 20))
-                                    .foregroundColor(Color("Color"))
+                                    .foregroundColor(Color("PrimaryColor"))
                                 
                                 Spacer(minLength: 0)
                             }
                             .padding()
-                            .background(RoundedRectangle(cornerRadius: 8).stroke(Color("Color"), lineWidth: 1))
+                            .background(RoundedRectangle(cornerRadius: 8).stroke(Color("PrimaryColor"), lineWidth: 1))
                         }
                         .padding(.horizontal, 25)
                         .padding(.top, 30)
@@ -358,7 +381,9 @@ struct SignUp: View{
         
         ZStack{
             ZStack(alignment: .topTrailing) {
+                
                 GeometryReader{_ in
+                    
                     VStack{
     
                         VStack(alignment: .leading, spacing: 10){
@@ -499,7 +524,7 @@ struct SignUp: View{
                                     .padding(.vertical)
                                     .frame(width: UIScreen.main.bounds.width - 50)
                                     .background(
-                                        LinearGradient(gradient: .init(colors: [Color("Color"), Color("Color 1")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                        LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("PrimaryColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
                                     )
                                 
                             }
@@ -661,7 +686,7 @@ struct ErrorView : View {
                         .padding(.vertical)
                         .frame(width: UIScreen.main.bounds.width - 120)
                 }
-                .background(Color("Color"))
+                .background(Color("PrimaryColor"))
                 .cornerRadius(10)
                 .padding(.top, 25)
                 

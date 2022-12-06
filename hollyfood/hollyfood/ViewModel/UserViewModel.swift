@@ -67,7 +67,7 @@ class UserViewModel: ObservableObject {
             }
     }
         
-    func SignUp(user: User,onSuccess: @escaping() -> Void) {
+    func SignUp(user: User, onSuccess: @escaping() -> Void) {
         
         print(user)
         let parametres: [String: Any] = [

@@ -16,7 +16,6 @@ struct User {
     var address : String
     var role : String
  
-    
     init(fullname: String, email: String, password: String, phone: String, address: String, role: String) {
         
         self.fullname = fullname
@@ -26,8 +25,6 @@ struct User {
         self.address = address
         self.role = role
     }
-    
-    
 }
 
 struct UserDataModel: Decodable {

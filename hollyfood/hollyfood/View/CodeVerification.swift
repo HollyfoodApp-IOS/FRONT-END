@@ -82,7 +82,7 @@ struct CodeVerificationHome: View {
                                                 .padding(.vertical)
                                                 .frame(width: UIScreen.main.bounds.width - 50)
                                                 .background(
-                                                    LinearGradient(gradient: .init(colors: [Color("Color"), Color("Color 1")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                                    LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("PrimaryColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
                                                 )
                                             
                                         }

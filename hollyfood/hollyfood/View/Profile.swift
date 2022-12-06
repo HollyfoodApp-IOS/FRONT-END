@@ -15,9 +15,9 @@ struct Profile: View {
                 
                 NavigationLink(destination: EditProfile().navigationBarBackButtonHidden(false)) {
                     Image(systemName: "person.fill")
-                        .foregroundColor(Color("Color"))
+                        .foregroundColor(Color("PrimaryColor"))
                     Text("Edit Profile")
-                        .foregroundColor(Color("Color"))
+                        .foregroundColor(Color("PrimaryColor"))
                 }.padding()
                 
                 NavigationLink(destination: ChangePassword().navigationBarBackButtonHidden(false)) {

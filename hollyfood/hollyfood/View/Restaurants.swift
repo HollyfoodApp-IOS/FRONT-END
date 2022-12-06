@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Restaurants: View {
+    
+    
     var body: some View {
         Text("Restaurants")
     }

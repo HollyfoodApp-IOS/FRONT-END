@@ -15,7 +15,7 @@ struct Tab: View {
         NavigationView()
         {
             Main()
-                .navigationTitle("")
+                .navigationTitle("Back")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarHidden(true)
         }
@@ -33,7 +33,7 @@ struct Tab_Previews: PreviewProvider {
 struct Main: View{
     
     
-    @State var selectedTab = "homekit"
+    @State var selectedTab = "house.fill"
     
     init() {
         UITabBar.appearance().isHidden = true
@@ -56,7 +56,7 @@ struct Main: View{
                     .tag("fork.knife")
                 MyRestaurants()
                     .ignoresSafeArea(.all, edges: .all)
-                    .tag("homekit")
+                    .tag("house.fill")
             }
             
             HStack(spacing: 0){
@@ -77,7 +77,7 @@ struct Main: View{
                                 .frame(width: 25, height:25)
                                 .foregroundColor(selectedTab == image ? getColor(image: image) : Color.white)
                                 .padding(selectedTab == image ? 15 : 0)
-                                .background(Color("Color 1").opacity(selectedTab == image ? 1 : 0).clipShape(Circle()))
+                                .background(Color("PrimaryColor").opacity(selectedTab == image ? 1 : 0).clipShape(Circle()))
                                 .matchedGeometryEffect(id: image, in: animation)
                                 .offset(x: selectedTab == image ? (reader.frame(in: .global).minX - reader.frame(in: .global).midX) : 0, y: selectedTab == image ? -50 : 0)
                         })
@@ -90,7 +90,7 @@ struct Main: View{
             }
             .padding(.horizontal, 30)
             .padding(.vertical)
-            .background(Color("Color 1").clipShape(CustomShape(xAxis: xAxis)).cornerRadius(12))
+            .background(Color("PrimaryColor").clipShape(CustomShape(xAxis: xAxis)).cornerRadius(12))
             .padding(.horizontal)
             // bottom edge
             .padding(.bottom, UIApplication.shared.windows.first?.safeAreaInsets.bottom)
@@ -105,7 +105,7 @@ struct Main: View{
             return Color.white
         case "fork.knife":
             return Color.white
-        case "homekit":
+        case "house.fill":
             return Color.white
         default:
             return Color.blue
@@ -114,7 +114,7 @@ struct Main: View{
     }
 }
 
-var tabs = ["homekit", "fork.knife", "gearshape.fill"]
+var tabs = ["house.fill", "fork.knife", "gearshape.fill"]
 
 struct CustomShape: Shape{
     
