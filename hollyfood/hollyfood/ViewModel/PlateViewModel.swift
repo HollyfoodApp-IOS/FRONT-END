@@ -13,6 +13,8 @@ import SwiftUI
 class PlateViewModel: ObservableObject {
     
     @Published var plates = [Plate]()
+    var restaurantMenu : String = ""
+
     var plate: Plate?
     
     var id : String = ""
@@ -21,6 +23,7 @@ class PlateViewModel: ObservableObject {
     var price : String = ""
     var image : String = ""
     var restaurant : String = ""
+
     
     func addPlate(plate: Plate, onSuccess: @escaping() -> Void, onError: @escaping() -> Void) {
         
@@ -52,43 +55,36 @@ class PlateViewModel: ObservableObject {
         }
     }
     
-    func getPlates(){
+    /*func getPlatesByRestaurant2(restaurantId: String, category: String, complited: @escaping(Bool, [[Plate]]?) -> Void) {
         
-        guard let url = URL(string: Statics.URL+"plate") else {
-            print("not found")
-            return
+        AF.request(Statics.URL+"/plate/",
+                   method: .get,
+                   encoding: JSONEncoding.default)
+        .validate(statusCode: 200..<500)
+        .validate(contentType: ["application/json"])
+        .responseJSON {
+            response in
+            switch response.result {
+            case .success(let JSON):
+                
+                for i in JSON(response.data!){
+                    
+                    plates.append([Plate(id: i.1["_id"].stringValue, name: i.1["name"].stringValue, category: i.1["category"].stringValue, price: i.1["price"].floatValue, image: i.1["image"].stringValue, restaurant: i.1["restaurant"].stringValue)])
+                }
+                complited(true,plates)
+                
+            case let .failure(error):
+                
+                debugPrint(error)
+                complited(false,nil)
+                
+            }
         }
+    }*/
+            
+    func getPlatesByRestaurant(restaurant: String, category: String){
         
-        URLSession.shared.dataTask(with: url) {
-            (data , res , error) in
-            if error != nil
-            {
-                print ("error", error?.localizedDescription ?? "")
-                return
-            }
-            do {
-                if let data = data {
-                    let result = try JSONDecoder().decode([Plate].self, from: data)
-                    DispatchQueue.main.async {
-                        self.plates = result
-                        //print(self.plates)
-                    }
-                }
-                else {
-                    print ("no data")
-                }
-            } catch let JsonError {
-                
-                print("fetch json error :", JsonError.localizedDescription)
-                print(String(describing: JsonError))
-                
-            }
-        }.resume()
-    }
-    
-    func getPlatesByCategory(category: String){
-        
-        guard let url = URL(string: Statics.URL+"plate") else {
+        guard let url = URL(string: Statics.URL+"plate/getPlatesByRestaurant/"+restaurant) else {
             print("not found")
             return
         }
@@ -106,12 +102,15 @@ class PlateViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         self.plates = result
                         
-                        for plate in self.plates {
-                            
-                            if plate.category != category
-                            {
-                                let index = self.plates.firstIndex(of: plate)
-                                self.plates.remove(at: index!)
+                        if category != "All"
+                        {
+                            for plate in self.plates {
+                                
+                                if plate.category != category
+                                {
+                                    let index = self.plates.firstIndex(of: plate)
+                                    self.plates.remove(at: index!)
+                                }
                             }
                         }
                         //print(self.plates)
@@ -124,11 +123,8 @@ class PlateViewModel: ObservableObject {
                 
                 print("fetch json error :", JsonError.localizedDescription)
                 print(String(describing: JsonError))
-                
             }
         }.resume()
-        
-        
     }
     
     func getPlate(id: String, onSuccess: @escaping() -> Void, onError: @escaping() -> Void) {
@@ -163,8 +159,4 @@ class PlateViewModel: ObservableObject {
         }
         .responseJSON{(response) in print(response)}
     }
-    
-    
-    
-    
 }

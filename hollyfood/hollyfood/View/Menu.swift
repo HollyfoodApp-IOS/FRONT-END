@@ -8,30 +8,26 @@
 import SwiftUI
 
 struct Menu: View {
-    var body: some View {
-        Menu_Code()
-    }
-}
-
-struct Menu_Previews: PreviewProvider {
-    static var previews: some View {
-        Menu()
-    }
-}
-
-struct Menu_Code: View {
     
+    @Binding var restaurant : String
+    @Binding var restaurantName : String
+
     @ObservedObject var viewModel = PlateViewModel()
     @StateObject var cartData = CartViewModel()
 
     @State var addPlate = false
-    @State var cart = false
-    @State var selected = categories[0]
+    @State var goToCart = false
+    @State var goToQRCode = false
+
+    @State var selectedCategory = categories[0]
     @Namespace var animation
 
     @State var show = false
     @State var selectedPlate : Plate = initialPlate[0]
         
+    @State var qrCodeText : String = ""
+    @State var i : Int = 1
+
     var body: some View {
         
         ZStack(alignment: .bottom){
@@ -41,7 +37,7 @@ struct Menu_Code: View {
                 HStack{
                     
                     VStack(alignment: .leading, spacing: 5, content: {
-                        Text("Restaurant Name")
+                        Text(restaurantName)
                             .font(.title)
                             .foregroundColor(.black)
                         Text("Menu")
@@ -51,18 +47,63 @@ struct Menu_Code: View {
                         
                     })
                     .padding(.horizontal)
-
                     
                     Spacer()
                     
                     NavigationLink(destination:
-                        Cart()
+                                    MenuQRCode(text: $qrCodeText, restaurantName: $restaurantName)
                             .environmentObject(cartData)
                             .navigationBarBackButtonHidden(false),
-                        isActive: $cart) {
+                        isActive: $goToQRCode) {
 
                         Button(action: {
-                            cart = true
+                            
+                            qrCodeText = restaurantName+" Menu"
+                            
+                            viewModel.plates.forEach{ plate in
+                                
+                                qrCodeText += " "
+                                qrCodeText += "\n*Plate \(i)"
+                                qrCodeText += "\nPlate Name: "+plate.name
+                                qrCodeText += "\nPlate Category: "+plate.category
+                                qrCodeText += "\nPlate Price: "+String(format: "%.2f DT", plate.price)+" DT"
+
+                                i+=1
+                            }
+                            
+                            i=1
+                            
+                            goToQRCode = true
+                            
+                        }, label: {
+                            Image(systemName: "qrcode.viewfinder")
+                                .font(.title3)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color("PrimaryColor"))
+                                .clipShape(Circle())
+                                .overlay(
+                                    Text("\(cartData.cart.count)")
+                                        .font(.caption)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .padding(10)
+                                        .background(Color.red)
+                                        .clipShape(Circle())
+                                        .offset(x: 15, y: -10)
+                                        .opacity(cartData.cart.count != 0 ? 1 : 0)
+                                )
+                        })
+                    }
+                    
+                    NavigationLink(destination:
+                        Cart(restaurant: $restaurant, restaurantName: $restaurantName)
+                            .environmentObject(cartData)
+                            .navigationBarBackButtonHidden(false),
+                        isActive: $goToCart) {
+                        
+                        Button(action: {
+                            goToCart = true
                         }, label: {
                             Image(systemName: "bag.fill")
                                 .font(.title3)
@@ -86,12 +127,6 @@ struct Menu_Code: View {
 
                 }
                 .padding()
-                /*HStack {
-                    
-                    
-                    
-                    Spacer(minLength: 0)
-                }*/
                 
                 //Categories
                 ScrollView(.horizontal) {
@@ -102,35 +137,22 @@ struct Menu_Code: View {
                             
                             Button(action: {
                                 withAnimation(.spring()) {
-                                    selected = tab
+                                    selectedCategory = tab
                                 }
-                                print(selected)
                                 
-                                if selected == "All"
-                                {
-                                    viewModel.getPlates()
-                                }
-                                else
-                                {
-                                    viewModel.getPlatesByCategory(category: selected)
-                                }
-
-                                print("=====AFTER REMOVE=====")
-                                print(viewModel.plates)
-                                print("======================")
-
+                                viewModel.getPlatesByRestaurant(restaurant: restaurant, category: selectedCategory)
 
                             }, label: {
                                             
                             Text(tab)
                                 .font(.system(size: 15))
                                 .fontWeight(.bold)
-                                .foregroundColor(selected == tab ? .white : .black)
+                                .foregroundColor(selectedCategory == tab ? .white : .black)
                                 .padding(.vertical, 10)
-                                .padding(.horizontal, selected == tab ? 20 : 0)
+                                .padding(.horizontal, selectedCategory == tab ? 20 : 0)
                                 .background(
                                     ZStack {
-                                        if selected == tab {
+                                        if selectedCategory == tab {
                                             Color("PrimaryColor")
                                                 .clipShape(Capsule())
                                                 .matchedGeometryEffect(id: "Tab", in: animation)
@@ -138,8 +160,6 @@ struct Menu_Code: View {
                                     }
                                 )
                             })
-
-                            
                             /*CategoryButton(title: tab, selected: $selected, plates : $viewModel.plates, animation: animation)*/
                             
                             if tabs.last != tab {
@@ -156,23 +176,24 @@ struct Menu_Code: View {
                                     
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20),count: 2 ), spacing: 25){
 
-
                             ForEach(viewModel.plates) { plate in
 
                                 PlateItem(plate: plate, animation: animation)
                                     .onTapGesture {
                                         withAnimation(.spring()) {
                                             selectedPlate = plate
-                                            cartData.showCart.toggle()
                                             //show.toggle()
+                                            cartData.showCart.toggle()
                                         }
                                     }
                             }
                     }
-                    .onAppear(perform:viewModel.getPlates)
+                    .onAppear(perform:{
+                        viewModel.getPlatesByRestaurant(restaurant: restaurant, category: selectedCategory)
+                    })
                     .padding()
                     
-                    NavigationLink(destination: AddPlate().navigationBarBackButtonHidden(false), isActive: $addPlate) {
+                    NavigationLink(destination: AddPlate(restaurant: $restaurant).navigationBarBackButtonHidden(false), isActive: $addPlate) {
                         
                         Button(action: {
                             addPlate = true
@@ -205,10 +226,11 @@ struct Menu_Code: View {
             AddToCart(selectedPlate: $selectedPlate, animation: animation)
                 .environmentObject(cartData)
                 .offset(y: cartData.showCart ? cartData.startAnimation ? 500 : 0 : 500)
+            
             /*if show{
                 PlateDetail(selectedPlate: $selectedPlate, show: $show, animation: animation)
             }*/
-             
+            
             if cartData.startAnimation {
                 
                 VStack{
@@ -248,8 +270,9 @@ struct Menu_Code: View {
                 .frame(width: rect.width)
                 .offset(y: cartData.endAnimation ? 500 : 0)
             }
-
         }
+        .navigationTitle("Menu")
+        .navigationBarTitleDisplayMode(.inline)
         .background(Color.white.ignoresSafeArea())
         .onChange(of: cartData.endAnimation, perform: { value in
             
@@ -268,7 +291,6 @@ struct Menu_Code: View {
                     cartData.imageAnimation = false
                     cartData.saveCart = false
                     cartData.count += 1
-
                 }
 
             }
@@ -276,6 +298,12 @@ struct Menu_Code: View {
 
     }
 
+}
+
+struct Menu_Previews: PreviewProvider {
+    static var previews: some View {
+        Tab()
+    }
 }
 
 var categories = ["All", "Pizza", "Sandwich", "Pasta", "Plate"]
@@ -289,87 +317,3 @@ extension View {
         UIScreen.main.bounds
     }
 }
-
-
-/*
- struct AddToCart: View {
-     @EnvironmentObject var homeData: HomeViewModel
-     var animation: Namespace.ID
-
-     var body: some View {
-         VStack {
-             HStack(spacing: 15) {
-                 if !homeData.startAnimation {
-                     Image("shoe")
-                         .resizable()
-                         .aspectRatio(contentMode: .fit)
-                         .matchedGeometryEffect(id: "SHOE", in: animation)
-                 }
-
-                 VStack(alignment: .trailing, spacing: 10) {
-                     Text("Air Max Exosense 'Atomic Powder'")
-                         .fontWeight(.semibold)
-                         .foregroundColor(.gray)
-                         .multilineTextAlignment(.trailing)
-
-                     Text("$270.00")
-                         .fontWeight(.bold)
-                         .foregroundColor(.black)
-                 }
-             }
-             .padding()
-
-             Divider()
-
-             Text("SELECT SIZE")
-                 .font(.callout)
-                 .fontWeight(.semibold)
-                 .foregroundColor(.gray)
-                 .padding(.vertical)
-
-             // Sizes
-             let colums = Array(repeating: GridItem(.flexible(), spacing: 😎, count: 4)
-
-             LazyVGrid(columns: colums, alignment: .leading, spacing: 15, content: {
-                 ForEach(sizes, id: \.self) { size in
-                     Button(action: {
-                         withAnimation {
-                             homeData.selectedSize = size
-                         }
-                     }, label: {
-                         Text(size)
-                             .fontWeight(.semibold)
-                             .foregroundColor(homeData.selectedSize == size ? .white : .black)
-                             .padding(.vertical)
-                             .frame(maxWidth: .infinity)
-                             .background(homeData.selectedSize == size ? Color("orange") : Color.black.opacity(0.06))
-                             .cornerRadius(10)
-                     })
-                 }
-             })
-             .padding(.top)
-
-             // Add to cart button
-             Button(action: {
-                 withAnimation(.easeInOut(duration: 0.7)) {
-                     homeData.startAnimation.toggle()
-                 }
-             }, label: {
-                 Text("Add to cart")
-                     .fontWeight(.bold)
-                     .foregroundColor(homeData.selectedSize == "" ? .black : .white)
-                     .padding(.vertical)
-                     .frame(maxWidth: .infinity)
-                     .background(homeData.selectedSize == "" ? Color.black.opacity(0.06) : Color("orange"))
-                     .cornerRadius(18)
-             })
-             // disable button when no size selected
-             .disabled(homeData.selectedSize == "")
-             .padding(.top)
-         }
-         .padding()
-         .background(Color.white.clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 35)))
-     }
- }
-
- */

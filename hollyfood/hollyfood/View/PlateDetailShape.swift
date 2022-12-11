@@ -16,8 +16,6 @@ struct PlateDetailShape: Shape {
             let pt3 = CGPoint(x: 0, y: rect.height)
             let pt4 = CGPoint(x: rect.width, y: rect.height)
 
-            // Set last point as start
-            // Since it ends at last
             path.move(to: pt4)
 
             path.addArc(tangent1End: pt1, tangent2End: pt2, radius: 20)

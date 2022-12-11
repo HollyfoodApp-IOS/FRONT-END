@@ -11,12 +11,11 @@ struct TabBar: View {
     var body: some View {
         NavigationView()
         {
-        CustomTabView()
-                .navigationTitle("")
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarHidden(true)
+            CustomTabView()
+                    .navigationTitle("")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarHidden(true)
         }
-
     }
 }
 

@@ -8,23 +8,13 @@
 import SwiftUI
 
 struct AddPlate: View {
-    var body: some View {
-        AddPlate_Code()
-    }
-}
-
-struct AddPlate_Previews: PreviewProvider {
-    static var previews: some View {
-        AddPlate()
-    }
-}
-
-struct AddPlate_Code: View {
     
+    @Binding var restaurant : String
+
     @ObservedObject var viewModel = PlateViewModel()
     @State var alert = false
     @State var error = ""
-    @State var selectedCategory = ""
+    @State var selectedCategory : String = ""
     
     var body: some View {
         
@@ -147,8 +137,6 @@ struct AddPlate_Code: View {
                             .cornerRadius(8)
                             .padding(.horizontal, 25)
                             .padding(.top, 25)
-                            
-                            
                         }
                     }
                 }
@@ -174,9 +162,9 @@ struct AddPlate_Code: View {
                 self.alert.toggle()
                 return
             }
-                        
-            print("category is: "+selectedCategory)
-            viewModel.addPlate(plate: Plate(id:"", name: viewModel.name, category: selectedCategory, price: Float(viewModel.price) ?? 0, image: selectedCategory, restaurant: "638cc442f113b23757f1899e"), onSuccess: {
+            
+            print(selectedCategory)
+            viewModel.addPlate(plate: Plate(id:"", name: viewModel.name, category: selectedCategory, price: Float(viewModel.price) ?? 0, image: selectedCategory, restaurant: restaurant), onSuccess: {
                 
                 self.error = "Plate Added Successfully!"
                 self.alert.toggle()
@@ -200,7 +188,14 @@ struct AddPlate_Code: View {
         }
 
     }
-    
+
 }
+
+struct AddPlate_Previews: PreviewProvider {
+    static var previews: some View {
+        Tab()
+    }
+}
+
 
 var addPlateCategories = ["Pizza", "Sandwich", "Pasta", "Plate", "Other"]

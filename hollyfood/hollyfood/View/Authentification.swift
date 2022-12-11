@@ -9,6 +9,7 @@ import SwiftUI
 import GoogleSignIn
 
 struct Authentification: View {
+    
     var body: some View {
         
         //let signInConfig = GIDConfiguration(clientID: "185174827966-ab4gm3hb6onf2bmj7i01cdk450sbuqi6.apps.googleusercontent.com")
@@ -62,7 +63,7 @@ struct Home: View {
                 Spacer()
                 
                 Image("shape")
-                    .frame(height:40)
+                    .frame(height:30)
 
             }
 
@@ -243,12 +244,9 @@ struct Login: View{
                                 }
                             }
                             
-                            
                         }
                         .padding(.horizontal, 25)
                         .padding(.top, 25)
-                        
-
                         
                         NavigationLink(destination: Tab().navigationBarBackButtonHidden(true), isActive: $isLogin){
                             
@@ -375,7 +373,7 @@ struct SignUp: View{
     @State var error = ""
     @State var visible = false
     @State var color = Color.black.opacity(0.7)
-
+    @State var selectedRole = ""
 
     var body : some View{
         
@@ -386,7 +384,7 @@ struct SignUp: View{
                     
                     VStack{
     
-                        VStack(alignment: .leading, spacing: 10){
+                        VStack(alignment: .leading, spacing: 8){
                             
                             Text("Full Name")
                                 .font(.caption)
@@ -506,12 +504,33 @@ struct SignUp: View{
                                 .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
                                 .font(.system(size: 12))
                             
+
+                            /*
+                             
+                            */
                         }
                         .padding(.horizontal, 25)
-                        .padding(.top, 25)
+                        .padding(.top, 10)
                         
-                            
-                            Button(action: {
+                        VStack(alignment: .leading)
+                        {
+                            Text("Role")
+                                 .font(.caption)
+                                 .fontWeight(.bold)
+                                 .foregroundColor(.gray)
+
+                            Picker("Role: ", selection: $selectedRole){
+                                ForEach(roles, id: \.self)
+                                { role in
+                                    Text(role)
+                                }
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .padding(.horizontal, 25)
+                        .padding(.top, 5)
+
+                        Button(action: {
                                 
                                 self.verify()
                             })
@@ -619,8 +638,14 @@ struct SignUp: View{
                 return
             }
                 
-            
-            viewModel.SignUp(user: User(fullname: viewModel.fullname, email:viewModel.email, password: viewModel.password, phone: viewModel.phone, address: "", role: "Admin"), onSuccess: {
+            if selectedRole == "" {
+                
+                self.error = "Role Is Required"
+                self.alert.toggle()
+                return
+            }
+
+            viewModel.SignUp(user: User(id: "", fullname: viewModel.fullname, email:viewModel.email, password: viewModel.password, phone: viewModel.phone, address: "", role: selectedRole), onSuccess: {
                 
                 self.error = "Your account has been created successfully!"
                 self.alert.toggle()
@@ -633,14 +658,11 @@ struct SignUp: View{
 
             })
 
-            
-                            
         }
         else{
             
             self.error = "Please fill all the contents properly"
             self.alert.toggle()
-
         }
     }
 
@@ -701,3 +723,5 @@ struct ErrorView : View {
         .background(Color.black.opacity(0.35).edgesIgnoringSafeArea(.all))
     }
 }
+
+var roles = ["Restaurant Manager", "Client"]

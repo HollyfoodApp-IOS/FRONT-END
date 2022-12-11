@@ -12,7 +12,6 @@ struct EditProfile: View {
     var body: some View {
         EditProfile_Code()
     }
-    
 }
 
 struct EditProfile_Previews: PreviewProvider {
@@ -27,7 +26,7 @@ struct EditProfile_Code:  View {
     @State var alert = false
     @State var error = ""
     
-    @State var idUser:String = UserViewModel.idUder ?? ""
+    @State var id:String = UserViewModel.session?.id ?? ""
     @State var fullname:String = UserViewModel.session?.fullname ?? ""
     @State var email:String = UserViewModel.session?.email ?? ""
     @State var phone:String = UserViewModel.session?.phone ?? ""
@@ -140,7 +139,7 @@ struct EditProfile_Code:  View {
         if fullname != "" && email != "" && phone != ""
         {
             
-            viewModel.editProfile(id: idUser, fullname:fullname, email:email, phone:phone, onSuccess: {(message) in
+            viewModel.editProfile(id: id, fullname:fullname, email:email, phone:phone, onSuccess: {(message) in
                 
                 print("Message is: "+message)
                 if(message == "Email Already Exist")
@@ -151,15 +150,13 @@ struct EditProfile_Code:  View {
                 }
                 else
                 {
-                    idUser = UserViewModel.idUder ?? ""
+                                        
+                    id = UserViewModel.session?.id ?? ""
                     fullname = UserViewModel.session?.fullname ?? ""
                     email = UserViewModel.session?.email ?? ""
                     phone = UserViewModel.session?.phone ?? ""
                     role = UserViewModel.session?.role ?? ""
                     
-                    print(" ")
-                    print("full name is: "+fullname)
-
                     self.error = "Profile Updated Successfully"
     
                     self.alert.toggle()

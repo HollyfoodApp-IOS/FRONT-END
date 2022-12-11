@@ -17,7 +17,7 @@ struct PlateItem: View {
             HStack {
                 Spacer(minLength: 0)
 
-                Text("\(plate.price) DT")
+                Text(String(format: "%.2f DT", plate.price))
                     .fontWeight(.heavy)
                     .foregroundColor(.black)
                     //.matchedGeometryEffect(id: "price\(plate.price)", in: animation)
@@ -55,6 +55,6 @@ struct PlateItem: View {
 
 struct PlateItem_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Tab()
     }
 }

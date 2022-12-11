@@ -10,6 +10,16 @@ import SwiftUI
 struct Cart: View {
     
     @EnvironmentObject var viewModel: CartViewModel
+    
+    @Binding var restaurant: String
+    @Binding var restaurantName: String
+
+    @ObservedObject var orderViewModel = OrderViewModel()
+    @ObservedObject var orderlineViewModel = OrderlineViewModel()
+    @ObservedObject var userViewModel = UserViewModel()
+
+    @State var userID: String = UserViewModel.session?.id ?? ""
+    @State var orderID:String = ""
 
     var body: some View {
         
@@ -26,8 +36,8 @@ struct Cart: View {
                 }
             }
             
-            
             VStack {
+                
                 HStack {
                     Text("Total")
                         .fontWeight(.heavy)
@@ -41,7 +51,31 @@ struct Cart: View {
                 }
                 .padding([.top, .horizontal])
 
-                Button(action: {}, label: {
+                Button(action: {
+                    
+                    var price: Float = 0
+                    viewModel.cart.forEach { orderline in
+                        price += Float(orderline.quantity) * orderline.price
+                    }
+                    
+                    orderViewModel.addOrder(order: Order(id: "", price: price, user: userID, restaurant: restaurant, createdAt: ""), onSuccess: {(orderId) in
+                        orderID = orderId
+                        
+                        print("CART COUNT == \(viewModel.cart.count)")
+                        print("CART == \(viewModel.cart)")
+                        print("ORDER ID == \(orderID)")
+                        print(" ")
+                        
+                    viewModel.cart.forEach { orderline in
+                        //print(orderline)
+                        orderlineViewModel.addOrderline(orderline: Orderline(id: "", quantity: orderline.quantity, price: orderline.price, plate: orderline.plate, order: orderID, plateName: orderline.plateName, plateCategory: orderline.plateCategory, plateImage: orderline.plateImage, offset: orderline.offset, isSwiped: orderline.isSwiped))
+                    }
+                        
+                    viewModel.cart.removeAll()
+
+                    })
+                    
+                }, label: {
                     Text("Order Now")
                         .font(.title2)
                         .fontWeight(.heavy)
@@ -56,7 +90,6 @@ struct Cart: View {
                 })
             }
             .background(Color.white)
-
         }
         .background(Color.white.ignoresSafeArea())
         .navigationTitle("Cart")
@@ -81,19 +114,12 @@ struct Cart: View {
 
         return getPrice(value: price)
     }
-
-
+    
 }
 
 struct Cart_Previews: PreviewProvider {
     static var previews: some View {
         //Cart()
-        ContentView()
+        Tab()
     }
 }
-
-/*
- 
-
-
-*/

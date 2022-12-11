@@ -10,6 +10,7 @@ import Alamofire
 
 class UserViewModel: ObservableObject {
     
+    var id : String = ""
     var fullname : String = ""
     var email : String = ""
     var password : String = ""
@@ -18,9 +19,8 @@ class UserViewModel: ObservableObject {
     var role : String = ""
     var resetPasswordCode : String = ""
     var verificationCode : String = ""
-    static var session: User?
-    static var idUder: String?
     
+    static var session: User?
     static let sharedInstance = UserViewModel()
     
     func LogIn(email: String,password: String , onSuccess: @escaping(_ message : String) -> Void)   {
@@ -55,8 +55,7 @@ class UserViewModel: ObservableObject {
                         print("Phone is: \(phone )")
                         print("Role is: \(role )")
 
-                        Self.idUder = id
-                        Self.session = User(fullname: fullname, email: email, password: "", phone: phone, address: "", role: role)
+                        Self.session = User(id: id, fullname: fullname, email: email, password: "", phone: phone, address: "", role: role)
                     }
 
                     onSuccess(message)
@@ -92,7 +91,6 @@ class UserViewModel: ObservableObject {
                 case let .failure(error):
                     print(error)
                         
-                    
                 }
             }
     }
@@ -111,7 +109,6 @@ class UserViewModel: ObservableObject {
                 case.success:
                     onSuccess()
                                     
-                    
                 case .failure:
                     onError()
                 }
@@ -132,7 +129,6 @@ class UserViewModel: ObservableObject {
                 switch response.result{
                 case.success:
                     onSuccess()
-                                    
                     
                 case .failure:
                     onError()
@@ -155,7 +151,6 @@ class UserViewModel: ObservableObject {
                 case.success:
                     onSuccess()
                                     
-                    
                 case .failure:
                     onError()
                 }
@@ -176,7 +171,6 @@ class UserViewModel: ObservableObject {
                 case.success:
                     onSuccess()
                                     
-                    
                 case .failure:
                     onError()
                 }
@@ -216,8 +210,7 @@ class UserViewModel: ObservableObject {
                         print("Phone is: \(phone )")
                         print("Role is: \(role )")
                         
-                        Self.idUder = id
-                        Self.session = User(fullname: fullname, email: email, password: "", phone: phone, address: "", role: role)
+                        Self.session = User(id: id, fullname: fullname, email: email, password: "", phone: phone, address: "", role: role)
 
 
                     }
@@ -255,6 +248,44 @@ class UserViewModel: ObservableObject {
                 }
             }
             .responseJSON{(response) in print(response)}
+    }
+    
+    func getUser(id: String, onSuccess: @escaping(_ us : User) -> Void){
+        
+        //print(order)
+        
+        AF.request(Statics.URL+"user/"+id,
+                   method: .get,
+                   encoding: JSONEncoding.default)
+        .validate(statusCode: 200..<300)
+        .validate(contentType: ["application/json"])
+        .responseJSON {
+            response in
+            switch response.result {
+            case .success(let JSON):
+
+                let response = JSON as! NSDictionary
+
+                let id = response.object(forKey: "_id") as? String ?? ""
+                let fullname = response.object(forKey: "fullname") as? String ?? ""
+                let email = response.object(forKey: "email") as? String ?? ""
+                let phone = response.object(forKey: "phone") as? String ?? ""
+                let role = response.object(forKey: "role") as? String ?? ""
+
+                //print(JSON)
+                let user = User(id: id, fullname: fullname, email: email, password: "", phone: phone, address: "", role: role)
+                
+                print("fullname is: "+user.fullname)
+
+                onSuccess(user)
+                
+                return
+                
+            case .failure:
+                print("Delete Order Failed")
+                
+            }
+        }
     }
 
 
