@@ -119,6 +119,7 @@
 		EFC08E0B2946198500971B61 /* OrderDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
 		EFC08E1129466C1500971B61 /* RestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewModel.swift; sourceTree = "<group>"; };
 		EFC08E132946866B00971B61 /* MenuQRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuQRCode.swift; sourceTree = "<group>"; };
+		EFC08E152946A35E00971B61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EFD67CA0293E20D1009500A6 /* Orderline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orderline.swift; sourceTree = "<group>"; };
 		EFD67CA2293E3352009500A6 /* OrderlineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderlineViewModel.swift; sourceTree = "<group>"; };
 		EFD67CA6293E3595009500A6 /* CartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItem.swift; sourceTree = "<group>"; };
@@ -198,6 +199,7 @@
 		EF1EA7DB292572E200E83D6A /* hollyfood */ = {
 			isa = PBXGroup;
 			children = (
+				EFC08E152946A35E00971B61 /* Info.plist */,
 				EFFC56EC2926C644003D2134 /* Utils */,
 				EF1EA80D2925744B00E83D6A /* ViewModel */,
 				EF1EA80C2925744400E83D6A /* Model */,
@@ -680,6 +682,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"hollyfood/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = hollyfood/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login With Face ID";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -709,6 +713,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"hollyfood/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = hollyfood/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login With Face ID";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -735,6 +741,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login With Face ID";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "HollyfoodApp-IOS.hollyfoodTests";
@@ -754,6 +762,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login With Face ID";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "HollyfoodApp-IOS.hollyfoodTests";
@@ -772,6 +782,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login With Face ID";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "HollyfoodApp-IOS.hollyfoodUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -789,6 +800,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Login With Face ID";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "HollyfoodApp-IOS.hollyfoodUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

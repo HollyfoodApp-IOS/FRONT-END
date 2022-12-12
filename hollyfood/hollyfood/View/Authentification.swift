@@ -7,8 +7,11 @@
 
 import SwiftUI
 import GoogleSignIn
+import LocalAuthentication
 
 struct Authentification: View {
+    
+    @State private var unlocked = false
     
     var body: some View {
         
@@ -273,7 +276,9 @@ struct Login: View{
                             
                         }
                         
-                        Button(action: {}) {
+                        Button(action: {
+                            loginWithFaceID()
+                        }) {
                             HStack(spacing: 35){
                                 Image(systemName: "faceid")
                                     .font(.system(size: 26))
@@ -359,6 +364,64 @@ struct Login: View{
         else{
             self.error = "Please fill all the contents properly"
             self.alert.toggle()
+        }
+    }
+    
+    func loginWithFaceID(){
+        
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error){
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "This is for security reasons"){ success,
+                AuthentificationError in
+                
+                if success{
+                    
+                    viewModel.LogIn(email: "admin" , password:"admin", onSuccess: {(message) in
+                        
+                        print("Message is "+message)
+                        if(message == "Invalid Email Or Password")
+                        {
+                            self.error = "Invalid email or password"
+                            self.alert.toggle()
+                            print(isLogin)
+                            return
+                        }
+                        else if(message == "Account Not Verified Yet")
+                        {
+                            self.error = "Account Not Verified Yet"
+                            self.alert.toggle()
+                            print(isLogin)
+                            return
+                        }
+                        else
+                        {
+                            isLogin = true
+                        }
+                        
+                    })
+
+                }
+                else{
+                    
+                    self.error = "Invalid email or password"
+                    self.alert.toggle()
+                    print(isLogin)
+                    return
+
+                }
+                
+            }
+        }
+        else
+        {
+            self.error = "Phone does not have Biometrics"
+            self.alert.toggle()
+            print(isLogin)
+            return
+
         }
     }
 

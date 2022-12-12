@@ -76,7 +76,8 @@ struct OrderHistory: View {
                     VStack(spacing: 15){
                     
                         ForEach(searchQuery == "" ? orderViewModel.orders : orderViewModel.orders.filter{$0.createdAt.lowercased().contains(searchQuery.lowercased())})
-                        { order in
+                        {
+                            order in
                             OrderRowView(order: $orderViewModel.orders[getIndex(order: order)], ordersList: $orderViewModel.orders, animation: animation)
                                 .onTapGesture {
                                     withAnimation(.spring()) {

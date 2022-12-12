@@ -214,7 +214,6 @@ struct Menu: View {
                         .cornerRadius(15)
                         .padding(.horizontal, 25)
 
-                        
                     }.padding()
 
                 }
