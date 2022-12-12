@@ -24,7 +24,8 @@ struct CodeVerificationHome: View {
     @ObservedObject var viewModel = UserViewModel()
     @State var resetPassword = false
     @State var alert = false
-    @State var error = ""
+    @State var title = ""
+    @State var message = ""
     @State var code = ""
     
     var body: some View {
@@ -101,7 +102,7 @@ struct CodeVerificationHome: View {
             if self.alert
             {
                 
-                ErrorView(alert: self.$alert, error: self.$error)
+                PopupView(alert: self.$alert, title: self.$title, message: self.$message)
             }
         }
         .navigationTitle("Code Verification")
@@ -121,13 +122,15 @@ struct CodeVerificationHome: View {
             },
                                     
             onError: {
-                self.error = "Wrong Code"
+                self.title = "Error"
+                self.message = "Wrong Code"
                 self.alert.toggle()
             })
         }
         else
         {
-            self.error = "Please fill all the contents properly"
+            self.title = "Error"
+            self.message = "Please fill all the contents properly"
             self.alert.toggle()
         }
             

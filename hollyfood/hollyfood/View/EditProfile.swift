@@ -24,8 +24,8 @@ struct EditProfile_Code:  View {
     
     @ObservedObject var viewModel = UserViewModel()
     @State var alert = false
-    @State var error = ""
-    
+    @State var title = ""
+    @State var message = ""
     @State var id:String = UserViewModel.session?.id ?? ""
     @State var fullname:String = UserViewModel.session?.fullname ?? ""
     @State var email:String = UserViewModel.session?.email ?? ""
@@ -125,7 +125,7 @@ struct EditProfile_Code:  View {
             if self.alert
             {
                 
-                ErrorView(alert: self.$alert, error: self.$error)
+                PopupView(alert: self.$alert, title: self.$title, message: self.$message)
             }
 
         }
@@ -141,10 +141,10 @@ struct EditProfile_Code:  View {
             
             viewModel.editProfile(id: id, fullname:fullname, email:email, phone:phone, onSuccess: {(message) in
                 
-                print("Message is: "+message)
-                if(message == "Email Already Exist")
+                if message == "Email Already Exist"
                 {
-                    self.error = "Email Already Exist"
+                    self.title = "Error"
+                    self.message = message
                     self.alert.toggle()
                     return
                 }
@@ -157,7 +157,8 @@ struct EditProfile_Code:  View {
                     phone = UserViewModel.session?.phone ?? ""
                     role = UserViewModel.session?.role ?? ""
                     
-                    self.error = "Profile Updated Successfully"
+                    self.title = "Information"
+                    self.message = "Profile Updated Successfully"
     
                     self.alert.toggle()
 
@@ -165,10 +166,11 @@ struct EditProfile_Code:  View {
                 
             })
 
-                            
         }
         else{
-            self.error = "Please fill all the contents properly"
+            
+            self.title = "Error"
+            self.message = "Please fill all the contents properly"
             self.alert.toggle()
 
         }

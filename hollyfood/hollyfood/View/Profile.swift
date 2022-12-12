@@ -27,15 +27,11 @@ struct Profile: View {
                 Text("Change Password")
             }.padding()
             
+            
             /*NavigationLink(destination: OrderHistory(type: $type, id: $userID).navigationBarBackButtonHidden(false)) {
                 Image(systemName: "bag.fill")
                 Text("Order History")
             }.padding()*/
-
-            NavigationLink(destination: Text("My Address")) {
-                Image(systemName: "location.viewfinder")
-                Text("My Address")
-            }.padding()
 
             NavigationLink(destination: Authentification().navigationBarBackButtonHidden(true)) {
                 Image(systemName: "rectangle.portrait.and.arrow.right")

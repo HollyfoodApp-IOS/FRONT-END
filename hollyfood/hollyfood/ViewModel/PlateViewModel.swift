@@ -9,7 +9,6 @@ import Foundation
 import Alamofire
 import SwiftUI
 
-
 class PlateViewModel: ObservableObject {
     
     @Published var plates = [Plate]()
@@ -54,34 +53,7 @@ class PlateViewModel: ObservableObject {
             }
         }
     }
-    
-    /*func getPlatesByRestaurant2(restaurantId: String, category: String, complited: @escaping(Bool, [[Plate]]?) -> Void) {
-        
-        AF.request(Statics.URL+"/plate/",
-                   method: .get,
-                   encoding: JSONEncoding.default)
-        .validate(statusCode: 200..<500)
-        .validate(contentType: ["application/json"])
-        .responseJSON {
-            response in
-            switch response.result {
-            case .success(let JSON):
                 
-                for i in JSON(response.data!){
-                    
-                    plates.append([Plate(id: i.1["_id"].stringValue, name: i.1["name"].stringValue, category: i.1["category"].stringValue, price: i.1["price"].floatValue, image: i.1["image"].stringValue, restaurant: i.1["restaurant"].stringValue)])
-                }
-                complited(true,plates)
-                
-            case let .failure(error):
-                
-                debugPrint(error)
-                complited(false,nil)
-                
-            }
-        }
-    }*/
-            
     func getPlatesByRestaurant(restaurant: String, category: String){
         
         guard let url = URL(string: Statics.URL+"plate/getPlatesByRestaurant/"+restaurant) else {
@@ -159,4 +131,55 @@ class PlateViewModel: ObservableObject {
         }
         .responseJSON{(response) in print(response)}
     }
+        
+    func editPlate(plate: Plate, onSuccess: @escaping() -> Void) {
+        
+        //print(plate)
+        let parametres: [String: Any] = [
+            "name": plate.name,
+            "category": plate.category,
+            "price": plate.price,
+            "image": plate.image,
+            "restaurant": plate.restaurant,
+        ]
+        
+        AF.request(Statics.URL+"plate/"+plate.id,
+                   method: .patch,
+                   parameters:parametres, encoding: JSONEncoding.default)
+        .validate(statusCode: 200..<300)
+        .validate(contentType: ["application/json"])
+        .responseData {
+            response in
+            switch response.result {
+            case .success:
+                onSuccess()
+                
+            case let .failure(error):
+                print(error)
+                
+            }
+        }
+    }
+
+    func deletePlate(id: String, onSuccess: @escaping() -> Void) {
+        
+        AF.request(Statics.URL+"plate/"+id,
+                   method: .delete,
+                   encoding: JSONEncoding.default)
+        .validate(statusCode: 200..<300)
+        .validate(contentType: ["application/json"])
+        .responseJSON {
+            response in
+            switch response.result {
+            case .success:
+                print("Plate Deleted")
+                onSuccess()
+                
+            case .failure:
+                print("Delete Plate Failed")
+                
+            }
+        }
+    }
+
 }

@@ -24,7 +24,8 @@ struct ForgotPassword_Code: View {
     @ObservedObject var viewModel = UserViewModel()
     @State var codeVerification = false
     @State var alert = false
-    @State var error = ""
+    @State var title = ""
+    @State var message = ""
 
     var body: some View {
                 
@@ -100,12 +101,12 @@ struct ForgotPassword_Code: View {
             if self.alert
             {
                 
-                ErrorView(alert: self.$alert, error: self.$error)
+                PopupView(alert: self.$alert, title: self.$title, message: self.$message)
             }
 
         }
-            .navigationTitle("Forgot Password")
-            .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Forgot Password")
+        .navigationBarTitleDisplayMode(.inline)
 
         
     }
@@ -118,18 +119,23 @@ struct ForgotPassword_Code: View {
                                     
             onSuccess: {
                 codeVerification=true
-                self.error = "RESET"
+                
+                self.title = "Information"
+                self.message = "Password reset code has been sent successfully"
                 self.alert.toggle()
             },
                                     
             onError: {
-                self.error = "User Not Found"
+                
+                self.title = "Error"
+                self.message = "User Not Found"
                 self.alert.toggle()
             })
         }
         else
         {
-            self.error = "Please fill all the contents properly"
+            self.title = "Error"
+            self.message = "Please fill all the contents properly"
             self.alert.toggle()
         }
             

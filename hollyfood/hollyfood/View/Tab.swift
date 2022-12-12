@@ -30,6 +30,12 @@ struct Tab_Previews: PreviewProvider {
     }
 }
 
+class SwifTUrViewUHC: UIHostingController<Tab>{
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder,rootView: Tab())
+    }
+}
+
 struct Main: View{
     
     

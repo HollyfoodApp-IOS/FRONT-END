@@ -7,35 +7,13 @@
 
 import SwiftUI
 import GoogleSignIn
-import LocalAuthentication
 
 struct Authentification: View {
     
     @State private var unlocked = false
     
     var body: some View {
-        
-        //let signInConfig = GIDConfiguration(clientID: "185174827966-ab4gm3hb6onf2bmj7i01cdk450sbuqi6.apps.googleusercontent.com")
-        
-        /*
-         func application(
-           _ app: UIApplication,
-           open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]
-         ) -> Bool {
-           var handled: Bool
-
-           handled = GIDSignIn.sharedInstance.handle(url)
-           if handled {
-             return true
-           }
-
-           // Handle other custom URL types.
-
-           // If not handled by this app, return false.
-           return false
-         }
-         */
-        
+                
         NavigationView()
         {
             Home()
@@ -87,7 +65,6 @@ struct Home: View {
                             .fontWeight(.bold)
                             .foregroundColor(index == 0 ? .black : .gray)
                         
-                        //slide animation
                         ZStack{
                             Capsule()
                                 .fill(Color.black.opacity(0.04))
@@ -149,12 +126,13 @@ struct Home: View {
 
 struct Login: View{
     
-    @ObservedObject var viewModel = UserViewModel()
+    @ObservedObject var userViewModel = UserViewModel()
     @State private var isLogin = false
     @State var visible = false
     @State var color = Color.black.opacity(0.7)
     @State var alert = false
-    @State var error = ""
+    @State var title = ""
+    @State var message = ""
     @State var forgotPassword = false
     @State var verifyAccount = false
 
@@ -175,7 +153,7 @@ struct Login: View{
                                 .fontWeight(.bold)
                                 .foregroundColor(.gray)
                             
-                            TextField("Email", text: $viewModel.email)
+                            TextField("Email", text: $userViewModel.email)
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(5)
@@ -193,12 +171,12 @@ struct Login: View{
                                     
                                     if self.visible{
                                         
-                                        TextField("Password", text: $viewModel.password)
+                                        TextField("Password", text: $userViewModel.password)
                                             .autocapitalization(.none)
                                     }
                                     else{
                                         
-                                        SecureField("Password", text: $viewModel.password)
+                                        SecureField("Password", text: $userViewModel.password)
                                             .autocapitalization(.none)
                                     }
                                 }
@@ -273,18 +251,17 @@ struct Login: View{
                             .padding(.horizontal, 25)
                             .padding(.top, 25)
                             
-                            
                         }
                         
                         Button(action: {
-                            loginWithFaceID()
+                            
                         }) {
                             HStack(spacing: 35){
                                 Image(systemName: "faceid")
                                     .font(.system(size: 26))
                                     .foregroundColor(Color("PrimaryColor"))
                                 
-                                Text("Login With Face ID")
+                                Text("Other Ways To Login")
                                     .font(.system(size: 20))
                                     .foregroundColor(Color("PrimaryColor"))
                                 
@@ -295,27 +272,7 @@ struct Login: View{
                         }
                         .padding(.horizontal, 25)
                         .padding(.top, 30)
-                        
-                        /*
-                         HStack(spacing: 30){
-                         ForEach(social, id: \.self){name in
-                         
-                         Button(action:{}){
-                         
-                         Image(name)
-                         .renderingMode(.template)
-                         .resizable()
-                         .frame(width: 24, height: 24)
-                         .foregroundColor(Color(name == "google" ? "Color" : "Color"))
-                         
-                         }
-                         
-                         }
-                         }
-                         .padding(.top, 25)
-                         */
-                        
-                        
+                                                
                     }
                 }
             }
@@ -323,7 +280,7 @@ struct Login: View{
             
             if self.alert{
                 
-                ErrorView(alert: self.$alert, error: self.$error)
+                PopupView(alert: self.$alert, title: self.$title, message: self.$message)
             }
 
         }
@@ -332,22 +289,24 @@ struct Login: View{
     
     func verify(){
         
-        if viewModel.email != "" && viewModel.password != ""
+        if userViewModel.email != "" && userViewModel.password != ""
         {
             
-            viewModel.LogIn(email: viewModel.email , password:viewModel.password, onSuccess: {(message) in
+            userViewModel.LogIn(email: userViewModel.email , password: userViewModel.password, onSuccess: {(message) in
                 
                 print("Message is "+message)
                 if(message == "Invalid Email Or Password")
                 {
-                    self.error = "Invalid email or password"
+                    self.title = "Error"
+                    self.message = "Invalid email or password"
                     self.alert.toggle()
                     print(isLogin)
                     return
                 }
                 else if(message == "Account Not Verified Yet")
                 {
-                    self.error = "Account Not Verified Yet"
+                    self.title = "Information"
+                    self.message = "Account Not Verified Yet"
                     self.alert.toggle()
                     print(isLogin)
                     return
@@ -359,81 +318,24 @@ struct Login: View{
                 
             })
 
-                            
         }
         else{
-            self.error = "Please fill all the contents properly"
+            self.title = "Error"
+            self.message = "Please fill all the contents properly"
             self.alert.toggle()
         }
     }
     
-    func loginWithFaceID(){
-        
-        let context = LAContext()
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error){
-            
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "This is for security reasons"){ success,
-                AuthentificationError in
-                
-                if success{
-                    
-                    viewModel.LogIn(email: "admin" , password:"admin", onSuccess: {(message) in
-                        
-                        print("Message is "+message)
-                        if(message == "Invalid Email Or Password")
-                        {
-                            self.error = "Invalid email or password"
-                            self.alert.toggle()
-                            print(isLogin)
-                            return
-                        }
-                        else if(message == "Account Not Verified Yet")
-                        {
-                            self.error = "Account Not Verified Yet"
-                            self.alert.toggle()
-                            print(isLogin)
-                            return
-                        }
-                        else
-                        {
-                            isLogin = true
-                        }
-                        
-                    })
-
-                }
-                else{
-                    
-                    self.error = "Invalid email or password"
-                    self.alert.toggle()
-                    print(isLogin)
-                    return
-
-                }
-                
-            }
-        }
-        else
-        {
-            self.error = "Phone does not have Biometrics"
-            self.alert.toggle()
-            print(isLogin)
-            return
-
-        }
-    }
-
     
 }
 
 struct SignUp: View{
     
-    @ObservedObject var viewModel = UserViewModel()
+    @ObservedObject var userViewModel = UserViewModel()
     @State var confirmPassword = ""
     @State var alert = false
-    @State var error = ""
+    @State var title = ""
+    @State var message = ""
     @State var visible = false
     @State var color = Color.black.opacity(0.7)
     @State var selectedRole = ""
@@ -454,7 +356,7 @@ struct SignUp: View{
                                 .fontWeight(.bold)
                                 .foregroundColor(.gray)
 
-                            TextField("Full Name", text: $viewModel.fullname)
+                            TextField("Full Name", text: $userViewModel.fullname)
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(5)
@@ -467,7 +369,7 @@ struct SignUp: View{
                                 .fontWeight(.bold)
                                 .foregroundColor(.gray)
 
-                            TextField("Email", text: $viewModel.email)
+                            TextField("Email", text: $userViewModel.email)
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(5)
@@ -486,12 +388,12 @@ struct SignUp: View{
                                     
                                     if self.visible{
                                         
-                                        TextField("Password", text: $viewModel.password)
+                                        TextField("Password", text: $userViewModel.password)
                                             .autocapitalization(.none)
                                     }
                                     else{
                                         
-                                        SecureField("Password", text: $viewModel.password)
+                                        SecureField("Password", text: $userViewModel.password)
                                             .autocapitalization(.none)
                                     }
                                 }
@@ -559,7 +461,7 @@ struct SignUp: View{
                                 .fontWeight(.bold)
                                 .foregroundColor(.gray)
 
-                            TextField("Phone Number", text: $viewModel.phone)
+                            TextField("Phone Number", text: $userViewModel.phone)
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(5)
@@ -567,10 +469,6 @@ struct SignUp: View{
                                 .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
                                 .font(.system(size: 12))
                             
-
-                            /*
-                             
-                            */
                         }
                         .padding(.horizontal, 25)
                         .padding(.top, 10)
@@ -613,47 +511,6 @@ struct SignUp: View{
                             .cornerRadius(8)
                             .padding(.horizontal, 25)
                             .padding(.top, 25)
-
-                        
-                        /*Button(action: {
-                            
-                        }) {
-                            HStack(spacing: 35){
-                                Image(systemName: "faceid")
-                                    .font(.system(size: 26))
-                                    .foregroundColor(Color("Color"))
-                                
-                                Text("Sign Up With Face ID")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(Color("Color"))
-                                
-                                Spacer(minLength: 0)
-                            }
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 8).stroke(Color("Color"), lineWidth: 1))
-                        }
-                        .padding(.horizontal, 25)
-                        .padding(.top, 10)*/
-                        
-                        /*
-                         HStack(spacing: 30){
-                            ForEach(social, id: \.self){name in
-                                
-                                Button(action:{}){
-                                    
-                                    Image(name)
-                                        .renderingMode(.template)
-                                        .resizable()
-                                        .frame(width: 24, height: 24)
-                                        .foregroundColor(Color(name == "google" ? "Color" : "Color"))
-
-                                }
-                                
-                            }
-                        }
-                        .padding(.top, 25)
-                         */
-                        
                         
                     }
 
@@ -663,9 +520,8 @@ struct SignUp: View{
             
             if self.alert{
                 
-                ErrorView(alert: self.$alert, error: self.$error)
+                PopupView(alert: self.$alert, title: self.$title, message: self.$message)
             }
-
 
         }
         
@@ -673,49 +529,57 @@ struct SignUp: View{
     
     func verify(){
         
-        if viewModel.fullname != "" && viewModel.email != "" && viewModel.password != "" && confirmPassword != "" && viewModel.phone != "" {
+        if userViewModel.fullname != "" && userViewModel.email != "" && userViewModel.password != "" && confirmPassword != "" && userViewModel.phone != "" {
             
-            if viewModel.fullname.count < 3 {
-                self.error = "The full name must be at least 4 letters"
-                self.alert.toggle()
-                return
-            }
-            
-            if viewModel.password.count < 3 {
-                self.error = "The password name must be at least 4 letters"
-                self.alert.toggle()
-                return
-            }
-            
-            if viewModel.phone.count != 8 {
+            if userViewModel.fullname.count < 3 {
                 
-                self.error = "The phone number is invalid"
+                self.title = "Error"
+                self.message = "The full name must be at least 4 letters"
+                self.alert.toggle()
+                return
+            }
+            
+            if userViewModel.password.count < 3 {
+                
+                self.title = "Error"
+                self.message = "The password name must be at least 4 letters"
+                self.alert.toggle()
+                return
+            }
+            
+            if userViewModel.phone.count != 8 {
+                
+                self.title = "Error"
+                self.message = "The phone number is invalid"
                 self.alert.toggle()
                 return
             }
                         
-            if viewModel.password != confirmPassword {
+            if userViewModel.password != confirmPassword {
                 
-                self.error = "Password and Confirm Password fields must be exactly the same"
+                self.title = "Error"
+                self.message = "Password and Confirm Password fields must be exactly the same"
                 self.alert.toggle()
                 return
             }
                 
             if selectedRole == "" {
                 
-                self.error = "Role Is Required"
+                self.title = "Error"
+                self.message = "Role Is Required"
                 self.alert.toggle()
                 return
             }
 
-            viewModel.SignUp(user: User(id: "", fullname: viewModel.fullname, email:viewModel.email, password: viewModel.password, phone: viewModel.phone, address: "", role: selectedRole), onSuccess: {
+            userViewModel.SignUp(user: User(id: "", fullname: userViewModel.fullname, email:userViewModel.email, password: userViewModel.password, phone: userViewModel.phone, address: "", role: selectedRole), onSuccess: {
                 
-                self.error = "Your account has been created successfully!"
+                self.title = "Information"
+                self.message = "Your account has been created successfully!"
                 self.alert.toggle()
-                viewModel.fullname = ""
-                viewModel.email = ""
-                viewModel.password = ""
-                viewModel.phone = ""
+                userViewModel.fullname = ""
+                userViewModel.email = ""
+                userViewModel.password = ""
+                userViewModel.phone = ""
                 confirmPassword = ""
                 return
 
@@ -724,7 +588,8 @@ struct SignUp: View{
         }
         else{
             
-            self.error = "Please fill all the contents properly"
+            self.title = "Error"
+            self.message = "Please fill all the contents properly"
             self.alert.toggle()
         }
     }
@@ -732,12 +597,13 @@ struct SignUp: View{
     
 }
 
-struct ErrorView : View {
+struct PopupView : View {
     
     @State var color = Color.black.opacity(0.7)
     @Binding var alert : Bool
-    @Binding var error : String
-    
+    @Binding var title : String
+    @Binding var message : String
+
     var body: some View{
         
         GeometryReader{_ in
@@ -746,7 +612,7 @@ struct ErrorView : View {
                 
                 HStack{
                     
-                    Text(self.error == "RESET" ? "Message" : "Error")
+                    Text(self.title)
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(self.color)
@@ -755,7 +621,7 @@ struct ErrorView : View {
                 }
                 .padding(.horizontal, 25)
                 
-                Text(self.error == "RESET" ? "Password reset link has been sent successfully" : self.error)
+                Text(self.message)
                 .foregroundColor(self.color)
                 .padding(.top)
                 .padding(.horizontal, 25)
@@ -766,7 +632,7 @@ struct ErrorView : View {
                     
                 }) {
                     
-                    Text(self.error == "RESET" ? "Ok" : "Cancel")
+                    Text("Cancel")
                         .foregroundColor(.white)
                         .padding(.vertical)
                         .frame(width: UIScreen.main.bounds.width - 120)

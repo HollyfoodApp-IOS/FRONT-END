@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import LocalAuthentication
 
 struct Menu: View {
     
     @Binding var restaurant : String
     @Binding var restaurantName : String
 
-    @ObservedObject var viewModel = PlateViewModel()
+    @ObservedObject var plateViewModel = PlateViewModel()
     @StateObject var cartData = CartViewModel()
 
     @State var addPlate = false
@@ -27,6 +28,10 @@ struct Menu: View {
         
     @State var qrCodeText : String = ""
     @State var i : Int = 1
+    
+    @State var alert = false
+    @State var title = ""
+    @State var message = ""
 
     var body: some View {
         
@@ -58,22 +63,7 @@ struct Menu: View {
 
                         Button(action: {
                             
-                            qrCodeText = restaurantName+" Menu"
-                            
-                            viewModel.plates.forEach{ plate in
-                                
-                                qrCodeText += " "
-                                qrCodeText += "\n*Plate \(i)"
-                                qrCodeText += "\nPlate Name: "+plate.name
-                                qrCodeText += "\nPlate Category: "+plate.category
-                                qrCodeText += "\nPlate Price: "+String(format: "%.2f DT", plate.price)+" DT"
-
-                                i+=1
-                            }
-                            
-                            i=1
-                            
-                            goToQRCode = true
+                            goToQRCodeFaceID()
                             
                         }, label: {
                             Image(systemName: "qrcode.viewfinder")
@@ -82,17 +72,6 @@ struct Menu: View {
                                 .padding()
                                 .background(Color("PrimaryColor"))
                                 .clipShape(Circle())
-                                .overlay(
-                                    Text("\(cartData.cart.count)")
-                                        .font(.caption)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.white)
-                                        .padding(10)
-                                        .background(Color.red)
-                                        .clipShape(Circle())
-                                        .offset(x: 15, y: -10)
-                                        .opacity(cartData.cart.count != 0 ? 1 : 0)
-                                )
                         })
                     }
                     
@@ -140,7 +119,7 @@ struct Menu: View {
                                     selectedCategory = tab
                                 }
                                 
-                                viewModel.getPlatesByRestaurant(restaurant: restaurant, category: selectedCategory)
+                                plateViewModel.getPlatesByRestaurant(restaurant: restaurant, category: selectedCategory)
 
                             }, label: {
                                             
@@ -176,7 +155,7 @@ struct Menu: View {
                                     
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20),count: 2 ), spacing: 25){
 
-                            ForEach(viewModel.plates) { plate in
+                            ForEach(plateViewModel.plates) { plate in
 
                                 PlateItem(plate: plate, animation: animation)
                                     .onTapGesture {
@@ -189,7 +168,7 @@ struct Menu: View {
                             }
                     }
                     .onAppear(perform:{
-                        viewModel.getPlatesByRestaurant(restaurant: restaurant, category: selectedCategory)
+                        plateViewModel.getPlatesByRestaurant(restaurant: restaurant, category: selectedCategory)
                     })
                     .padding()
                     
@@ -222,8 +201,9 @@ struct Menu: View {
             .opacity(show ? 0 : 1)
             .blur(radius: cartData.showCart ? 50 : 0)
             
-            AddToCart(selectedPlate: $selectedPlate, animation: animation)
+            AddToCart(selectedPlate: $selectedPlate, restaurantID: $restaurant, animation: animation)
                 .environmentObject(cartData)
+                .environmentObject(plateViewModel)
                 .offset(y: cartData.showCart ? cartData.startAnimation ? 500 : 0 : 500)
             
             /*if show{
@@ -257,18 +237,37 @@ struct Menu: View {
                         Spacer()
                     }
                     
-                    Image(systemName: "bag\(cartData.addPlateToCart ? ".fill" : "")")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(cartData.addPlateToCart ? Color.red :
-                            Color("PrimaryColor"))
-                        .clipShape(Circle())
-                        .offset(y: cartData.showBag ? -50 : 300)
+                    if !cartData.deleteAnimation
+                    {
+                        Image(systemName: "bag\(cartData.addPlateToCart ? ".fill" : "")")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(cartData.addPlateToCart ? Color.red :
+                                Color("PrimaryColor"))
+                            .clipShape(Circle())
+                            .offset(y: cartData.showBag ? -50 : 300)
+                    }
+                    else
+                    {
+                        Image(systemName: "trash\(cartData.addPlateToCart ? ".fill" : "")")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(cartData.addPlateToCart ? Color.red :
+                                Color("PrimaryColor"))
+                            .clipShape(Circle())
+                            .offset(y: cartData.showBag ? -50 : 300)
+                    }
                 }
                 .frame(width: rect.width)
                 .offset(y: cartData.endAnimation ? 500 : 0)
             }
+            
+            if self.alert{
+                PopupView(alert: self.$alert, title: self.$title, message: self.$message)
+            }
+
         }
         .navigationTitle("Menu")
         .navigationBarTitleDisplayMode(.inline)
@@ -284,6 +283,7 @@ struct Menu: View {
                     }
 
                     cartData.startAnimation = false
+                    cartData.deleteAnimation = false
                     cartData.endAnimation = false
                     cartData.addPlateToCart = false
                     cartData.showBag = false
@@ -296,6 +296,50 @@ struct Menu: View {
         })
 
     }
+    
+    func goToQRCodeFaceID(){
+        
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error){
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "This is for security reasons"){ success,
+                AuthentificationError in
+                
+                if success{
+                    
+                    qrCodeText = restaurantName+" Menu"
+                    
+                    plateViewModel.plates.forEach{ plate in
+                        
+                        qrCodeText += " "
+                        qrCodeText += "\n*Plate \(i)"
+                        qrCodeText += "\nPlate Name: "+plate.name
+                        qrCodeText += "\nPlate Category: "+plate.category
+                        qrCodeText += "\nPlate Price: "+String(format: "%.2f DT", plate.price)+" DT"
+
+                        i+=1
+                    }
+                    
+                    i=1
+                    
+                    goToQRCode = true;
+
+                }
+                
+            }
+        }
+        else
+        {
+            self.title = "Error"
+            self.message = "Face ID is required to go to the QR code page"
+            self.alert.toggle()
+            return
+
+        }
+    }
+
 
 }
 

@@ -12,7 +12,8 @@ struct ResetPassword: View {
     @ObservedObject var viewModel = UserViewModel()
     @State var login = false
     @State var alert = false
-    @State var error = ""
+    @State var title = ""
+    @State var message = ""
     @State var confirmPassword = ""
     @Binding var codeP : String
     @State var visible = false
@@ -154,13 +155,11 @@ struct ResetPassword: View {
                                 }
                             }
                 
-
             }
             
             if self.alert
             {
-                
-                ErrorView(alert: self.$alert, error: self.$error)
+                PopupView(alert: self.$alert, title: self.$title, message: self.$message)
             }
 
         }
@@ -179,12 +178,14 @@ struct ResetPassword: View {
                                                         
                 onSuccess: {
                     login = true
-                    self.error = "Password Reset Successfully"
+                    self.title = "Information"
+                    self.message = "Password Reset Successfully"
                     self.alert.toggle()                    
                 },
                                         
                 onError: {
-                    self.error = "Error"
+                    self.message = "Error"
+                    self.message = "Server Error"
                     self.alert.toggle()
 
                 })
@@ -192,13 +193,15 @@ struct ResetPassword: View {
             }
             else
             {
-                self.error = "Password Mismatch"
+                self.message = "Error"
+                self.message = "Password Mismatch"
                 self.alert.toggle()
             }
         }
         else
         {
-            self.error = "Please fill all the contents properly"
+            self.message = "Error"
+            self.message = "Please fill all the contents properly"
             self.alert.toggle()
         }
             

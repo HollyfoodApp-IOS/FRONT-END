@@ -10,7 +10,10 @@
 		22E0DFC593289289E32B84B2 /* Pods_hollyfood.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B65FEED53BF6C061D261E78 /* Pods_hollyfood.framework */; };
 		EF09907A293EAC2C006785F8 /* AddToCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF099079293EAC2C006785F8 /* AddToCart.swift */; };
 		EF09907C293EFBF5006785F8 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF09907B293EFBF5006785F8 /* Order.swift */; };
-		EF17CC322932B5B1004CA27F /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF17CC312932B5B1004CA27F /* TabBar.swift */; };
+		EF15DEC22947BD0600ECC3FB /* EditPlate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF15DEC12947BD0600ECC3FB /* EditPlate.swift */; };
+		EF1E07A2294750B70055D7C7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E07A0294750B70055D7C7 /* ViewController.swift */; };
+		EF1E07A3294750B70055D7C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF1E07A1294750B70055D7C7 /* Main.storyboard */; };
+		EF1E07A5294751D20055D7C7 /* GoogleAuthentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E07A4294751D20055D7C7 /* GoogleAuthentification.swift */; };
 		EF1EA7DD292572E200E83D6A /* hollyfoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA7DC292572E200E83D6A /* hollyfoodApp.swift */; };
 		EF1EA7DF292572E200E83D6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA7DE292572E200E83D6A /* ContentView.swift */; };
 		EF1EA7E1292572E300E83D6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF1EA7E0292572E300E83D6A /* Assets.xcassets */; };
@@ -26,7 +29,6 @@
 		EF2518DD2927ECBA00F9DBD9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2518DC2927ECBA00F9DBD9 /* Profile.swift */; };
 		EF2518DF2927ECEE00F9DBD9 /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2518DE2927ECEE00F9DBD9 /* Restaurants.swift */; };
 		EF2518E12927ED0F00F9DBD9 /* MyRestaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2518E02927ED0F00F9DBD9 /* MyRestaurants.swift */; };
-		EF2518E529281CEC00F9DBD9 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF2518E429281CEC00F9DBD9 /* Storyboard.storyboard */; };
 		EF73D84C2933D26700493C41 /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73D84B2933D26700493C41 /* ChangePassword.swift */; };
 		EF77E74C292FD43D00ABEA9B /* ForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77E74B292FD43D00ABEA9B /* ForgotPassword.swift */; };
 		EF77E74E292FE89800ABEA9B /* ResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77E74D292FE89800ABEA9B /* ResetPassword.swift */; };
@@ -80,7 +82,10 @@
 		C3D0185CCF59D047465FB350 /* Pods-hollyfood.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hollyfood.release.xcconfig"; path = "Target Support Files/Pods-hollyfood/Pods-hollyfood.release.xcconfig"; sourceTree = "<group>"; };
 		EF099079293EAC2C006785F8 /* AddToCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCart.swift; sourceTree = "<group>"; };
 		EF09907B293EFBF5006785F8 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
-		EF17CC312932B5B1004CA27F /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		EF15DEC12947BD0600ECC3FB /* EditPlate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlate.swift; sourceTree = "<group>"; };
+		EF1E07A0294750B70055D7C7 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EF1E07A1294750B70055D7C7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		EF1E07A4294751D20055D7C7 /* GoogleAuthentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthentification.swift; sourceTree = "<group>"; };
 		EF1EA7D9292572E200E83D6A /* hollyfood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hollyfood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF1EA7DC292572E200E83D6A /* hollyfoodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hollyfoodApp.swift; sourceTree = "<group>"; };
 		EF1EA7DE292572E200E83D6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,7 +104,6 @@
 		EF2518DC2927ECBA00F9DBD9 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		EF2518DE2927ECEE00F9DBD9 /* Restaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
 		EF2518E02927ED0F00F9DBD9 /* MyRestaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRestaurants.swift; sourceTree = "<group>"; };
-		EF2518E429281CEC00F9DBD9 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		EF73D84B2933D26700493C41 /* ChangePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePassword.swift; sourceTree = "<group>"; };
 		EF77E74B292FD43D00ABEA9B /* ForgotPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassword.swift; sourceTree = "<group>"; };
 		EF77E74D292FE89800ABEA9B /* ResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassword.swift; sourceTree = "<group>"; };
@@ -242,17 +246,17 @@
 		EF1EA80B2925743700E83D6A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EF1E07A1294750B70055D7C7 /* Main.storyboard */,
+				EF1E07A0294750B70055D7C7 /* ViewController.swift */,
 				EF2518E02927ED0F00F9DBD9 /* MyRestaurants.swift */,
 				EF1EA8162925839400E83D6A /* Authentification.swift */,
 				EF2518DE2927ECEE00F9DBD9 /* Restaurants.swift */,
 				EF2518DC2927ECBA00F9DBD9 /* Profile.swift */,
-				EF2518E429281CEC00F9DBD9 /* Storyboard.storyboard */,
 				EFBAC424292BDA1B00F44908 /* EditProfile.swift */,
 				EF77E74B292FD43D00ABEA9B /* ForgotPassword.swift */,
 				EF88C6922930EAB6002600C2 /* VerifyAccount.swift */,
 				EF77E74D292FE89800ABEA9B /* ResetPassword.swift */,
 				EF77E74F292FF31900ABEA9B /* CodeVerification.swift */,
-				EF17CC312932B5B1004CA27F /* TabBar.swift */,
 				EF73D84B2933D26700493C41 /* ChangePassword.swift */,
 				EF84064C2935F6A6000C380D /* Tab.swift */,
 				EFEC600C2937D71200E34C58 /* Menu.swift */,
@@ -268,6 +272,8 @@
 				EFC01AE529439E8400928014 /* OrderRowView.swift */,
 				EFC08E0B2946198500971B61 /* OrderDetail.swift */,
 				EFC08E132946866B00971B61 /* MenuQRCode.swift */,
+				EF1E07A4294751D20055D7C7 /* GoogleAuthentification.swift */,
+				EF15DEC12947BD0600ECC3FB /* EditPlate.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -411,9 +417,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF1E07A3294750B70055D7C7 /* Main.storyboard in Resources */,
 				EF1EA7E4292572E300E83D6A /* Preview Assets.xcassets in Resources */,
 				EF1EA7E1292572E300E83D6A /* Assets.xcassets in Resources */,
-				EF2518E529281CEC00F9DBD9 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,17 +504,18 @@
 				EF84064D2935F6A6000C380D /* Tab.swift in Sources */,
 				EF94E205293BDFA200332CB2 /* CartViewModel.swift in Sources */,
 				EF1EA8112925747700E83D6A /* User.swift in Sources */,
+				EF1E07A2294750B70055D7C7 /* ViewController.swift in Sources */,
 				EFC01AE629439E8400928014 /* OrderRowView.swift in Sources */,
 				EF94E1FF293BC63E00332CB2 /* AddPlate.swift in Sources */,
 				EF73D84C2933D26700493C41 /* ChangePassword.swift in Sources */,
 				EF1EA7E9292572E300E83D6A /* hollyfood.xcdatamodeld in Sources */,
-				EF17CC322932B5B1004CA27F /* TabBar.swift in Sources */,
 				EF1EA80F2925746D00E83D6A /* UserViewModel.swift in Sources */,
 				EF09907A293EAC2C006785F8 /* AddToCart.swift in Sources */,
 				EFBAC425292BDA1B00F44908 /* EditProfile.swift in Sources */,
 				EFC01AE829439F6400928014 /* Restaurant.swift in Sources */,
 				EFC08E142946866B00971B61 /* MenuQRCode.swift in Sources */,
 				EF88C6932930EAB6002600C2 /* VerifyAccount.swift in Sources */,
+				EF15DEC22947BD0600ECC3FB /* EditPlate.swift in Sources */,
 				EF94E1FB293BC3B700332CB2 /* PlateViewModel.swift in Sources */,
 				EFEC600D2937D71200E34C58 /* Menu.swift in Sources */,
 				EFC01AE429439B4D00928014 /* OrderHistory.swift in Sources */,
@@ -517,6 +524,7 @@
 				EF77E74C292FD43D00ABEA9B /* ForgotPassword.swift in Sources */,
 				EF77E74E292FE89800ABEA9B /* ResetPassword.swift in Sources */,
 				EFC08E0C2946198500971B61 /* OrderDetail.swift in Sources */,
+				EF1E07A5294751D20055D7C7 /* GoogleAuthentification.swift in Sources */,
 				EFFC56EE2926C65F003D2134 /* Statics.swift in Sources */,
 				EFEC60132937D83900E34C58 /* CategoryButton.swift in Sources */,
 				EF1EA7DD292572E200E83D6A /* hollyfoodApp.swift in Sources */,

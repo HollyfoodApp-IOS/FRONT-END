@@ -10,7 +10,11 @@ import SwiftUI
 struct AddToCart: View {
     
     @EnvironmentObject var cartData: CartViewModel
+    @EnvironmentObject var plateViewModel: PlateViewModel
+
     @Binding var selectedPlate: Plate
+    @Binding var restaurantID: String
+
     @State var existedPlate : Bool = false
     @State var existedPlateIndex : Int = 0
 
@@ -94,12 +98,49 @@ struct AddToCart: View {
             }
             .cornerRadius(15)
             .padding(.bottom, 25)
-
             
+            NavigationLink(destination: EditPlate(restaurantID: $restaurantID, selectedPlate: $selectedPlate).environmentObject(plateViewModel).navigationBarBackButtonHidden(false)) {
+                Image(systemName: "square.and.pencil")
+                    .foregroundColor(.yellow)
+
+                Text("Edit Plate")
+                    .foregroundColor(.yellow)
+
+            }.padding(.top, 1)
+            
+            Button(action: {
+                
+                deletePlate()
+
+            }, label: {
+                Image(systemName: "delete.forward")
+                    .foregroundColor(.red)
+
+                Text("Delete Plate")
+                    .foregroundColor(.red)
+            }).padding(.top, 1)
+
+
+
         }
         .background(Color.white.clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 35)))
         
     }
+    
+    func deletePlate() {
+        
+        plateViewModel.deletePlate(id: selectedPlate.id, onSuccess:{
+            
+            plateViewModel.plates.removeAll { selectedPlate.id == $0.id }
+            
+            withAnimation(.easeInOut(duration: 0.7)){
+                cartData.deleteAnimation = true
+                cartData.startAnimation.toggle()
+            }
+
+        })
+    }
+
 
 }
 

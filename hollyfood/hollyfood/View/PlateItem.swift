@@ -20,7 +20,6 @@ struct PlateItem: View {
                 Text(String(format: "%.2f DT", plate.price))
                     .fontWeight(.heavy)
                     .foregroundColor(.black)
-                    //.matchedGeometryEffect(id: "price\(plate.price)", in: animation)
                     .padding(.vertical, 8)
                     .padding(.horizontal, 10)
                     .background(Color.white.opacity(0.5))
@@ -30,7 +29,6 @@ struct PlateItem: View {
             Image(plate.image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                //.matchedGeometryEffect(id: "image\(plate.id)", in: animation)
                 .padding(.top, 30)
                 .padding(.bottom)
                 .padding(.horizontal, 10)
@@ -38,7 +36,6 @@ struct PlateItem: View {
             Text(plate.name)
                 .fontWeight(.bold)
                 .foregroundColor(.black)
-                //.matchedGeometryEffect(id: "name\(plate.name)", in: animation)
                 .padding()
 
         }
@@ -46,7 +43,6 @@ struct PlateItem: View {
             Color("PrimaryColor")
                 .opacity(0.1)
                 .ignoresSafeArea()
-                //.matchedGeometryEffect(id: "color\(plate.id)", in: animation)
         )
         .cornerRadius(15)
 

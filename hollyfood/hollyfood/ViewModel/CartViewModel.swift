@@ -14,6 +14,7 @@ class CartViewModel: ObservableObject {
     
     @Published var showCart = false
     @Published var startAnimation = false
+    @Published var deleteAnimation = false
     @Published var imageAnimation = false
     @Published var showBag = false
     @Published var saveCart = false

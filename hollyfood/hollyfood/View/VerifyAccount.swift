@@ -11,8 +11,9 @@ struct VerifyAccount: View {
     
     @ObservedObject var viewModel = UserViewModel()
     @State var alert = false
-    @State var error = ""
-    
+    @State var title = ""
+    @State var message = ""
+
     var body: some View {
         NavigationView
         {
@@ -101,8 +102,7 @@ struct VerifyAccount: View {
                 
                 if self.alert
                 {
-                    
-                    ErrorView(alert: self.$alert, error: self.$error)
+                    PopupView(alert: self.$alert, title: self.$title, message: self.$message)
                 }
 
             }
@@ -117,14 +117,17 @@ struct VerifyAccount: View {
             viewModel.verifyAccount(email:viewModel.email, code:viewModel.verificationCode,
                                                     
             onSuccess: {
-                self.error = "Account Verified Successfully"
+                self.title = "Information"
+                self.message = "Account Verified Successfully"
                 self.alert.toggle()
                 viewModel.email = ""
                 viewModel.verificationCode = ""
             },
                                     
             onError: {
-                self.error = "Invalid Email or Code"
+                
+                self.title = "Error"
+                self.message = "Invalid Email or Code"
                 self.alert.toggle()
 
             })
@@ -132,7 +135,8 @@ struct VerifyAccount: View {
         }
         else
         {
-            self.error = "Please fill all the contents properly"
+            self.title = "Error"
+            self.message = "Please fill all the contents properly"
             self.alert.toggle()
         }
             
