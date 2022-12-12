@@ -7,7 +7,8 @@ target 'hollyfood' do
 
   # Pods for hollyfood
   pod 'Alamofire'
-
   pod 'GoogleSignIn'
+  pod 'FBSDKLoginKit'
+  pod 'GoogleSignInSwiftSupport'
 
 end
