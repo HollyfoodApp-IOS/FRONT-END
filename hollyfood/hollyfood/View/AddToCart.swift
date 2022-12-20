@@ -123,7 +123,7 @@ struct AddToCart: View {
 
 
         }
-        .background(Color.white.clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 35)))
+        .background(Color("LightColor").clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 35)))
         
     }
     

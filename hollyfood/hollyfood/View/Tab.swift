@@ -54,7 +54,7 @@ struct Main: View{
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             
             TabView(selection: $selectedTab){
-                Profile()
+                Settings()
                     .ignoresSafeArea(.all, edges: .all)
                     .tag("gearshape.fill")
                 Restaurants()

@@ -48,7 +48,7 @@ struct Menu: View {
                         Text("Menu")
                             .font(.largeTitle)
                             .fontWeight(.heavy)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("DarkColor"))
                         
                     })
                     .padding(.horizontal)
@@ -126,7 +126,7 @@ struct Menu: View {
                             Text(tab)
                                 .font(.system(size: 15))
                                 .fontWeight(.bold)
-                                .foregroundColor(selectedCategory == tab ? .white : .black)
+                                .foregroundColor(selectedCategory == tab ? Color("LightColor") : Color("DarkColor"))
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, selectedCategory == tab ? 20 : 0)
                                 .background(
@@ -271,7 +271,7 @@ struct Menu: View {
         }
         .navigationTitle("Menu")
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color.white.ignoresSafeArea())
+        //.background(Color("LightColor").ignoresSafeArea())
         .onChange(of: cartData.endAnimation, perform: { value in
             
             if cartData.endAnimation {

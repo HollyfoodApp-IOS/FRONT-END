@@ -17,6 +17,7 @@ struct ResetPassword: View {
     @State var confirmPassword = ""
     @Binding var codeP : String
     @State var visible = false
+    @State var visible2 = false
     @State var color = Color.black.opacity(0.7)
 
     
@@ -91,7 +92,7 @@ struct ResetPassword: View {
                                             
                                             VStack{
                                                 
-                                                if self.visible{
+                                                if self.visible2{
                                                     
                                                     TextField("Repeat New Password", text: $confirmPassword)
                                                         .autocapitalization(.none)
@@ -105,11 +106,11 @@ struct ResetPassword: View {
                                             
                                             Button(action: {
                                                 
-                                                self.visible.toggle()
+                                                self.visible2.toggle()
                                                 
                                             }) {
                                                 
-                                                Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
+                                                Image(systemName: self.visible2 ? "eye.slash.fill" : "eye.fill")
                                                     .foregroundColor(self.color)
                                             }
                                             

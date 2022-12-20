@@ -34,6 +34,9 @@ struct ChangePassword_Code: View {
     @State var confirmPassword:String = ""
     
     @State var visible = false
+    @State var visible2 = false
+    @State var visible3 = false
+
     @State var color = Color.black.opacity(0.7)
 
     var body: some View {
@@ -53,7 +56,7 @@ struct ChangePassword_Code: View {
                                         Text("Old Password")
                                             .font(.system(size: 18))
                                             .fontWeight(.bold)
-                                            .foregroundColor(.gray)
+                                            .foregroundColor(Color("GrayColor"))
                                             .padding(.top, 30)
                                         
                                         HStack(spacing: 15){
@@ -84,24 +87,24 @@ struct ChangePassword_Code: View {
                                             
                                         }
                                         .padding()
-                                        .background(Color.white)
+                                        .background(Color("LightColor"))
                                         .cornerRadius(5)
-                                        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                                        .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                                        .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                                        .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                         .font(.system(size: 20))
                                         
                                         
                                         Text("New Password")
                                             .font(.system(size: 18))
                                             .fontWeight(.bold)
-                                            .foregroundColor(.gray)
+                                            .foregroundColor(Color("GrayColor"))
                                             .padding(.top, 10)
                                         
                                         HStack(spacing: 15){
                                             
                                             VStack{
                                                 
-                                                if self.visible{
+                                                if self.visible2{
                                                     
                                                     TextField("Enter New Password", text: $newPassword)
                                                         .autocapitalization(.none)
@@ -115,33 +118,33 @@ struct ChangePassword_Code: View {
                                             
                                             Button(action: {
                                                 
-                                                self.visible.toggle()
+                                                self.visible2.toggle()
                                                 
                                             }) {
                                                 
-                                                Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
+                                                Image(systemName: self.visible2 ? "eye.slash.fill" : "eye.fill")
                                                     .foregroundColor(self.color)
                                             }
                                             
                                         }
                                         .padding()
-                                        .background(Color.white)
+                                        .background(Color("LightColor"))
                                         .cornerRadius(5)
-                                        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                                        .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                                        .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                                        .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                         .font(.system(size: 20))
                                         
                                         Text("Conifrm Password")
                                             .font(.system(size: 18))
                                             .fontWeight(.bold)
-                                            .foregroundColor(.gray)
+                                            .foregroundColor(Color("GrayColor"))
                                             .padding(.top, 10)
                                         
                                         HStack(spacing: 15){
                                             
                                             VStack{
                                                 
-                                                if self.visible{
+                                                if self.visible3{
                                                     
                                                     TextField("Repeat New Password", text: $confirmPassword)
                                                         .autocapitalization(.none)
@@ -155,20 +158,20 @@ struct ChangePassword_Code: View {
                                             
                                             Button(action: {
                                                 
-                                                self.visible.toggle()
+                                                self.visible3.toggle()
                                                 
                                             }) {
                                                 
-                                                Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
+                                                Image(systemName: self.visible3 ? "eye.slash.fill" : "eye.fill")
                                                     .foregroundColor(self.color)
                                             }
                                             
                                         }
                                         .padding()
-                                        .background(Color.white)
+                                        .background(Color("LightColor"))
                                         .cornerRadius(5)
-                                        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                                        .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                                        .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                                        .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                         .font(.system(size: 20))
 
 

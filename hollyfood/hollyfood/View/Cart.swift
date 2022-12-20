@@ -41,13 +41,13 @@ struct Cart: View {
                 HStack {
                     Text("Total")
                         .fontWeight(.heavy)
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color("GrayColor"))
 
                     Spacer()
                     Text(calculateTotalPrice())
                         .font(.title)
                         .fontWeight(.heavy)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("DarkColor"))
                 }
                 .padding([.top, .horizontal])
 
@@ -89,9 +89,9 @@ struct Cart: View {
                         .cornerRadius(15)
                 })
             }
-            .background(Color.white)
+            .background(Color("LightColor"))
         }
-        .background(Color.white.ignoresSafeArea())
+        .background(Color("LightColor").ignoresSafeArea())
         .navigationTitle("Cart")
         .navigationBarTitleDisplayMode(.inline)
 

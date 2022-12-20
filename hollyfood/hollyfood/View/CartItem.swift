@@ -66,7 +66,7 @@ struct CartItem: View {
                         }, label: {
                             Image(systemName: "minus")
                                 .font(.system(size: 16, weight: .heavy))
-                                .foregroundColor(.black)
+                                .foregroundColor(Color("DarkColor"))
                         })
 
                         Text("\(orderline.quantity)")
@@ -74,20 +74,20 @@ struct CartItem: View {
                             .foregroundColor(.black)
                             .padding(.vertical, 5)
                             .padding(.horizontal, 10)
-                            .background(Color.black.opacity(0.06))
+                            .background(Color("DarkColor").opacity(0.06))
 
                         Button(action: {
                             orderline.quantity += 1
                         }, label: {
                             Image(systemName: "plus")
                                 .font(.system(size: 16, weight: .heavy))
-                                .foregroundColor(.black)
+                                .foregroundColor(Color("DarkColor"))
                         })
                     }
                 })
             }
             .padding()
-            .background(Color.white)
+            .background(Color("LightColor"))
             .contentShape(Rectangle())
             .offset(x: orderline.offset)
             .gesture(

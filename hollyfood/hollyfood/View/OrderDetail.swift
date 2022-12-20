@@ -41,7 +41,7 @@ struct OrderDetail: View {
                             .foregroundColor(.black)*/
                         Text("Cancel")
                             .font(.title)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("DarkColor"))
 
 
                     })

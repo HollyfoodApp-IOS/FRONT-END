@@ -63,8 +63,8 @@ struct Home: View {
                         Text("Login")
                             .font(.system(size: 20))
                             .fontWeight(.bold)
-                            .foregroundColor(index == 0 ? .black : .gray)
-                        
+                            .foregroundColor(index == 0 ? Color("DarkColor") : Color("GrayColor"))
+
                         ZStack{
                             Capsule()
                                 .fill(Color.black.opacity(0.04))
@@ -90,7 +90,7 @@ struct Home: View {
                         Text("Sign Up")
                             .font(.system(size: 20))
                             .fontWeight(.bold)
-                            .foregroundColor(index == 1 ? .black : .gray)
+                            .foregroundColor(index == 1 ? Color("DarkColor") : Color("GrayColor"))
                         
                         ZStack{
                             Capsule()
@@ -129,7 +129,7 @@ struct Login: View{
     @ObservedObject var userViewModel = UserViewModel()
     @State private var isLogin = false
     @State var visible = false
-    @State var color = Color.black.opacity(0.7)
+    @State var color = Color("DarkColor").opacity(0.7)
     @State var alert = false
     @State var title = ""
     @State var message = ""
@@ -151,19 +151,19 @@ struct Login: View{
                             Text("Email")
                                 .font(.caption)
                                 .fontWeight(.bold)
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color("GrayColor"))
                             
                             TextField("Email", text: $userViewModel.email)
                                 .padding()
-                                .background(Color.white)
+                                .background(Color("LightColor"))
                                 .cornerRadius(5)
-                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                                .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                                .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                             
                             Text("Password")
                                 .font(.caption)
                                 .fontWeight(.bold)
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color("GrayColor"))
                             
                             HStack(spacing: 15){
                                 
@@ -193,11 +193,11 @@ struct Login: View{
                                 
                             }
                             .padding()
-                            .background(Color.white)
+                            .background(Color("LightColor"))
                             .cornerRadius(5)
-                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                            .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
-                            
+                            .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                            .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
+
                             HStack(spacing:125)
                             {
                                 NavigationLink(destination: ForgotPassword(), isActive: $forgotPassword){
@@ -261,7 +261,7 @@ struct Login: View{
                                     .font(.system(size: 26))
                                     .foregroundColor(Color("PrimaryColor"))
                                 
-                                Text("Other Ways To Login")
+                                Text("Login With Faceid")
                                     .font(.system(size: 20))
                                     .foregroundColor(Color("PrimaryColor"))
                                 
@@ -337,6 +337,7 @@ struct SignUp: View{
     @State var title = ""
     @State var message = ""
     @State var visible = false
+    @State var visible2 = false
     @State var color = Color.black.opacity(0.7)
     @State var selectedRole = ""
 
@@ -354,34 +355,34 @@ struct SignUp: View{
                             Text("Full Name")
                                 .font(.caption)
                                 .fontWeight(.bold)
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color("GrayColor"))
 
                             TextField("Full Name", text: $userViewModel.fullname)
                                 .padding()
-                                .background(Color.white)
+                                .background(Color("LightColor"))
                                 .cornerRadius(5)
-                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                                .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                                .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                 .font(.system(size: 12))
                             
                             Text("Email")
                                 .font(.caption)
                                 .fontWeight(.bold)
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color("GrayColor"))
 
                             TextField("Email", text: $userViewModel.email)
                                 .padding()
-                                .background(Color.white)
+                                .background(Color("LightColor"))
                                 .cornerRadius(5)
-                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                                .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                                .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                 .font(.system(size: 12))
                             
                             Text("Password")
                                 .font(.caption)
                                 .fontWeight(.bold)
-                                .foregroundColor(.gray)
-                            
+                                .foregroundColor(Color("GrayColor"))
+
                             HStack(spacing: 15){
                                 
                                 VStack{
@@ -410,22 +411,22 @@ struct SignUp: View{
                                 
                             }
                             .padding()
-                            .background(Color.white)
+                            .background(Color("LightColor"))
                             .cornerRadius(5)
-                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                            .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                            .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                            .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                             .font(.system(size: 12))
                             
                             Text("Confirm Password")
                                 .font(.caption)
                                 .fontWeight(.bold)
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color("GrayColor"))
 
                             HStack(spacing: 15){
                                 
                                 VStack{
                                     
-                                    if self.visible{
+                                    if self.visible2{
                                         
                                         TextField("Confirm Password", text: $confirmPassword)
                                             .autocapitalization(.none)
@@ -439,34 +440,34 @@ struct SignUp: View{
                                 
                                 Button(action: {
                                     
-                                    self.visible.toggle()
+                                    self.visible2.toggle()
                                     
                                 }) {
                                     
-                                    Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
+                                    Image(systemName: self.visible2 ? "eye.slash.fill" : "eye.fill")
                                         .foregroundColor(self.color)
                                 }
                                 
                             }
                             .padding()
-                            .background(Color.white)
+                            .background(Color("LightColor"))
                             .cornerRadius(5)
-                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                            .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                            .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                            .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                             .font(.system(size: 12))
 
                             
                             Text("Phone Number")
                                 .font(.caption)
                                 .fontWeight(.bold)
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color("GrayColor"))
 
                             TextField("Phone Number", text: $userViewModel.phone)
                                 .padding()
-                                .background(Color.white)
+                                .background(Color("LightColor"))
                                 .cornerRadius(5)
-                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                                .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                                .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                 .font(.system(size: 12))
                             
                         }
@@ -478,7 +479,7 @@ struct SignUp: View{
                             Text("Role")
                                  .font(.caption)
                                  .fontWeight(.bold)
-                                 .foregroundColor(.gray)
+                                 .foregroundColor(Color("GrayColor"))
 
                             Picker("Role: ", selection: $selectedRole){
                                 ForEach(roles, id: \.self)
@@ -599,7 +600,7 @@ struct SignUp: View{
 
 struct PopupView : View {
     
-    @State var color = Color.black.opacity(0.7)
+    @State var color = Color("DarkColor").opacity(0.7)
     @Binding var alert : Bool
     @Binding var title : String
     @Binding var message : String
@@ -644,12 +645,12 @@ struct PopupView : View {
             }
             .padding(.vertical, 25)
             .frame(width: UIScreen.main.bounds.width - 70)
-            .background(Color.white)
+            .background(Color("LightColor"))
             .cornerRadius(15)
         }
         .padding(.horizontal, 35)
         .padding(.top, 140)
-        .background(Color.black.opacity(0.35).edgesIgnoringSafeArea(.all))
+        .background(Color("DarkColor").opacity(0.35).edgesIgnoringSafeArea(.all))
     }
 }
 

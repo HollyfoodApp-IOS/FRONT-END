@@ -53,7 +53,7 @@ struct OrderRowView: View {
             })
         }
         .background(
-            Color(.white)
+            Color("LightColor")
                 .opacity(0.1)
                 .ignoresSafeArea()
                 .matchedGeometryEffect(id: "color\(order.id)", in: animation)

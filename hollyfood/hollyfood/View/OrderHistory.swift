@@ -30,10 +30,10 @@ struct OrderHistory: View {
                     (
                         Text("Order ")
                             .fontWeight(.bold)
-                            .foregroundColor(.primary)
+                            .foregroundColor(Color("DarkColor"))
                         +
                         Text("History")
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("GrayColor"))
                     )
                     .font(.largeTitle)
                     .padding()
@@ -47,13 +47,13 @@ struct OrderHistory: View {
                     HStack(spacing: 15) {
                         Image(systemName: "magnifyingglass")
                             .font(.system(size: 23, weight: .bold))
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("GrayColor"))
 
                         TextField("Search", text: $searchQuery)
                     }
                     .padding(.vertical, 10)
                     .padding(.horizontal)
-                    .background(Color.primary.opacity(0.05))
+                    .background(Color("DarkColor").opacity(0.05))
                     .cornerRadius(8)
                     .padding()
 
@@ -110,7 +110,7 @@ struct OrderHistory: View {
         }
         .navigationTitle("Order History")
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color.white.ignoresSafeArea())
+        //.background(Color.white.ignoresSafeArea())
 
     }
     
