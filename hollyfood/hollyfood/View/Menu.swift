@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LocalAuthentication
 
 struct Menu: View {
     
@@ -63,7 +62,22 @@ struct Menu: View {
 
                         Button(action: {
                             
-                            goToQRCodeFaceID()
+                            qrCodeText = restaurantName+" Menu"
+                            
+                            plateViewModel.plates.forEach{ plate in
+                                
+                                qrCodeText += " "
+                                qrCodeText += "\n*Plate \(i)"
+                                qrCodeText += "\nPlate Name: "+plate.name
+                                qrCodeText += "\nPlate Category: "+plate.category
+                                qrCodeText += "\nPlate Price: "+String(format: "%.2f DT", plate.price)+" DT"
+
+                                i+=1
+                            }
+                            
+                            i=1
+                            
+                            goToQRCode = true;
                             
                         }, label: {
                             Image(systemName: "qrcode.viewfinder")
@@ -296,50 +310,6 @@ struct Menu: View {
         })
 
     }
-    
-    func goToQRCodeFaceID(){
-        
-        let context = LAContext()
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error){
-            
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "This is for security reasons"){ success,
-                AuthentificationError in
-                
-                if success{
-                    
-                    qrCodeText = restaurantName+" Menu"
-                    
-                    plateViewModel.plates.forEach{ plate in
-                        
-                        qrCodeText += " "
-                        qrCodeText += "\n*Plate \(i)"
-                        qrCodeText += "\nPlate Name: "+plate.name
-                        qrCodeText += "\nPlate Category: "+plate.category
-                        qrCodeText += "\nPlate Price: "+String(format: "%.2f DT", plate.price)+" DT"
-
-                        i+=1
-                    }
-                    
-                    i=1
-                    
-                    goToQRCode = true;
-
-                }
-                
-            }
-        }
-        else
-        {
-            self.title = "Error"
-            self.message = "Face ID is required to go to the QR code page"
-            self.alert.toggle()
-            return
-
-        }
-    }
-
 
 }
 

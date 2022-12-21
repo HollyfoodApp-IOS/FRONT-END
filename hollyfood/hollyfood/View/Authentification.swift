@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GoogleSignIn
+import LocalAuthentication
 
 struct Authentification: View {
     
@@ -135,6 +136,8 @@ struct Login: View{
     @State var message = ""
     @State var forgotPassword = false
     @State var verifyAccount = false
+    @AppStorage("lastUserEmail") var lastUserEmail: String = ""
+    @AppStorage("lastUserPassword") var lastUserPassword: String = ""
 
     var body : some View{
         
@@ -254,14 +257,14 @@ struct Login: View{
                         }
                         
                         Button(action: {
-                            
+                            loginWithFaceID()
                         }) {
                             HStack(spacing: 35){
                                 Image(systemName: "faceid")
                                     .font(.system(size: 26))
                                     .foregroundColor(Color("PrimaryColor"))
                                 
-                                Text("Login With Faceid")
+                                Text("Login With FaceID")
                                     .font(.system(size: 20))
                                     .foregroundColor(Color("PrimaryColor"))
                                 
@@ -313,6 +316,8 @@ struct Login: View{
                 }
                 else
                 {
+                    lastUserEmail = userViewModel.email
+                    lastUserPassword = userViewModel.password
                     isLogin = true
                 }
                 
@@ -326,7 +331,47 @@ struct Login: View{
         }
     }
     
-    
+    func loginWithFaceID(){
+        
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error){
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "This is for security reasons"){ success,
+                AuthentificationError in
+                
+                if success{
+                    
+                    if lastUserEmail != "" && lastUserPassword != ""
+                    {
+                        userViewModel.LogIn(email: lastUserEmail , password: lastUserPassword, onSuccess: {(message) in
+                                isLogin = true
+                        })
+
+                    }
+                    else
+                    {
+                        self.title = "Error"
+                        self.message = "No user has previously logged in"
+                        self.alert.toggle()
+                        return
+
+                    }
+                }
+                
+            }
+        }
+        else
+        {
+            self.title = "Error"
+            self.message = "Phone does not have biometrics"
+            self.alert.toggle()
+            return
+
+        }
+    }
+
 }
 
 struct SignUp: View{
