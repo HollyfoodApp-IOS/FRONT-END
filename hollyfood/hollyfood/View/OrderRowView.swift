@@ -16,6 +16,11 @@ struct OrderRowView: View {
     
     @ObservedObject var orderViewModel = OrderViewModel()
     
+    @ObservedObject var translation = Translation()
+    @State var Order_Date : String = ""
+    @State var Order_Price : String = ""
+    @State var DT : String = ""
+
     var animation: Namespace.ID
 
     var body: some View {
@@ -29,10 +34,11 @@ struct OrderRowView: View {
                 .matchedGeometryEffect(id: "image\(order.id)", in: animation)
 
             VStack(alignment: .leading, spacing: 8, content: {
-                Text("Date: "+order.createdAt.prefix(10))
+                Text(Order_Date+": "+order.createdAt.prefix(10))
                     .fontWeight(.bold)
                 
-                Text("Price: "+String(format: "%.2f DT", order.price))
+
+                Text(String(format: "\(Order_Price): %.2f \(DT)", order.price))
                     .font(.caption)
                     .foregroundColor(.gray)
             })
@@ -59,6 +65,13 @@ struct OrderRowView: View {
                 .matchedGeometryEffect(id: "color\(order.id)", in: animation)
         )
         .padding(.horizontal)
+        .onAppear(perform: {
+            translation.Translate()
+            Order_Date = translation.Order_Date
+            Order_Price = translation.Order_Price
+            DT = translation.DT
+        })
+
     }
     
     func deleteOrderRow() {

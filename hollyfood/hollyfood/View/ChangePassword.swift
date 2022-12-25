@@ -37,8 +37,24 @@ struct ChangePassword_Code: View {
     @State var visible2 = false
     @State var visible3 = false
 
-    @State var color = Color.black.opacity(0.7)
+    @State var color = Color("DarkColor").opacity(0.7)
+    
+    @ObservedObject var translation = Translation()
+    @State var Old_Password : String = ""
+    @State var Enter_Old_Password : String = ""
+    @State var New_Password : String = ""
+    @State var Enter_New_Password : String = ""
+    @State var Conifrm_Password : String = ""
+    @State var Repeat_New_Password : String = ""
+    @State var Error : String = ""
+    @State var Message : String = ""
+    @State var Wrong_password : String = ""
+    @State var Password_changed_successfully : String = ""
+    @State var Change_Password : String = ""
+    @State var confirmPasswordVerification : String = ""
+    @State var fieldsEmptyMessage : String = ""
 
+    
     var body: some View {
         ZStack{
             
@@ -53,7 +69,7 @@ struct ChangePassword_Code: View {
                                     VStack(alignment: .leading, spacing: 10){
                                         
 
-                                        Text("Old Password")
+                                        Text(Old_Password)
                                             .font(.system(size: 18))
                                             .fontWeight(.bold)
                                             .foregroundColor(Color("GrayColor"))
@@ -65,12 +81,12 @@ struct ChangePassword_Code: View {
                                                 
                                                 if self.visible{
                                                     
-                                                    TextField("Enter Old Password", text: $oldPassword)
+                                                    TextField(Enter_Old_Password, text: $oldPassword)
                                                         .autocapitalization(.none)
                                                 }
                                                 else{
                                                     
-                                                    SecureField("Enter Old Password", text: $oldPassword)
+                                                    SecureField(Enter_Old_Password, text: $oldPassword)
                                                         .autocapitalization(.none)
                                                 }
                                             }
@@ -94,7 +110,7 @@ struct ChangePassword_Code: View {
                                         .font(.system(size: 20))
                                         
                                         
-                                        Text("New Password")
+                                        Text(New_Password)
                                             .font(.system(size: 18))
                                             .fontWeight(.bold)
                                             .foregroundColor(Color("GrayColor"))
@@ -106,12 +122,12 @@ struct ChangePassword_Code: View {
                                                 
                                                 if self.visible2{
                                                     
-                                                    TextField("Enter New Password", text: $newPassword)
+                                                    TextField(Enter_New_Password, text: $newPassword)
                                                         .autocapitalization(.none)
                                                 }
                                                 else{
                                                     
-                                                    SecureField("Enter New Password", text: $newPassword)
+                                                    SecureField(Enter_New_Password, text: $newPassword)
                                                         .autocapitalization(.none)
                                                 }
                                             }
@@ -134,7 +150,7 @@ struct ChangePassword_Code: View {
                                         .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                         .font(.system(size: 20))
                                         
-                                        Text("Conifrm Password")
+                                        Text(Conifrm_Password)
                                             .font(.system(size: 18))
                                             .fontWeight(.bold)
                                             .foregroundColor(Color("GrayColor"))
@@ -146,12 +162,12 @@ struct ChangePassword_Code: View {
                                                 
                                                 if self.visible3{
                                                     
-                                                    TextField("Repeat New Password", text: $confirmPassword)
+                                                    TextField(Repeat_New_Password, text: $confirmPassword)
                                                         .autocapitalization(.none)
                                                 }
                                                 else{
                                                     
-                                                    SecureField("Repeat New Password", text: $confirmPassword)
+                                                    SecureField(Repeat_New_Password, text: $confirmPassword)
                                                         .autocapitalization(.none)
                                                 }
                                             }
@@ -185,16 +201,17 @@ struct ChangePassword_Code: View {
                                     })
                                     {
                                         
-                                        Text("Change Password")
+                                        Text(Change_Password)
                                             .font(.system(size: 20))
                                             .foregroundColor(.white)
                                             .fontWeight(.bold)
                                             .padding(.vertical)
                                             .frame(width: UIScreen.main.bounds.width - 50)
                                             .background(
-                                                LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("PrimaryColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                                Color("PrimaryColor")
+                                                //LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("LightColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
                                             )
-                                        
+
                                     }
                                     .cornerRadius(8)
                                     .padding(.horizontal, 25)
@@ -214,8 +231,25 @@ struct ChangePassword_Code: View {
             }
 
         }
-        .navigationTitle("Change Password")
+        .navigationTitle(Change_Password)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear(perform: {
+            translation.Translate()
+            Old_Password = translation.Old_Password
+            Enter_Old_Password = translation.Enter_Old_Password
+            New_Password = translation.New_Password
+            Enter_New_Password = translation.Enter_New_Password
+            Conifrm_Password = translation.Conifrm_Password
+            Repeat_New_Password = translation.Repeat_New_Password
+            Wrong_password = translation.Wrong_password
+            Password_changed_successfully = translation.Password_changed_successfully
+            Error = translation.Error
+            Message = translation.Message
+            Change_Password = translation.Change_Password
+            confirmPasswordVerification = translation.confirmPasswordVerification
+            fieldsEmptyMessage = translation.fieldsEmptyMessage
+
+        })
 
     }
     
@@ -229,17 +263,17 @@ struct ChangePassword_Code: View {
                                          
                 onSuccess: { (message) in
                     
-                    if message == "Wrong Password"
+                    if message == "Wrong password"
                     {
-                        self.title = "Error"
+                        self.title = Error
                         self.message = message
                         self.alert.toggle()
                         return
                     }
                     else
                     {
-                        self.title = "Information"
-                        self.message = "Password Changed Successfully"
+                        self.title = Message
+                        self.message = "Password changed successfully"
                         self.alert.toggle()
                         
                         oldPassword = ""
@@ -250,8 +284,8 @@ struct ChangePassword_Code: View {
                 },
                                         
                 onError: {
-                    self.title = "Error"
-                    self.message = "Server Error"
+                    self.title = Error
+                    self.message = "Server error"
                     self.alert.toggle()
                     return
                 })
@@ -259,18 +293,17 @@ struct ChangePassword_Code: View {
             }
             else
             {
-                self.title = "Error"
-                self.message = "Password and Confirm Password fields must be exactly the same"
+                self.title = Error
+                self.message = confirmPasswordVerification
                 self.alert.toggle()
                 return
             }
         }
         else
         {
-            self.title = "Error"
-            self.message = "Please fill all the contents properly"
+            self.title = Error
+            self.message = fieldsEmptyMessage
             self.alert.toggle()
-            return
         }
             
     }

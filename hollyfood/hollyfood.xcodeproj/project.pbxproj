@@ -28,6 +28,7 @@
 		EF1EA8172925839400E83D6A /* Authentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1EA8162925839400E83D6A /* Authentification.swift */; };
 		EF2518DF2927ECEE00F9DBD9 /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2518DE2927ECEE00F9DBD9 /* Restaurants.swift */; };
 		EF2518E12927ED0F00F9DBD9 /* MyRestaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2518E02927ED0F00F9DBD9 /* MyRestaurants.swift */; };
+		EF502E802954791300CE6B5F /* Translation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF502E7F2954791300CE6B5F /* Translation.swift */; };
 		EF73D84C2933D26700493C41 /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73D84B2933D26700493C41 /* ChangePassword.swift */; };
 		EF77E74C292FD43D00ABEA9B /* ForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77E74B292FD43D00ABEA9B /* ForgotPassword.swift */; };
 		EF77E74E292FE89800ABEA9B /* ResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77E74D292FE89800ABEA9B /* ResetPassword.swift */; };
@@ -103,6 +104,7 @@
 		EF1EA8162925839400E83D6A /* Authentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentification.swift; sourceTree = "<group>"; };
 		EF2518DE2927ECEE00F9DBD9 /* Restaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
 		EF2518E02927ED0F00F9DBD9 /* MyRestaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRestaurants.swift; sourceTree = "<group>"; };
+		EF502E7F2954791300CE6B5F /* Translation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translation.swift; sourceTree = "<group>"; };
 		EF73D84B2933D26700493C41 /* ChangePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePassword.swift; sourceTree = "<group>"; };
 		EF77E74B292FD43D00ABEA9B /* ForgotPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassword.swift; sourceTree = "<group>"; };
 		EF77E74D292FE89800ABEA9B /* ResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassword.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				EF1E07A4294751D20055D7C7 /* GoogleAuthentification.swift */,
 				EF15DEC12947BD0600ECC3FB /* EditPlate.swift */,
 				EFE98A6F29520BB200C27FCD /* Settings.swift */,
+				EF502E7F2954791300CE6B5F /* Translation.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = EF1EA7D0292572E200E83D6A;
 			productRefGroup = EF1EA7DA292572E200E83D6A /* Products */;
@@ -514,6 +518,7 @@
 				EFC01AE829439F6400928014 /* Restaurant.swift in Sources */,
 				EFC08E142946866B00971B61 /* MenuQRCode.swift in Sources */,
 				EF88C6932930EAB6002600C2 /* VerifyAccount.swift in Sources */,
+				EF502E802954791300CE6B5F /* Translation.swift in Sources */,
 				EF15DEC22947BD0600ECC3FB /* EditPlate.swift in Sources */,
 				EF94E1FB293BC3B700332CB2 /* PlateViewModel.swift in Sources */,
 				EFEC600D2937D71200E34C58 /* Menu.swift in Sources */,

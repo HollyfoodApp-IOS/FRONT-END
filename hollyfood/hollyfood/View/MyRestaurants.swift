@@ -17,12 +17,17 @@ struct MyRestaurants: View {
     @State var restaurant : String = "639644dd4e82d5cf69df69de"
     @State var restaurantName : String = "Comme Chez Toi"
     @State var type : String = "restaurant"
-    
+
+    @ObservedObject var translation = Translation()
+    @State var My_Restaurants : String = ""
+    @State var See_Menu : String = ""
+    @State var See_Orders : String = ""
 
     var body: some View {
-        
+    
         VStack{
-            Text("My Restaurant")
+            
+            Text(My_Restaurants)
             
             NavigationLink(destination: Menu(restaurant: $restaurant, restaurantName: $restaurantName).navigationBarBackButtonHidden(false), isActive: $goToMenu) {
                 
@@ -30,7 +35,7 @@ struct MyRestaurants: View {
                     goToMenu=true
                 })
                 {
-                    Text("See Menu")
+                    Text(See_Menu)
                         .font(.system(size: 20))
                         .foregroundColor(.white)
                         .fontWeight(.bold)
@@ -47,17 +52,14 @@ struct MyRestaurants: View {
                 
             }.padding()
             
-            NavigationLink(destination:
-            //rderHistory()
-           OrderHistory(type: $type, id: $restaurant)
-            //dd()
+            NavigationLink(destination: OrderHistory(type: $type, id: $restaurant)
                 .navigationBarBackButtonHidden(false), isActive: $goToOrderHistory) {
                 
                 Button(action: {
                     goToOrderHistory=true
                 })
                 {
-                    Text("See Orders")
+                    Text(See_Orders)
                         .font(.system(size: 20))
                         .foregroundColor(.white)
                         .fontWeight(.bold)
@@ -73,8 +75,16 @@ struct MyRestaurants: View {
 
             }.padding()
 
-
         }
+        .onAppear(perform: {
+            
+            translation.Translate()
+            My_Restaurants = translation.My_Restaurants
+            See_Menu = translation.See_Menu
+            See_Orders = translation.See_Orders
+
+        })
+
     }
 }
 

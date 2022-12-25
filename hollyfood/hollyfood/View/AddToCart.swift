@@ -19,6 +19,14 @@ struct AddToCart: View {
     @State var existedPlateIndex : Int = 0
 
     var animation: Namespace.ID
+    
+    @ObservedObject var translation = Translation()
+    @State var Category : String = ""
+    @State var Price : String = ""
+    @State var Add_To_Cart : String = ""
+    @State var Edit_Plate : String = ""
+    @State var Delete_Plate : String = ""
+    @State var DT : String = ""
 
     var body: some View{
         
@@ -37,17 +45,17 @@ struct AddToCart: View {
                 VStack(alignment: .trailing, spacing: 10, content: {
                     Text(selectedPlate.name)
                         .fontWeight(.semibold)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("DarkColor"))
                         .multilineTextAlignment(.trailing)
                     
-                    Text("Category: "+selectedPlate.category)
+                    Text(selectedPlate.category)
                         .fontWeight(.semibold)
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color("GrayColor"))
                         .multilineTextAlignment(.trailing)
 
-                    Text("Price: "+String(format: "%.2f DT", selectedPlate.price))
+                    Text(String(format: "\(Price): %.2f \(DT)", selectedPlate.price))
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("DarkColor"))
                 })
                 .padding()
             }
@@ -86,7 +94,7 @@ struct AddToCart: View {
                 print("CART COUNT == \(cartData.cart.count)")
             })
             {
-                Text("ADD TO CART")
+                Text(Add_To_Cart)
                     .font(.system(size: 20))
                     .foregroundColor(.white)
                     .fontWeight(.bold)
@@ -103,7 +111,7 @@ struct AddToCart: View {
                 Image(systemName: "square.and.pencil")
                     .foregroundColor(.yellow)
 
-                Text("Edit Plate")
+                Text(Edit_Plate)
                     .foregroundColor(.yellow)
 
             }.padding(.top, 1)
@@ -116,7 +124,7 @@ struct AddToCart: View {
                 Image(systemName: "delete.forward")
                     .foregroundColor(.red)
 
-                Text("Delete Plate")
+                Text(Delete_Plate)
                     .foregroundColor(.red)
             }).padding(.top, 1)
 
@@ -124,7 +132,18 @@ struct AddToCart: View {
 
         }
         .background(Color("LightColor").clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 35)))
-        
+        .onAppear(perform: {
+            
+            translation.Translate()
+            Category = translation.Category
+            Price = translation.Price
+            Add_To_Cart = translation.Add_To_Cart
+            Edit_Plate = translation.Edit_Plate
+            Delete_Plate = translation.Delete_Plate
+            DT = translation.DT
+
+        })
+
     }
     
     func deletePlate() {

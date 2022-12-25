@@ -22,6 +22,19 @@ struct OrderDetail: View {
 
     @State var fullname : String = ""
     @State var phone : String = ""
+    
+    @ObservedObject var translation = Translation()
+    @State var Cancel : String = ""
+    @State var Client : String = ""
+    @State var Phone_Number : String = ""
+    @State var Order_Date : String = ""
+    @State var Plate_Name : String = ""
+    @State var Category : String = ""
+    @State var Price : String = ""
+    @State var Quantity : String = ""
+    @State var DT : String = ""
+    @State var Total_Price : String = ""
+
 
     var body: some View {
         
@@ -39,7 +52,7 @@ struct OrderDetail: View {
                         /*Image(systemName: "chevron.left")
                             .font(.title)
                             .foregroundColor(.black)*/
-                        Text("Cancel")
+                        Text(Cancel)
                             .font(.title)
                             .foregroundColor(Color("DarkColor"))
 
@@ -59,16 +72,16 @@ struct OrderDetail: View {
                         .frame(width: 200)
                         .padding()
                     
-                    Text("Client: "+fullname)
+                    Text(Client+": "+fullname)
                         .font(.title)
                         .fontWeight(.heavy)
                         .foregroundColor(.black)
                     
-                    Text("Phone Number: "+phone)
+                    Text(Phone_Number+": "+phone)
                         .foregroundColor(.gray)
                         .padding(.top, 10)
 
-                    Text("Order Date: "+selectedOrder.createdAt.prefix(10))
+                    Text(Order_Date+": "+selectedOrder.createdAt.prefix(10))
                         .foregroundColor(.gray)
                         .padding(.top, 3)
                         .padding(.bottom,10)
@@ -96,7 +109,9 @@ struct OrderDetail: View {
 
                         ForEach(orderlineViewModel.orderlines) { orderline in
                             
-                            Text("* Plate Name: \(orderline.plateName), Category:  \(orderline.plateCategory), Quantity: \(orderline.quantity), Price: "+String(format: "%.2f DT", orderline.price)+".")
+                            Text(
+                                "* \(Plate_Name): \(orderline.plateName), \(Category):  \(orderline.plateCategory), \(Quantity): \(orderline.quantity), \(Price): "+String(format: "%.2f \(DT)", orderline.price)+"."
+                            )
                                 .foregroundColor(.white)
                         }
 
@@ -106,7 +121,7 @@ struct OrderDetail: View {
                     .background(Color("SecondaryColor"))
                     .cornerRadius(15)
                     
-                    Text("Total Price: "+String(format: "%.2f DT", selectedOrder.price))
+                    Text(String(format: "\(Total_Price): %.2f \(DT)", selectedOrder.price))
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .padding(.vertical)
@@ -141,6 +156,19 @@ struct OrderDetail: View {
             withAnimation(Animation.spring().delay(0.45)) {
                 loadContent.toggle()
             }
+            
+            translation.Translate()
+            Cancel = translation.Cancel
+            Client = translation.Client
+            Phone_Number = translation.Phone_Number
+            Order_Date = translation.Order_Date
+            Plate_Name = translation.Plate_Name
+            Category = translation.Category
+            Price = translation.Price
+            Quantity = translation.Quantity
+            DT = translation.DT
+            Total_Price = translation.Total_Price
+
         })
     }
 }

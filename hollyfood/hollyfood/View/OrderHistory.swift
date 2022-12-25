@@ -19,6 +19,13 @@ struct OrderHistory: View {
     @Namespace var animation
     
     @ObservedObject var orderViewModel = OrderViewModel()
+    
+    @ObservedObject var translation = Translation()
+    @State var Order : String = ""
+    @State var History : String = ""
+    @State var Search : String = ""
+    @State var ORDERS : String = ""
+    @State var Order_History : String = ""
 
     var body: some View {
                 
@@ -28,11 +35,11 @@ struct OrderHistory: View {
                 
                 HStack{
                     (
-                        Text("Order ")
+                        Text(Order)
                             .fontWeight(.bold)
                             .foregroundColor(Color("DarkColor"))
                         +
-                        Text("History")
+                        Text(" "+History)
                             .foregroundColor(Color("GrayColor"))
                     )
                     .font(.largeTitle)
@@ -49,7 +56,7 @@ struct OrderHistory: View {
                             .font(.system(size: 23, weight: .bold))
                             .foregroundColor(Color("GrayColor"))
 
-                        TextField("Search", text: $searchQuery)
+                        TextField(Search, text: $searchQuery)
                     }
                     .padding(.vertical, 10)
                     .padding(.horizontal)
@@ -59,7 +66,7 @@ struct OrderHistory: View {
 
                         
                     HStack {
-                        Text("ORDERS")
+                        Text(ORDERS)
                             .font(.caption)
                             .fontWeight(.semibold)
                             .foregroundColor(.gray)
@@ -108,9 +115,18 @@ struct OrderHistory: View {
 
 
         }
-        .navigationTitle("Order History")
+        .navigationTitle(Order_History)
         .navigationBarTitleDisplayMode(.inline)
         //.background(Color.white.ignoresSafeArea())
+        .onAppear(perform: {
+            translation.Translate()
+            Order = translation.Order
+            History = translation.History
+            Search = translation.Search
+            ORDERS = translation.ORDERS
+            Order_History = translation.Order_History
+
+        })
 
     }
     

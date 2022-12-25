@@ -17,6 +17,20 @@ struct AddPlate: View {
     @State var selectedCategory : String = "Pizza"
     @State var price : Float = 0
 
+    @ObservedObject var translation = Translation()
+    @State var Plate_Name : String = ""
+    @State var Enter_Plate_Name : String = ""
+    @State var Price : String = ""
+    @State var Enter_Plate_Price : String = ""
+    @State var Category : String = ""
+    @State var Add_Plate : String = ""
+    @State var Error : String = ""
+    @State var Message : String = ""
+    @State var plateNameVerification : String = ""
+    @State var Plate_price_invalid : String = ""
+    @State var Plate_Added_Successfully : String = ""
+    @State var fieldsEmptyMessage : String = ""
+
     var body: some View {
         
         ZStack{
@@ -32,13 +46,13 @@ struct AddPlate: View {
                             VStack(alignment: .leading, spacing: 10){
                                 
                                 
-                                Text("Name")
+                                Text(Plate_Name)
                                     .font(.system(size: 18))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color("GrayColor"))
                                     .padding(.top, 30)
                                 
-                                TextField("Enter Plate Name", text: $plateViewModel.name)
+                                TextField(Enter_Plate_Name, text: $plateViewModel.name)
                                     .padding()
                                     .background(Color("LightColor"))
                                     .cornerRadius(5)
@@ -46,13 +60,13 @@ struct AddPlate: View {
                                     .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                     .font(.system(size: 20))
                                 
-                                Text("Price")
+                                Text(Price)
                                     .font(.system(size: 18))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color("GrayColor"))
                                     .padding(.top, 10)
                                 
-                                TextField("Enter Plate Price", text: $plateViewModel.price)
+                                TextField(Enter_Plate_Price, text: $plateViewModel.price)
                                     .padding()
                                     .background(Color("LightColor"))
                                     .cornerRadius(5)
@@ -61,7 +75,7 @@ struct AddPlate: View {
                                     .font(.system(size: 20))
 
                                 
-                                Text("Category")
+                                Text(Category)
                                     .font(.system(size: 18))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color("GrayColor"))
@@ -114,8 +128,8 @@ struct AddPlate: View {
                                 self.verify()
                             })
                             {
-                                
-                                Text("Add Plate")
+                            
+                                Text(Add_Plate)
                                     .font(.system(size: 20))
                                     .foregroundColor(.white)
                                     .fontWeight(.bold)
@@ -130,6 +144,22 @@ struct AddPlate: View {
                             .padding(.horizontal, 25)
                             .padding(.top, 25)
                         }
+                        .onAppear(perform: {
+                            translation.Translate()
+                            Plate_Name = translation.Plate_Name
+                            Enter_Plate_Name = translation.Enter_Plate_Name
+                            Price = translation.Price
+                            Enter_Plate_Price = translation.Enter_Plate_Price
+                            Category = translation.Category
+                            Add_Plate = translation.Add_Plate
+                            Error = translation.Error
+                            Message = translation.Message
+                            plateNameVerification = translation.plateNameVerification
+                            Plate_price_invalid = translation.Plate_price_invalid
+                            Plate_Added_Successfully = translation.Plate_Added_Successfully
+                            fieldsEmptyMessage = translation.fieldsEmptyMessage
+                        })
+
                     }
                 }
             }
@@ -140,7 +170,7 @@ struct AddPlate: View {
             }
             
         }
-        .navigationTitle("Add Plate")
+        .navigationTitle(Add_Plate)
         .navigationBarTitleDisplayMode(.inline)
     }
     
@@ -149,8 +179,8 @@ struct AddPlate: View {
         if plateViewModel.name != "" && plateViewModel.price != "" {
             
             if plateViewModel.name.count < 4 {
-                self.title = "Error"
-                self.message = "The plate name must be at least 4 letters"
+                self.title = Error
+                self.message = plateNameVerification
                 self.alert.toggle()
                 return
             }
@@ -159,8 +189,8 @@ struct AddPlate: View {
             
             if price == 0 {
                 
-                self.title = "Error"
-                self.message = "Plate price invalid"
+                self.title = Error
+                self.message = Plate_price_invalid
                 self.alert.toggle()
                 return
             }
@@ -168,8 +198,8 @@ struct AddPlate: View {
             
             plateViewModel.addPlate(plate: Plate(id:"", name: plateViewModel.name, category: selectedCategory, price: price, image: selectedCategory, restaurant: restaurant), onSuccess: {
                 
-                self.title = "Information"
-                self.message = "Plate Added Successfully!"
+                self.title = Message
+                self.message = Plate_Added_Successfully
                 self.alert.toggle()
                 plateViewModel.name = ""
                 plateViewModel.price = ""
@@ -185,10 +215,9 @@ struct AddPlate: View {
         }
         
         else {
-            self.title = "Error"
-            self.message = "Please fill all the contents properly"
+            self.title = Error
+            self.message = fieldsEmptyMessage
             self.alert.toggle()
-            
         }
 
     }

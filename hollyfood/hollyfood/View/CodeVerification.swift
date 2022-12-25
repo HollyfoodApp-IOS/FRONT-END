@@ -28,6 +28,15 @@ struct CodeVerificationHome: View {
     @State var message = ""
     @State var code = ""
     
+    @ObservedObject var translation = Translation()
+    @State var Enter_your_password_reset_code_to_reset_your_password : String = ""
+    @State var Enter_Code : String = ""
+    @State var Reset_Password : String = ""
+    @State var Code_Verification : String = ""
+    @State var Error : String = ""
+    @State var fieldsEmptyMessage : String = ""
+    @State var Wrong_code : String = ""
+
     var body: some View {
         
         ZStack{
@@ -49,18 +58,18 @@ struct CodeVerificationHome: View {
                                     VStack(alignment: .leading, spacing: 15){
                                         
 
-                                        Text("Enter your password reset code to reset your password")
+                                        Text(Enter_your_password_reset_code_to_reset_your_password)
                                             .font(.system(size: 18))
                                             .fontWeight(.bold)
-                                            .foregroundColor(.gray)
+                                            .foregroundColor(Color("GrayColor"))
                                             .padding(.top, 120)
                                         
-                                        TextField("Code", text: $viewModel.resetPasswordCode)
+                                        TextField(Enter_Code, text: $viewModel.resetPasswordCode)
                                             .padding()
-                                            .background(Color.white)
+                                            .background(Color("LightColor"))
                                             .cornerRadius(5)
-                                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                                            .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                                            .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                                            .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                             .font(.system(size: 20))
 
                                         
@@ -76,23 +85,24 @@ struct CodeVerificationHome: View {
                                         })
                                         {
                                             
-                                            Text("Reset Password")
+                                            Text(Reset_Password)
                                                 .font(.system(size: 20))
                                                 .foregroundColor(.white)
                                                 .fontWeight(.bold)
                                                 .padding(.vertical)
                                                 .frame(width: UIScreen.main.bounds.width - 50)
                                                 .background(
-                                                    LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("PrimaryColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                                    Color("PrimaryColor")
+                                                    //LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("LightColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
                                                 )
-                                            
+
                                         }
                                         .cornerRadius(8)
                                         .padding(.horizontal, 25)
                                         .padding(.top, 25)
                                         
                                     }
-                                    .navigationTitle("Code Verification")
+                                    .navigationTitle(Code_Verification)
                                     
                                     }
                                 }
@@ -105,8 +115,19 @@ struct CodeVerificationHome: View {
                 PopupView(alert: self.$alert, title: self.$title, message: self.$message)
             }
         }
-        .navigationTitle("Code Verification")
+        .navigationTitle(Code_Verification)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear(perform: {
+            translation.Translate()
+            Enter_your_password_reset_code_to_reset_your_password = translation.Enter_your_password_reset_code_to_reset_your_password
+            Enter_Code = translation.Enter_Code
+            Reset_Password = translation.Reset_Password
+            Code_Verification = translation.Code_Verification
+            Error = translation.Error
+            fieldsEmptyMessage = translation.fieldsEmptyMessage
+            Wrong_code = translation.Wrong_code
+
+        })
 
     }
     
@@ -122,15 +143,15 @@ struct CodeVerificationHome: View {
             },
                                     
             onError: {
-                self.title = "Error"
-                self.message = "Wrong Code"
+                self.title = Error
+                self.message = Wrong_code
                 self.alert.toggle()
             })
         }
         else
         {
-            self.title = "Error"
-            self.message = "Please fill all the contents properly"
+            self.title = Error
+            self.message = fieldsEmptyMessage
             self.alert.toggle()
         }
             

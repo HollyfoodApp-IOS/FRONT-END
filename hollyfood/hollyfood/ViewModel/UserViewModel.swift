@@ -15,7 +15,6 @@ class UserViewModel: ObservableObject {
     var email : String = ""
     var password : String = ""
     var phone : String = ""
-    var address : String = ""
     var role : String = ""
     var resetPasswordCode : String = ""
     var verificationCode : String = ""
@@ -55,7 +54,7 @@ class UserViewModel: ObservableObject {
                         print("Phone is: \(phone )")
                         print("Role is: \(role )")
 
-                        Self.session = User(id: id, fullname: fullname, email: email, password: "", phone: phone, address: "", role: role)
+                        Self.session = User(id: id, fullname: fullname, email: email, password: "", phone: phone, role: role)
                     }
 
                     onSuccess(message)
@@ -74,7 +73,6 @@ class UserViewModel: ObservableObject {
             "email": user.email,
             "password": user.password,
             "phone": user.phone,
-            "address": user.address,
             "role" : user.role
         ]
         AF.request(Statics.URL+"user/register",
@@ -210,7 +208,7 @@ class UserViewModel: ObservableObject {
                         print("Phone is: \(phone )")
                         print("Role is: \(role )")
                         
-                        Self.session = User(id: id, fullname: fullname, email: email, password: "", phone: phone, address: "", role: role)
+                        Self.session = User(id: id, fullname: fullname, email: email, password: "", phone: phone, role: role)
 
 
                     }
@@ -273,7 +271,7 @@ class UserViewModel: ObservableObject {
                 let role = response.object(forKey: "role") as? String ?? ""
 
                 //print(JSON)
-                let user = User(id: id, fullname: fullname, email: email, password: "", phone: phone, address: "", role: role)
+                let user = User(id: id, fullname: fullname, email: email, password: "", phone: phone, role: role)
                 
                 print("fullname is: "+user.fullname)
 

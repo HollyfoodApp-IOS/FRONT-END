@@ -26,6 +26,17 @@ struct ForgotPassword_Code: View {
     @State var alert = false
     @State var title = ""
     @State var message = ""
+    
+    @ObservedObject var translation = Translation()
+    @State var Forgot_Password : String = ""
+    @State var Enter_your_email_to_recieve_a_password_reset_code : String = ""
+    @State var Enter_Email : String = ""
+    @State var Send : String = ""
+    @State var Error : String = ""
+    @State var Message : String = ""
+    @State var Password_reset_code_has_been_sent_successfully : String = ""
+    @State var User_not_found : String = ""
+    @State var fieldsEmptyMessage : String = ""
 
     var body: some View {
                 
@@ -47,18 +58,18 @@ struct ForgotPassword_Code: View {
                                     
                                     VStack(alignment: .leading, spacing: 15){
                                         
-                                        Text("Enter your email to recieve a password reset code")
+                                        Text(Enter_your_email_to_recieve_a_password_reset_code)
                                             .font(.system(size: 18))
                                             .fontWeight(.bold)
-                                            .foregroundColor(.gray)
+                                            .foregroundColor(Color("GrayColor"))
                                             .padding(.top, 120)
                                         
-                                        TextField("Email", text: $viewModel.email)
+                                        TextField(Enter_Email, text: $viewModel.email)
                                             .padding()
-                                            .background(Color.white)
+                                            .background(Color("LightColor"))
                                             .cornerRadius(5)
-                                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                                            .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: -5)
+                                            .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
+                                            .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                             .font(.system(size: 20))
                                         
 
@@ -74,16 +85,17 @@ struct ForgotPassword_Code: View {
                                         })
                                         {
                                             
-                                            Text("Send")
+                                            Text(Send)
                                                 .font(.system(size: 20))
                                                 .foregroundColor(.white)
                                                 .fontWeight(.bold)
                                                 .padding(.vertical)
                                                 .frame(width: UIScreen.main.bounds.width - 50)
                                                 .background(
-                                                    LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("PrimaryColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                                    Color("PrimaryColor")
+                                                    //LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("LightColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
                                                 )
-                                            
+
                                         }
                                         .cornerRadius(8)
                                         .padding(.horizontal, 25)
@@ -91,7 +103,7 @@ struct ForgotPassword_Code: View {
                                         
                                         
                                     }
-                                    .navigationTitle("Forgot Password")
+                                    .navigationTitle(Forgot_Password)
                                     
                                 }
                             }
@@ -105,8 +117,21 @@ struct ForgotPassword_Code: View {
             }
 
         }
-        .navigationTitle("Forgot Password")
+        .navigationTitle(Forgot_Password)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear(perform: {
+            translation.Translate()
+            Forgot_Password = translation.Forgot_Password
+            Enter_your_email_to_recieve_a_password_reset_code = translation.Enter_your_email_to_recieve_a_password_reset_code
+            Enter_Email = translation.Enter_Email
+            Send = translation.Send
+            Error = translation.Error
+            Message = translation.Message
+            Password_reset_code_has_been_sent_successfully = translation.Password_reset_code_has_been_sent_successfully
+            User_not_found = translation.User_not_found
+            fieldsEmptyMessage = translation.fieldsEmptyMessage
+
+        })
 
         
     }
@@ -120,22 +145,22 @@ struct ForgotPassword_Code: View {
             onSuccess: {
                 codeVerification=true
                 
-                self.title = "Information"
-                self.message = "Password reset code has been sent successfully"
+                self.title = Message
+                self.message = Password_reset_code_has_been_sent_successfully
                 self.alert.toggle()
             },
                                     
             onError: {
                 
-                self.title = "Error"
-                self.message = "User Not Found"
+                self.title = Error
+                self.message = User_not_found
                 self.alert.toggle()
             })
         }
         else
         {
-            self.title = "Error"
-            self.message = "Please fill all the contents properly"
+            self.title = Error
+            self.message = fieldsEmptyMessage
             self.alert.toggle()
         }
             

@@ -9,16 +9,23 @@ import SwiftUI
 
 struct Tab: View {
     
-        
+    @ObservedObject var translation = Translation()
+    @State var back : String = ""
+
     var body: some View {
         
         NavigationView()
         {
             Main()
-                .navigationTitle("Back")
+                .navigationTitle(back)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarHidden(true)
         }
+        .onAppear(perform: {
+            translation.Translate()
+            back = translation.back
+        })
+
 
         
     }
@@ -54,6 +61,7 @@ struct Main: View{
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             
             TabView(selection: $selectedTab){
+            
                 Settings()
                     .ignoresSafeArea(.all, edges: .all)
                     .tag("gearshape.fill")

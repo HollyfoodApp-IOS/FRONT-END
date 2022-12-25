@@ -13,16 +13,22 @@ struct Authentification: View {
     
     @State private var unlocked = false
     
+    @ObservedObject var translation = Translation()
+    @State var back : String = ""
+
     var body: some View {
                 
         NavigationView()
         {
             Home()
-                .navigationTitle("Back")
+                .navigationTitle(back)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarHidden(true)
         }
-
+        .onAppear(perform: {
+            translation.Translate()
+            back = translation.back
+        })
     }
 }
 
@@ -36,6 +42,10 @@ struct Home: View {
     @State var index = 0
     @Namespace var name
     
+    @ObservedObject var translation = Translation()
+    @State var Login : String = ""
+    @State var Sign_Up : String = ""
+
     var body: some View {
         
         VStack{
@@ -61,7 +71,7 @@ struct Home: View {
                     }
                 }){
                     VStack{
-                        Text("Login")
+                        Text(Login)
                             .font(.system(size: 20))
                             .fontWeight(.bold)
                             .foregroundColor(index == 0 ? Color("DarkColor") : Color("GrayColor"))
@@ -88,7 +98,7 @@ struct Home: View {
                     }
                 }){
                     VStack{
-                        Text("Sign Up")
+                        Text(Sign_Up)
                             .font(.system(size: 20))
                             .fontWeight(.bold)
                             .foregroundColor(index == 1 ? Color("DarkColor") : Color("GrayColor"))
@@ -112,7 +122,7 @@ struct Home: View {
             .padding(.top, 30)
             
             if(index == 0){
-                Login()
+                hollyfood.Login()
             }
             else
             {
@@ -121,7 +131,13 @@ struct Home: View {
             
             Spacer()
         }
-        
+        .onAppear(perform: {
+            
+            translation.Translate()
+            Login = translation.Login
+            Sign_Up = translation.Sign_Up
+        })
+
     }
 }
 
@@ -138,6 +154,22 @@ struct Login: View{
     @State var verifyAccount = false
     @AppStorage("lastUserEmail") var lastUserEmail: String = ""
     @AppStorage("lastUserPassword") var lastUserPassword: String = ""
+    
+    @ObservedObject var translation = Translation()
+    @State var Login : String = ""
+    @State var Email : String = ""
+    @State var Enter_Email : String = ""
+    @State var Password : String = ""
+    @State var Enter_Password : String = ""
+    @State var Forgot_Password : String = ""
+    @State var Verify_Account : String = ""
+    @State var Login_With_FaceID : String = ""
+    @State var Error : String = ""
+    @State var Invalid_email_or_password : String = ""
+    @State var Account_not_verified_yet : String = ""
+    @State var fieldsEmptyMessage : String = ""
+    @State var No_user_has_previously_logged_in : String = ""
+    @State var There_is_no_Face_ID_saved_in_the_phone : String = ""
 
     var body : some View{
         
@@ -151,19 +183,19 @@ struct Login: View{
                         
                         VStack(alignment: .leading, spacing: 15){
                             
-                            Text("Email")
+                            Text(Email)
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("GrayColor"))
                             
-                            TextField("Email", text: $userViewModel.email)
+                            TextField(Enter_Email , text: $userViewModel.email)
                                 .padding()
                                 .background(Color("LightColor"))
                                 .cornerRadius(5)
                                 .shadow(color: Color("DarkColor").opacity(0.1), radius: 5, x: 0, y: 5)
                                 .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                             
-                            Text("Password")
+                            Text(Password)
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("GrayColor"))
@@ -174,12 +206,12 @@ struct Login: View{
                                     
                                     if self.visible{
                                         
-                                        TextField("Password", text: $userViewModel.password)
+                                        TextField(Enter_Password, text: $userViewModel.password)
                                             .autocapitalization(.none)
                                     }
                                     else{
                                         
-                                        SecureField("Password", text: $userViewModel.password)
+                                        SecureField(Enter_Password, text: $userViewModel.password)
                                             .autocapitalization(.none)
                                     }
                                 }
@@ -206,7 +238,7 @@ struct Login: View{
                                 NavigationLink(destination: ForgotPassword(), isActive: $forgotPassword){
                                   
                                     Button(action: { forgotPassword=true }) {
-                                        Text("Forgot Password")
+                                        Text(Forgot_Password)
                                             .font(.system(size: 14))
                                             .fontWeight(.bold)
                                             .foregroundColor(Color("PrimaryColor"))
@@ -218,7 +250,7 @@ struct Login: View{
                                 NavigationLink(destination: VerifyAccount(), isActive: $verifyAccount){
                                     
                                     Button(action: {verifyAccount=true }) {
-                                        Text("Verify Account")
+                                        Text(Verify_Account)
                                             .font(.system(size: 14))
                                             .fontWeight(.bold)
                                             .foregroundColor(Color("PrimaryColor"))
@@ -239,14 +271,15 @@ struct Login: View{
                                 self.verify()
                             })
                             {
-                                Text("Login")
+                                Text(Login)
                                     .font(.system(size: 20))
                                     .foregroundColor(.white)
                                     .fontWeight(.bold)
                                     .padding(.vertical)
                                     .frame(width: UIScreen.main.bounds.width - 50)
                                     .background(
-                                        LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("PrimaryColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                        Color("PrimaryColor")
+                                        //LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("LightColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
                                     )
                                 
                             }
@@ -264,7 +297,7 @@ struct Login: View{
                                     .font(.system(size: 26))
                                     .foregroundColor(Color("PrimaryColor"))
                                 
-                                Text("Login With FaceID")
+                                Text(Login_With_FaceID)
                                     .font(.system(size: 20))
                                     .foregroundColor(Color("PrimaryColor"))
                                 
@@ -277,6 +310,26 @@ struct Login: View{
                         .padding(.top, 30)
                                                 
                     }
+                    .onAppear(perform: {
+                        
+                        translation.Translate()
+                        Login = translation.Login
+                        Email = translation.Email
+                        Enter_Email = translation.Enter_Email
+                        Password = translation.Password
+                        Enter_Password = translation.Enter_Password
+                        Forgot_Password = translation.Forgot_Password
+                        Verify_Account = translation.Verify_Account
+                        Login_With_FaceID = translation.Login_With_FaceID
+                        Error = translation.Error
+                        Invalid_email_or_password = translation.Invalid_email_or_password
+                        Account_not_verified_yet = translation.Account_not_verified_yet
+                        fieldsEmptyMessage = translation.fieldsEmptyMessage
+                        No_user_has_previously_logged_in = translation.No_user_has_previously_logged_in
+                        There_is_no_Face_ID_saved_in_the_phone = translation.There_is_no_Face_ID_saved_in_the_phone
+
+                    })
+
                 }
             }
             
@@ -298,18 +351,18 @@ struct Login: View{
             userViewModel.LogIn(email: userViewModel.email , password: userViewModel.password, onSuccess: {(message) in
                 
                 print("Message is "+message)
-                if(message == "Invalid Email Or Password")
+                if(message == "Invalid email or password")
                 {
-                    self.title = "Error"
-                    self.message = "Invalid email or password"
+                    self.title = Error
+                    self.message = Invalid_email_or_password
                     self.alert.toggle()
                     print(isLogin)
                     return
                 }
-                else if(message == "Account Not Verified Yet")
+                else if(message == "Account not verified yet")
                 {
-                    self.title = "Information"
-                    self.message = "Account Not Verified Yet"
+                    self.title = Error
+                    self.message = Account_not_verified_yet
                     self.alert.toggle()
                     print(isLogin)
                     return
@@ -325,8 +378,8 @@ struct Login: View{
 
         }
         else{
-            self.title = "Error"
-            self.message = "Please fill all the contents properly"
+            self.title = Error
+            self.message = fieldsEmptyMessage
             self.alert.toggle()
         }
     }
@@ -352,8 +405,8 @@ struct Login: View{
                     }
                     else
                     {
-                        self.title = "Error"
-                        self.message = "No user has previously logged in"
+                        self.title = Error
+                        self.message = No_user_has_previously_logged_in
                         self.alert.toggle()
                         return
 
@@ -364,8 +417,8 @@ struct Login: View{
         }
         else
         {
-            self.title = "Error"
-            self.message = "Phone does not have biometrics"
+            self.title = Error
+            self.message = There_is_no_Face_ID_saved_in_the_phone
             self.alert.toggle()
             return
 
@@ -373,6 +426,7 @@ struct Login: View{
     }
 
 }
+
 
 struct SignUp: View{
     
@@ -383,12 +437,35 @@ struct SignUp: View{
     @State var message = ""
     @State var visible = false
     @State var visible2 = false
-    @State var color = Color.black.opacity(0.7)
+    @State var color = Color("DarkColor").opacity(0.7)
     @State var selectedRole = ""
+    
+    @ObservedObject var translation = Translation()
+    @State var Full_Name : String = ""
+    @State var Enter_Full_Name : String = ""
+    @State var Email : String = ""
+    @State var Enter_Email : String = ""
+    @State var Password : String = ""
+    @State var Enter_Password : String = ""
+    @State var Confirm_Password : String = ""
+    @State var Phone_Number : String = ""
+    @State var Enter_Phone_Number : String = ""
+    @State var Role : String = ""
+    @State var Sign_Up : String = ""
+    @State var Error : String = ""
+    @State var Message : String = ""
+    @State var fullNameVerification : String = ""
+    @State var passwordVerification : String = ""
+    @State var confirmPasswordVerification : String = ""
+    @State var phoneNumberVerification : String = ""
+    @State var roleVerification: String = ""
+    @State var accountCreatedMessage : String = ""
+    @State var fieldsEmptyMessage : String = ""
 
     var body : some View{
         
         ZStack{
+            
             ZStack(alignment: .topTrailing) {
                 
                 GeometryReader{_ in
@@ -397,12 +474,12 @@ struct SignUp: View{
     
                         VStack(alignment: .leading, spacing: 8){
                             
-                            Text("Full Name")
+                            Text(Full_Name)
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("GrayColor"))
 
-                            TextField("Full Name", text: $userViewModel.fullname)
+                            TextField(Enter_Full_Name, text: $userViewModel.fullname)
                                 .padding()
                                 .background(Color("LightColor"))
                                 .cornerRadius(5)
@@ -410,12 +487,12 @@ struct SignUp: View{
                                 .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                 .font(.system(size: 12))
                             
-                            Text("Email")
+                            Text(Email)
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("GrayColor"))
 
-                            TextField("Email", text: $userViewModel.email)
+                            TextField(Enter_Email, text: $userViewModel.email)
                                 .padding()
                                 .background(Color("LightColor"))
                                 .cornerRadius(5)
@@ -423,7 +500,7 @@ struct SignUp: View{
                                 .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                 .font(.system(size: 12))
                             
-                            Text("Password")
+                            Text(Password)
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("GrayColor"))
@@ -434,12 +511,12 @@ struct SignUp: View{
                                     
                                     if self.visible{
                                         
-                                        TextField("Password", text: $userViewModel.password)
+                                        TextField(Enter_Password, text: $userViewModel.password)
                                             .autocapitalization(.none)
                                     }
                                     else{
                                         
-                                        SecureField("Password", text: $userViewModel.password)
+                                        SecureField(Enter_Password, text: $userViewModel.password)
                                             .autocapitalization(.none)
                                     }
                                 }
@@ -462,7 +539,7 @@ struct SignUp: View{
                             .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                             .font(.system(size: 12))
                             
-                            Text("Confirm Password")
+                            Text(Confirm_Password)
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("GrayColor"))
@@ -473,12 +550,12 @@ struct SignUp: View{
                                     
                                     if self.visible2{
                                         
-                                        TextField("Confirm Password", text: $confirmPassword)
+                                        TextField(Confirm_Password, text: $confirmPassword)
                                             .autocapitalization(.none)
                                     }
                                     else{
                                         
-                                        SecureField("Confirm Password", text: $confirmPassword)
+                                        SecureField(Confirm_Password, text: $confirmPassword)
                                             .autocapitalization(.none)
                                     }
                                 }
@@ -502,12 +579,12 @@ struct SignUp: View{
                             .font(.system(size: 12))
 
                             
-                            Text("Phone Number")
+                            Text(Phone_Number)
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("GrayColor"))
 
-                            TextField("Phone Number", text: $userViewModel.phone)
+                            TextField(Enter_Phone_Number, text: $userViewModel.phone)
                                 .padding()
                                 .background(Color("LightColor"))
                                 .cornerRadius(5)
@@ -521,12 +598,12 @@ struct SignUp: View{
                         
                         VStack(alignment: .leading)
                         {
-                            Text("Role")
+                            Text(Role)
                                  .font(.caption)
                                  .fontWeight(.bold)
                                  .foregroundColor(Color("GrayColor"))
 
-                            Picker("Role: ", selection: $selectedRole){
+                            Picker(Role, selection: $selectedRole){
                                 ForEach(roles, id: \.self)
                                 { role in
                                     Text(role)
@@ -543,14 +620,15 @@ struct SignUp: View{
                             })
                             {
                                 
-                                Text("Sign Up")
+                                Text(Sign_Up)
                                     .font(.system(size: 20))
                                     .foregroundColor(.white)
                                     .fontWeight(.bold)
                                     .padding(.vertical)
                                     .frame(width: UIScreen.main.bounds.width - 50)
                                     .background(
-                                        LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("PrimaryColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                        Color("PrimaryColor")
+                                        //LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("LightColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
                                     )
                                 
                             }
@@ -559,6 +637,31 @@ struct SignUp: View{
                             .padding(.top, 25)
                         
                     }
+                    .onAppear(perform: {
+                        
+                        translation.Translate()
+                        Full_Name = translation.Full_Name
+                        Enter_Full_Name = translation.Enter_Full_Name
+                        Email = translation.Enter_Email
+                        Enter_Email = translation.Enter_Email
+                        Password = translation.Password
+                        Enter_Password = translation.Enter_Password
+                        Confirm_Password = translation.Confirm_Password
+                        Phone_Number = translation.Phone_Number
+                        Enter_Phone_Number = translation.Enter_Phone_Number
+                        Role = translation.Role
+                        Sign_Up = translation.Sign_Up
+                        Error = translation.Error
+                        Message = translation.Message
+                        fullNameVerification = translation.fullNameVerification
+                        passwordVerification = translation.passwordVerification
+                        confirmPasswordVerification = translation.confirmPasswordVerification
+                        phoneNumberVerification = translation.phoneNumberVerification
+                        roleVerification = translation.roleVerification
+                        accountCreatedMessage = translation.accountCreatedMessage
+                        fieldsEmptyMessage = translation.fieldsEmptyMessage
+
+                    })
 
                 }
 
@@ -579,48 +682,48 @@ struct SignUp: View{
             
             if userViewModel.fullname.count < 3 {
                 
-                self.title = "Error"
-                self.message = "The full name must be at least 4 letters"
+                self.title = Error
+                self.message = fullNameVerification
                 self.alert.toggle()
                 return
             }
             
             if userViewModel.password.count < 3 {
                 
-                self.title = "Error"
-                self.message = "The password name must be at least 4 letters"
+                self.title = Error
+                self.message = passwordVerification
                 self.alert.toggle()
                 return
             }
             
             if userViewModel.phone.count != 8 {
                 
-                self.title = "Error"
-                self.message = "The phone number is invalid"
+                self.title = Error
+                self.message = phoneNumberVerification
                 self.alert.toggle()
                 return
             }
                         
             if userViewModel.password != confirmPassword {
                 
-                self.title = "Error"
-                self.message = "Password and Confirm Password fields must be exactly the same"
+                self.title = Error
+                self.message = confirmPasswordVerification
                 self.alert.toggle()
                 return
             }
                 
             if selectedRole == "" {
                 
-                self.title = "Error"
-                self.message = "Role Is Required"
+                self.title = Error
+                self.message =  roleVerification
                 self.alert.toggle()
                 return
             }
 
-            userViewModel.SignUp(user: User(id: "", fullname: userViewModel.fullname, email:userViewModel.email, password: userViewModel.password, phone: userViewModel.phone, address: "", role: selectedRole), onSuccess: {
+            userViewModel.SignUp(user: User(id: "", fullname: userViewModel.fullname, email:userViewModel.email, password: userViewModel.password, phone: userViewModel.phone, role: selectedRole), onSuccess: {
                 
-                self.title = "Information"
-                self.message = "Your account has been created successfully!"
+                self.title = Message
+                self.message = accountCreatedMessage
                 self.alert.toggle()
                 userViewModel.fullname = ""
                 userViewModel.email = ""
@@ -634,8 +737,8 @@ struct SignUp: View{
         }
         else{
             
-            self.title = "Error"
-            self.message = "Please fill all the contents properly"
+            self.title = Error
+            self.message = fieldsEmptyMessage
             self.alert.toggle()
         }
     }

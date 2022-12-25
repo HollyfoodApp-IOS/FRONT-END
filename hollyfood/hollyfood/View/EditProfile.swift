@@ -31,7 +31,22 @@ struct EditProfile_Code:  View {
     @State var email:String = UserViewModel.session?.email ?? ""
     @State var phone:String = UserViewModel.session?.phone ?? ""
     @State var role:String = UserViewModel.session?.role ?? ""
-    
+
+    @ObservedObject var translation = Translation()
+    @State var Full_Name : String = ""
+    @State var Enter_Full_Name : String = ""
+    @State var Email : String = ""
+    @State var Enter_Email : String = ""
+    @State var Phone_Number : String = ""
+    @State var Enter_Phone_Number : String = ""
+    @State var Edit_Profile : String = ""
+    @State var Error : String = ""
+    @State var Message : String = ""
+    @State var Email_already_exist : String = ""
+    @State var Profile_updated_successfully : String = ""
+    @State var fieldsEmptyMessage : String = ""
+
+
     var body: some View {
         
         ZStack{
@@ -47,13 +62,13 @@ struct EditProfile_Code:  View {
                                     VStack(alignment: .leading, spacing: 10){
                                         
 
-                                        Text("Full Name")
+                                        Text(Full_Name)
                                             .font(.system(size: 18))
                                             .fontWeight(.bold)
                                             .foregroundColor(Color("GrayColor"))
                                             .padding(.top, 30)
                                         
-                                        TextField("Full Name", text: $fullname)
+                                        TextField(Enter_Full_Name, text: $fullname)
                                             .padding()
                                             .background(Color("LightColor"))
                                             .cornerRadius(5)
@@ -61,13 +76,13 @@ struct EditProfile_Code:  View {
                                             .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                             .font(.system(size: 20))
                                         
-                                        Text("Email")
+                                        Text(Email)
                                             .font(.system(size: 18))
                                             .fontWeight(.bold)
                                             .foregroundColor(Color("GrayColor"))
                                             .padding(.top, 10)
                                         
-                                        TextField("Email", text: $email)
+                                        TextField(Enter_Email, text: $email)
                                             .padding()
                                             .background(Color("LightColor"))
                                             .cornerRadius(5)
@@ -75,13 +90,13 @@ struct EditProfile_Code:  View {
                                             .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                             .font(.system(size: 20))
                                         
-                                        Text("Phone Number")
+                                        Text(Phone_Number)
                                             .font(.system(size: 18))
                                             .fontWeight(.bold)
                                             .foregroundColor(Color("GrayColor"))
                                             .padding(.top, 10)
                                         
-                                        TextField("Phone Number", text: $phone)
+                                        TextField(Enter_Phone_Number, text: $phone)
                                             .padding()
                                             .background(Color("LightColor"))
                                             .cornerRadius(5)
@@ -100,7 +115,7 @@ struct EditProfile_Code:  View {
                                     })
                                     {
                                         
-                                        Text("Edit Profile")
+                                        Text(Edit_Profile)
                                             .font(.system(size: 20))
                                             .foregroundColor(.white)
                                             .fontWeight(.bold)
@@ -129,7 +144,23 @@ struct EditProfile_Code:  View {
             }
 
         }
-        .navigationTitle("Edit Profile")
+        .onAppear(perform: {
+            translation.Translate()
+            Full_Name = translation.Full_Name
+            Enter_Full_Name = translation.Enter_Full_Name
+            Email = translation.Email
+            Enter_Email = translation.Enter_Email
+            Phone_Number = translation.Phone_Number
+            Enter_Phone_Number = translation.Enter_Phone_Number
+            Edit_Profile = translation.Edit_Profile
+            Error = translation.Error
+            Message = translation.Message
+            Email_already_exist = translation.Email_already_exist
+            Profile_updated_successfully = translation.Profile_updated_successfully
+            fieldsEmptyMessage = translation.fieldsEmptyMessage
+
+        })
+        .navigationTitle(Edit_Profile)
         .navigationBarTitleDisplayMode(.inline)
         
     }
@@ -141,12 +172,13 @@ struct EditProfile_Code:  View {
             
             viewModel.editProfile(id: id, fullname:fullname, email:email, phone:phone, onSuccess: {(message) in
                 
-                if message == "Email Already Exist"
+                if message == "Email already exist"
                 {
-                    self.title = "Error"
-                    self.message = message
+                    self.title = Error
+                    self.message = Email_already_exist
                     self.alert.toggle()
                     return
+
                 }
                 else
                 {
@@ -157,8 +189,8 @@ struct EditProfile_Code:  View {
                     phone = UserViewModel.session?.phone ?? ""
                     role = UserViewModel.session?.role ?? ""
                     
-                    self.title = "Information"
-                    self.message = "Profile Updated Successfully"
+                    self.title = Message
+                    self.message = Profile_updated_successfully
     
                     self.alert.toggle()
 
@@ -169,8 +201,8 @@ struct EditProfile_Code:  View {
         }
         else{
             
-            self.title = "Error"
-            self.message = "Please fill all the contents properly"
+            self.title = Error
+            self.message = fieldsEmptyMessage
             self.alert.toggle()
 
         }

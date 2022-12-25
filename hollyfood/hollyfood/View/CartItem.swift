@@ -11,6 +11,10 @@ struct CartItem: View {
     
     @Binding var orderline: Orderline
     @Binding var cart: [Orderline]
+    
+    @ObservedObject var translation = Translation()
+    @State var Category : String = ""
+    @State var Price : String = ""
 
     var body: some View {
         
@@ -47,15 +51,15 @@ struct CartItem: View {
                         .fontWeight(.semibold)
                         .foregroundColor(.black)
 
-                    Text("Category: "+orderline.plateCategory)
+                    Text("\(Category): "+orderline.plateCategory)
                         .fontWeight(.semibold)
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color("GrayColor"))
 
                     HStack(spacing: 15) {
-                        Text("Price: \(getPrice(value:orderline.price))")
+                        Text("\(Price): \(getPrice(value:orderline.price))")
                             .font(.title2)
                             .fontWeight(.heavy)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("DarkColor"))
 
                         Spacer(minLength: 0)
 
@@ -97,6 +101,13 @@ struct CartItem: View {
             )
 
         }
+        .onAppear(perform: {
+            translation.Translate()
+            Category = translation.Category
+            Price = translation.Price
+
+        })
+
     }
     
     func onChanged(value: DragGesture.Value) {

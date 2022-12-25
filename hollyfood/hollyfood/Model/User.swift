@@ -14,17 +14,15 @@ struct User {
     var email : String
     var password : String
     var phone : String
-    var address : String
     var role : String
  
-    init(id: String, fullname: String, email: String, password: String, phone: String, address: String, role: String) {
+    init(id: String, fullname: String, email: String, password: String, phone: String, role: String) {
         
         self.id = id
         self.fullname = fullname
         self.email = email
         self.password = password
         self.phone = phone
-        self.address = address
         self.role = role
     }
 }
@@ -36,7 +34,6 @@ struct UserDataModel: Decodable {
     var email : String
     var password : String
     var phone : String
-    var address : String
     var role : String
     
     enum CodingKeys: String, CodingKey {
@@ -46,7 +43,6 @@ struct UserDataModel: Decodable {
         case email
         case password
         case phone
-        case address
         case role
     }
 }

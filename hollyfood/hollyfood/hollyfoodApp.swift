@@ -13,6 +13,7 @@ struct hollyfoodApp: App {
     let persistenceController = PersistenceController.shared
     
     @AppStorage("isDarkMode") var isDarkMode: Bool = false
+    @AppStorage("language") var language: String = "EN"
 
     var body: some Scene {
         WindowGroup {

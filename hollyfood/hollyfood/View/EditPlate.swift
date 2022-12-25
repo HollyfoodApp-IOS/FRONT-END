@@ -18,6 +18,20 @@ struct EditPlate: View {
     @State var title = ""
     @State var message = ""
 
+    @ObservedObject var translation = Translation()
+    @State var Plate_Name : String = ""
+    @State var Enter_Plate_Name : String = ""
+    @State var Price : String = ""
+    @State var Enter_Plate_Price : String = ""
+    @State var Category : String = ""
+    @State var Edit_Plate : String = ""
+    @State var Error : String = ""
+    @State var Message : String = ""
+    @State var plateNameVerification : String = ""
+    @State var Plate_price_invalid : String = ""
+    @State var Plate_Edited_Successfully : String = ""
+    @State var fieldsEmptyMessage : String = ""
+    
     var body: some View {
         
         ZStack{
@@ -32,13 +46,13 @@ struct EditPlate: View {
                             
                             VStack(alignment: .leading, spacing: 10){
                                 
-                                Text("Name")
+                                Text(Plate_Name)
                                     .font(.system(size: 18))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color("GrayColor"))
                                     .padding(.top, 30)
                                 
-                                TextField("Enter Plate Name", text: $selectedPlate.name)
+                                TextField(Enter_Plate_Name, text: $selectedPlate.name)
                                     .padding()
                                     .background(Color("LightColor"))
                                     .cornerRadius(5)
@@ -46,13 +60,13 @@ struct EditPlate: View {
                                     .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                     .font(.system(size: 20))
                                 
-                                Text("Price")
+                                Text(Price)
                                     .font(.system(size: 18))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color("GrayColor"))
                                     .padding(.top, 10)
                                 
-                                TextField("Enter Plate Price", text: $price)
+                                TextField(Enter_Plate_Price, text: $price)
                                     .padding()
                                     .background(Color("LightColor"))
                                     .cornerRadius(5)
@@ -61,7 +75,7 @@ struct EditPlate: View {
                                     .font(.system(size: 20))
                                 
                                 
-                                Text("Category")
+                                Text(Category)
                                     .font(.system(size: 18))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color("GrayColor"))
@@ -87,7 +101,7 @@ struct EditPlate: View {
                                 self.verify()
                             })
                             {
-                                Text("Edit Plate")
+                                Text(Edit_Plate)
                                     .font(.system(size: 20))
                                     .foregroundColor(.white)
                                     .fontWeight(.bold)
@@ -101,6 +115,22 @@ struct EditPlate: View {
                             .padding(.horizontal, 25)
                             .padding(.top, 25)
                         }
+                        .onAppear(perform: {
+                            translation.Translate()
+                            Plate_Name = translation.Plate_Name
+                            Enter_Plate_Name = translation.Enter_Plate_Name
+                            Price = translation.Price
+                            Enter_Plate_Price = translation.Enter_Plate_Price
+                            Category = translation.Category
+                            Edit_Plate = translation.Edit_Plate
+                            Error = translation.Error
+                            Message = translation.Message
+                            plateNameVerification = translation.plateNameVerification
+                            Plate_price_invalid = translation.Plate_price_invalid
+                            Plate_Edited_Successfully = translation.Plate_Edited_Successfully
+                            fieldsEmptyMessage = translation.fieldsEmptyMessage
+                        })
+
                     }
                 }
             }
@@ -115,7 +145,7 @@ struct EditPlate: View {
             }
             
         }
-        .navigationTitle("Edit Plate")
+        .navigationTitle(Edit_Plate)
         .navigationBarTitleDisplayMode(.inline)
         
     }
@@ -129,25 +159,24 @@ struct EditPlate: View {
 
             if selectedPlate.name.count < 4 {
                 
-                self.title = "Error"
-                self.message = "The plate name must be at least 4 letters"
+                self.title = Error
+                self.message = plateNameVerification
                 self.alert.toggle()
                 return
             }
             
             if selectedPlate.price == 0 {
                 
-                self.title = "Error"
-                self.message = "Plate price invalid"
+                self.title = Error
+                self.message = Plate_price_invalid
                 self.alert.toggle()
                 return
             }
-
             
             plateViewModel.editPlate(plate: selectedPlate) {
                 
-                self.title = "Information"
-                self.message = "Plate Edited Successfully"
+                self.title = Message
+                self.message = Plate_Edited_Successfully
                 self.alert.toggle()
                 return
             }
@@ -155,8 +184,8 @@ struct EditPlate: View {
         
         else {
             
-            self.title = "Error"
-            self.message = "Please fill all the contents properly"
+            self.title = Error
+            self.message = fieldsEmptyMessage
             self.alert.toggle()
             
         }

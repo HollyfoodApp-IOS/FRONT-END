@@ -16,6 +16,11 @@ struct MenuQRCode: View {
     
     @Binding var text : String 
     @Binding var restaurantName : String
+    
+    @ObservedObject var translation = Translation()
+    @State var Scan : String = ""
+    @State var QR_Code : String = ""
+    @State var Menu_QR_Code : String = ""
 
     var body: some View {
         
@@ -23,12 +28,12 @@ struct MenuQRCode: View {
             
             HStack{
                 (
-                    Text("Scan ")
+                    Text(Scan)
                         .fontWeight(.bold)
-                        .foregroundColor(.primary)
+                        .foregroundColor(Color("DarkColor"))
                     +
-                    Text("QR Code")
-                        .foregroundColor(.gray)
+                    Text(" "+QR_Code)
+                        .foregroundColor(Color("GrayColor"))
                 )
                 .font(.largeTitle)
                 .padding()
@@ -40,10 +45,18 @@ struct MenuQRCode: View {
                 .interpolation(.none)
                 .resizable()
                 .frame(width: 150, height: 150, alignment: .center)
+                .background(Color.white.ignoresSafeArea())
+
         }
-        .navigationTitle("QR Code Menu")
+        .navigationTitle(Menu_QR_Code)
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color.white.ignoresSafeArea())
+        .onAppear(perform: {
+            
+            translation.Translate()
+            Scan = translation.Scan
+            QR_Code = translation.QR_Code
+            Menu_QR_Code = translation.Menu_QR_Code
+        })
 
         
     }

@@ -18,8 +18,7 @@ struct Menu: View {
     @State var addPlate = false
     @State var goToCart = false
     @State var goToQRCode = false
-
-    @State var selectedCategory = categories[0]
+    
     @Namespace var animation
 
     @State var show = false
@@ -31,6 +30,13 @@ struct Menu: View {
     @State var alert = false
     @State var title = ""
     @State var message = ""
+        
+    @ObservedObject var translation = Translation()
+    @State var Menu : String = ""
+    @State var Add_Plate : String = ""
+    @State var All : String = ""
+    
+    @State var selectedCategory = categories[0]
 
     var body: some View {
         
@@ -41,10 +47,11 @@ struct Menu: View {
                 HStack{
                     
                     VStack(alignment: .leading, spacing: 5, content: {
+                        
                         Text(restaurantName)
                             .font(.title)
                             .foregroundColor(.black)
-                        Text("Menu")
+                        Text(Menu)
                             .font(.largeTitle)
                             .fontWeight(.heavy)
                             .foregroundColor(Color("DarkColor"))
@@ -70,7 +77,7 @@ struct Menu: View {
                                 qrCodeText += "\n*Plate \(i)"
                                 qrCodeText += "\nPlate Name: "+plate.name
                                 qrCodeText += "\nPlate Category: "+plate.category
-                                qrCodeText += "\nPlate Price: "+String(format: "%.2f DT", plate.price)+" DT"
+                                qrCodeText += "\nPlate Price: "+String(format: "%.2f", plate.price)+" DT"
 
                                 i+=1
                             }
@@ -192,8 +199,8 @@ struct Menu: View {
                             addPlate = true
                         })
                         {
-                            
-                            Text("ADD PLATE")
+
+                            Text(Add_Plate)
                                 .font(.system(size: 20))
                                 .foregroundColor(.white)
                                 .fontWeight(.bold)
@@ -214,7 +221,15 @@ struct Menu: View {
             }
             .opacity(show ? 0 : 1)
             .blur(radius: cartData.showCart ? 50 : 0)
-            
+            .onAppear(perform: {
+                
+                translation.Translate()
+                Menu = translation.Menu
+                Add_Plate = translation.Add_Plate
+                All = translation.All
+
+            })
+
             AddToCart(selectedPlate: $selectedPlate, restaurantID: $restaurant, animation: animation)
                 .environmentObject(cartData)
                 .environmentObject(plateViewModel)
@@ -283,11 +298,11 @@ struct Menu: View {
             }
 
         }
-        .navigationTitle("Menu")
+        .navigationTitle(Menu)
         .navigationBarTitleDisplayMode(.inline)
         //.background(Color("LightColor").ignoresSafeArea())
         .onChange(of: cartData.endAnimation, perform: { value in
-            
+
             if cartData.endAnimation {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [self] in
@@ -319,7 +334,7 @@ struct Menu_Previews: PreviewProvider {
     }
 }
 
-var categories = ["All", "Pizza", "Sandwich", "Pasta", "Plate"]
+var categories = ["All", "Pizza", "Sandwich", "Pasta", "Plate", "Other"]
 
 var initialPlate = [
     Plate(id: "0", name: "0", category: "0", price: 0, image: "0", restaurant: "0")

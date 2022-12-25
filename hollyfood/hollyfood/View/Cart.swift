@@ -18,8 +18,13 @@ struct Cart: View {
     @ObservedObject var orderlineViewModel = OrderlineViewModel()
     @ObservedObject var userViewModel = UserViewModel()
 
-    @State var userID: String = UserViewModel.session?.id ?? ""
-    @State var orderID:String = ""
+    @State var userID : String = UserViewModel.session?.id ?? ""
+    @State var orderID : String = ""
+    
+    @ObservedObject var translation = Translation()
+    @State var Total : String = ""
+    @State var Order_Now : String = ""
+    @State var Cart : String = ""
 
     var body: some View {
         
@@ -39,7 +44,7 @@ struct Cart: View {
             VStack {
                 
                 HStack {
-                    Text("Total")
+                    Text(Total)
                         .fontWeight(.heavy)
                         .foregroundColor(Color("GrayColor"))
 
@@ -76,7 +81,7 @@ struct Cart: View {
                     })
                     
                 }, label: {
-                    Text("Order Now")
+                    Text(Order_Now)
                         .font(.title2)
                         .fontWeight(.heavy)
                         .foregroundColor(.white)
@@ -92,8 +97,15 @@ struct Cart: View {
             .background(Color("LightColor"))
         }
         .background(Color("LightColor").ignoresSafeArea())
-        .navigationTitle("Cart")
+        .navigationTitle(Cart)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear(perform: {
+            translation.Translate()
+            Total = translation.Total
+            Order_Now = translation.Order_Now
+            Cart = translation.Cart
+
+        })
 
     }
     
