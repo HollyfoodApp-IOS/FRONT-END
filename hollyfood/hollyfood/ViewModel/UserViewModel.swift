@@ -45,6 +45,7 @@ class UserViewModel: ObservableObject {
                         let email = response.object(forKey: "email") as? String ?? ""
                         let phone = response.object(forKey: "phone") as? String ?? ""
                         let role = response.object(forKey: "role") as? String ?? ""
+                        let image = response.object(forKey: "image") as? String ?? ""
 
                         //print(JSON)
                         print("USER LOGGED IN:")
@@ -54,7 +55,7 @@ class UserViewModel: ObservableObject {
                         print("Phone is: \(phone )")
                         print("Role is: \(role )")
 
-                        Self.session = User(id: id, fullname: fullname, email: email, password: "", phone: phone, role: role)
+                        Self.session = User(id: id, fullname: fullname, email: email, password: "", phone: phone, role: role, image: image)
                     }
 
                     onSuccess(message)
@@ -65,7 +66,7 @@ class UserViewModel: ObservableObject {
             }
     }
         
-    func SignUp(user: User, onSuccess: @escaping() -> Void) {
+    func SignUp(user: User, image: UIImage, onSuccess: @escaping() -> Void) {
         
         print(user)
         let parametres: [String: Any] = [
@@ -73,9 +74,32 @@ class UserViewModel: ObservableObject {
             "email": user.email,
             "password": user.password,
             "phone": user.phone,
-            "role" : user.role
+            "role" : user.role,
+            "image" : ""
         ]
-        AF.request(Statics.URL+"user/register",
+        let imgData = image.jpegData(compressionQuality: 0.2)!
+        
+        
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(imgData, withName: "image",fileName: "file.jpg", mimeType: "image/jpg")
+            for ( key,value) in parametres {
+                
+                multipartFormData.append(  (value as! String).data(using: .utf8)!, withName: key)
+            } //Optional for extra parameters
+        },
+                  to:Statics.URL+"user/register").responseData(completionHandler: { response in
+            switch response.result {
+            case .success:
+                
+                onSuccess()
+                print("success image")
+                
+            case .failure(let encodingError):
+                print(encodingError)
+            }
+        })
+        /*AF.request(Statics.URL+"user/register",
                    method: .post,
                    parameters:parametres, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
@@ -90,7 +114,8 @@ class UserViewModel: ObservableObject {
                     print(error)
                         
                 }
-            }
+            }*/
+        
     }
     
     func forgotPassword(email: String,onSuccess: @escaping() -> Void, onError: @escaping() -> Void)   {
@@ -176,11 +201,59 @@ class UserViewModel: ObservableObject {
             .responseJSON{(response) in print(response)}
     }
 
-    func editProfile(id: String, fullname: String, email:String, phone:String, onSuccess: @escaping(_ message : String) -> Void)   {
+    func editProfile(id: String, fullname: String, email:String, phone:String, imageName:String, image: UIImage, onSuccess: @escaping(_ message : String) -> Void)   {
         
-            AF.request(Statics.URL+"user/"+id,
+        let parametres: [String: Any] = [
+            "fullname" : fullname, "email" : email ,"phone" : phone,"image" : imageName
+            
+        ]
+        let imgData = image.jpegData(compressionQuality: 0.2)!
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(imgData, withName: "image",fileName: "file.jpg", mimeType: "image/jpg")
+            for ( key,value) in parametres {
+                
+                multipartFormData.append(  (value as! String).data(using: .utf8)!, withName: key)
+            } //Optional for extra parameters
+        },
+                  to:Statics.URL+"user/"+id).responseData(completionHandler: { response in
+            switch response.result {
+            case .success(let JSON):
+                let response = JSON as! NSDictionary
+                let message = response.object(forKey: "message") as? String ?? ""
+                
+                if message == ""
+                {
+                    let id = response.object(forKey: "_id") as? String ?? ""
+                    let fullname = response.object(forKey: "fullname") as? String ?? ""
+                    let email = response.object(forKey: "email") as? String ?? ""
+                    let phone = response.object(forKey: "phone") as? String ?? ""
+                    let role = response.object(forKey: "role") as? String ?? ""
+                    let image = response.object(forKey: "image") as? String ?? ""
+
+                    //print(JSON)
+                    print(" ")
+                    print("USER UPDATED IN:")
+                    print("ID is: \(id )")
+                    print("Email is: \(email )")
+                    print("Full Name is:   \(fullname )")
+                    print("Phone is: \(phone )")
+                    print("Role is: \(role )")
+                    
+                    Self.session = User(id: id, fullname: fullname, email: email, password: "", phone: phone, role: role, image:image)
+
+
+                }
+                onSuccess(message)
+                
+            case .failure(let JSON):
+                print("failure")
+
+            }
+        })
+        
+            /*AF.request(Statics.URL+"user/"+id,
                        method: .patch,
-                       parameters: ["fullname" : fullname, "email" : email ,"phone" : phone],encoding: JSONEncoding.default)
+                       parameters: ["fullname" : fullname, "email" : email ,"phone" : phone,"image" : image],encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON{
@@ -198,6 +271,7 @@ class UserViewModel: ObservableObject {
                         let email = response.object(forKey: "email") as? String ?? ""
                         let phone = response.object(forKey: "phone") as? String ?? ""
                         let role = response.object(forKey: "role") as? String ?? ""
+                        let image = response.object(forKey: "image") as? String ?? ""
 
                         //print(JSON)
                         print(" ")
@@ -208,7 +282,7 @@ class UserViewModel: ObservableObject {
                         print("Phone is: \(phone )")
                         print("Role is: \(role )")
                         
-                        Self.session = User(id: id, fullname: fullname, email: email, password: "", phone: phone, role: role)
+                        Self.session = User(id: id, fullname: fullname, email: email, password: "", phone: phone, role: role, image:image)
 
 
                     }
@@ -220,6 +294,7 @@ class UserViewModel: ObservableObject {
                 }
             }
             .responseJSON{(response) in print(response)}
+             */
     }
 
     func changePassword(email: String, oldPassword:String, newPassword:String, onSuccess: @escaping(_ message : String) -> Void, onError: @escaping() -> Void)   {
@@ -269,9 +344,10 @@ class UserViewModel: ObservableObject {
                 let email = response.object(forKey: "email") as? String ?? ""
                 let phone = response.object(forKey: "phone") as? String ?? ""
                 let role = response.object(forKey: "role") as? String ?? ""
+                let image = response.object(forKey: "image") as? String ?? ""
 
                 //print(JSON)
-                let user = User(id: id, fullname: fullname, email: email, password: "", phone: phone, role: role)
+                let user = User(id: id, fullname: fullname, email: email, password: "", phone: phone, role: role,image:image)
                 
                 print("fullname is: "+user.fullname)
 

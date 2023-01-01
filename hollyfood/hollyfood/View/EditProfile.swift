@@ -31,6 +31,7 @@ struct EditProfile_Code:  View {
     @State var email:String = UserViewModel.session?.email ?? ""
     @State var phone:String = UserViewModel.session?.phone ?? ""
     @State var role:String = UserViewModel.session?.role ?? ""
+    @State var image:String = UserViewModel.session?.image ?? ""
 
     @ObservedObject var translation = Translation()
     @State var Full_Name : String = ""
@@ -45,6 +46,8 @@ struct EditProfile_Code:  View {
     @State var Email_already_exist : String = ""
     @State var Profile_updated_successfully : String = ""
     @State var fieldsEmptyMessage : String = ""
+    @State var selectedImage: UIImage?
+    @State var showImagePicker : Bool = false
 
 
     var body: some View {
@@ -170,7 +173,7 @@ struct EditProfile_Code:  View {
         if fullname != "" && email != "" && phone != ""
         {
             
-            viewModel.editProfile(id: id, fullname:fullname, email:email, phone:phone, onSuccess: {(message) in
+            viewModel.editProfile(id: id, fullname:fullname, email:email, phone:phone,imageName: image, image: selectedImage!,  onSuccess: {(message) in
                 
                 if message == "Email already exist"
                 {

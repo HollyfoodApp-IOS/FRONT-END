@@ -15,8 +15,9 @@ struct User {
     var password : String
     var phone : String
     var role : String
- 
-    init(id: String, fullname: String, email: String, password: String, phone: String, role: String) {
+    var image: String
+    
+    init(id: String, fullname: String, email: String, password: String, phone: String, role: String,image: String) {
         
         self.id = id
         self.fullname = fullname
@@ -24,6 +25,7 @@ struct User {
         self.password = password
         self.phone = phone
         self.role = role
+        self.image = image
     }
 }
 

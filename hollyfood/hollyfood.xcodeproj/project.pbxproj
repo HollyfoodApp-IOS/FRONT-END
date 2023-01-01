@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		22E0DFC593289289E32B84B2 /* Pods_hollyfood.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B65FEED53BF6C061D261E78 /* Pods_hollyfood.framework */; };
+		69AF55872961BCE1002A619E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AF55862961BCE1002A619E /* ImagePicker.swift */; };
 		EF09907A293EAC2C006785F8 /* AddToCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF099079293EAC2C006785F8 /* AddToCart.swift */; };
 		EF09907C293EFBF5006785F8 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF09907B293EFBF5006785F8 /* Order.swift */; };
 		EF15DEC22947BD0600ECC3FB /* EditPlate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF15DEC12947BD0600ECC3FB /* EditPlate.swift */; };
@@ -79,6 +80,7 @@
 
 /* Begin PBXFileReference section */
 		3B65FEED53BF6C061D261E78 /* Pods_hollyfood.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hollyfood.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		69AF55862961BCE1002A619E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		9DFD2BC07066C504EA1F9278 /* Pods-hollyfood.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hollyfood.debug.xcconfig"; path = "Target Support Files/Pods-hollyfood/Pods-hollyfood.debug.xcconfig"; sourceTree = "<group>"; };
 		C3D0185CCF59D047465FB350 /* Pods-hollyfood.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hollyfood.release.xcconfig"; path = "Target Support Files/Pods-hollyfood/Pods-hollyfood.release.xcconfig"; sourceTree = "<group>"; };
 		EF099079293EAC2C006785F8 /* AddToCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCart.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				EF15DEC12947BD0600ECC3FB /* EditPlate.swift */,
 				EFE98A6F29520BB200C27FCD /* Settings.swift */,
 				EF502E7F2954791300CE6B5F /* Translation.swift */,
+				69AF55862961BCE1002A619E /* ImagePicker.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				EF94E1F7293BACFF00332CB2 /* PlateDetailShape.swift in Sources */,
 				EFC08E1229466C1500971B61 /* RestaurantViewModel.swift in Sources */,
 				EF2518E12927ED0F00F9DBD9 /* MyRestaurants.swift in Sources */,
+				69AF55872961BCE1002A619E /* ImagePicker.swift in Sources */,
 				EFD67CAB293E7EE4009500A6 /* CustomCorner.swift in Sources */,
 				EF1EA7DF292572E200E83D6A /* ContentView.swift in Sources */,
 				EF84064D2935F6A6000C380D /* Tab.swift in Sources */,

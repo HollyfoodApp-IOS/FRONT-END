@@ -439,7 +439,6 @@ struct SignUp: View{
     @State var visible2 = false
     @State var color = Color("DarkColor").opacity(0.7)
     @State var selectedRole = ""
-    
     @ObservedObject var translation = Translation()
     @State var Full_Name : String = ""
     @State var Enter_Full_Name : String = ""
@@ -461,7 +460,8 @@ struct SignUp: View{
     @State var roleVerification: String = ""
     @State var accountCreatedMessage : String = ""
     @State var fieldsEmptyMessage : String = ""
-
+    @State var selectedImage: UIImage?
+    @State var showImagePicker : Bool = false
     var body : some View{
         
         ZStack{
@@ -592,10 +592,13 @@ struct SignUp: View{
                                 .shadow(color: Color("DarkColor").opacity(0.08), radius: 5, x: 0, y: -5)
                                 .font(.system(size: 12))
                             
+                            
+                            
                         }
                         .padding(.horizontal, 25)
                         .padding(.top, 10)
-                        
+                       
+                        /*
                         VStack(alignment: .leading)
                         {
                             Text(Role)
@@ -613,7 +616,63 @@ struct SignUp: View{
                         .pickerStyle(.segmented)
                         .padding(.horizontal, 25)
                         .padding(.top, 5)
-
+                         */
+                        VStack{
+                            
+                            if let selectedImage = selectedImage {/*
+                            Image(uiImage:selectedImage) .resizable()
+                                .cornerRadius(7)
+                                .padding(1) // Width of the border
+                                .background(Color.gray.opacity(0.10))
+                                .cornerRadius(10)
+                            
+                                .clipShape(Circle())
+                            
+                                .scaledToFit()
+                            
+                                .frame(width: 100, height: 100)
+                                .offset(x:3,y:40)
+                                */
+                            }
+                            
+                            HStack {
+                                Button(action: {
+                                    self.showImagePicker = true
+                                }) {
+                                    HStack(spacing: 35){
+                                        Image(systemName: "camera")
+                                            .font(.system(size: 26))
+                                            .foregroundColor(Color("PrimaryColor"))
+                                        
+                                        Text("Profile Picture")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(Color("PrimaryColor"))
+                                        
+                                        Spacer(minLength: 0)
+                                    }
+                                    .padding()
+                                    .background(RoundedRectangle(cornerRadius: 8).stroke(Color("PrimaryColor"), lineWidth: 1))
+                                }
+                                .padding(.horizontal, 25)
+                                .padding(.top, 15)
+                                .frame(alignment: .leading).sheet(isPresented: $showImagePicker)
+                                {
+                                    
+                                    ImagePicker(sourceType: .photoLibrary, selectedImage: $selectedImage)
+                                    
+                                }
+                               }
+                            .onChange(of: self.selectedImage)
+                            { newVal in
+                                self.selectedImage = newVal
+                            }.onAppear
+                            {
+                                self.selectedImage = nil
+                            }}
+                        
+                       
+                        
+                        
                         Button(action: {
                                 
                                 self.verify()
@@ -634,7 +693,7 @@ struct SignUp: View{
                             }
                             .cornerRadius(8)
                             .padding(.horizontal, 25)
-                            .padding(.top, 25)
+                            .padding(.top, 15)
                         
                     }
                     .onAppear(perform: {
@@ -712,15 +771,9 @@ struct SignUp: View{
                 return
             }
                 
-            if selectedRole == "" {
-                
-                self.title = Error
-                self.message =  roleVerification
-                self.alert.toggle()
-                return
-            }
-
-            userViewModel.SignUp(user: User(id: "", fullname: userViewModel.fullname, email:userViewModel.email, password: userViewModel.password, phone: userViewModel.phone, role: selectedRole), onSuccess: {
+            userViewModel.SignUp(user: User(id: "", fullname: userViewModel.fullname, email:userViewModel.email, password: userViewModel.password, phone: userViewModel.phone, role: "Client", image: ""),
+                image: selectedImage!,
+                onSuccess: {
                 
                 self.title = Message
                 self.message = accountCreatedMessage
