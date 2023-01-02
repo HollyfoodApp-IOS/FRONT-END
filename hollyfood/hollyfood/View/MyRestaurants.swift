@@ -14,14 +14,15 @@ struct MyRestaurants: View {
     @State var goToMenu = false
     @State var goToOrderHistory = false
     
-    @State var restaurant : String = "639644dd4e82d5cf69df69de"
-    @State var restaurantName : String = "Comme Chez Toi"
+    //@State var restaurant : String = "639644dd4e82d5cf69df69de"
+    //@State var restaurantName : String = "Comme Chez Toi"
     @State var type : String = "restaurant"
 
     @ObservedObject var translation = Translation()
     @State var My_Restaurants : String = ""
     @State var See_Menu : String = ""
     @State var See_Orders : String = ""
+    @State var restaurant : RestaurantElement = RestaurantElement(id: "1", name: "Restaurant", Adresse: "1", phone_number: "1", totalrating: "5", photo: "1", description: "1", user: "1")
 
     var body: some View {
     
@@ -29,7 +30,7 @@ struct MyRestaurants: View {
             
             Text(My_Restaurants)
             
-            NavigationLink(destination: Menu(restaurant: $restaurant, restaurantName: $restaurantName).navigationBarBackButtonHidden(false), isActive: $goToMenu) {
+            NavigationLink(destination: Menu(restaurant: $restaurant).navigationBarBackButtonHidden(false), isActive: $goToMenu) {
                 
                 Button(action: {
                     goToMenu=true
@@ -52,7 +53,7 @@ struct MyRestaurants: View {
                 
             }.padding()
             
-            NavigationLink(destination: OrderHistory(type: $type, id: $restaurant)
+            NavigationLink(destination: OrderHistory(type: $type, id: $restaurant.id)
                 .navigationBarBackButtonHidden(false), isActive: $goToOrderHistory) {
                 
                 Button(action: {
@@ -93,4 +94,5 @@ struct MyRestaurants_Previews: PreviewProvider {
         MyRestaurants()
     }
 }
+
 

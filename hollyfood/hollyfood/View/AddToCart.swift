@@ -13,7 +13,7 @@ struct AddToCart: View {
     @EnvironmentObject var plateViewModel: PlateViewModel
 
     @Binding var selectedPlate: Plate
-    @Binding var restaurantID: String
+    @Binding var restaurant: RestaurantElement
 
     @State var existedPlate : Bool = false
     @State var existedPlateIndex : Int = 0
@@ -27,6 +27,8 @@ struct AddToCart: View {
     @State var Edit_Plate : String = ""
     @State var Delete_Plate : String = ""
     @State var DT : String = ""
+    
+    @State var userID:String = UserViewModel.session?.id ?? ""
 
     var body: some View{
         
@@ -107,26 +109,30 @@ struct AddToCart: View {
             .cornerRadius(15)
             .padding(.bottom, 25)
             
-            NavigationLink(destination: EditPlate(restaurantID: $restaurantID, selectedPlate: $selectedPlate).environmentObject(plateViewModel).navigationBarBackButtonHidden(false)) {
-                Image(systemName: "square.and.pencil")
-                    .foregroundColor(.yellow)
+            if restaurant.user == userID
+            {
+                NavigationLink(destination: EditPlate(restaurantID: $restaurant.id, selectedPlate: $selectedPlate).environmentObject(plateViewModel).navigationBarBackButtonHidden(false)) {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundColor(.yellow)
 
-                Text(Edit_Plate)
-                    .foregroundColor(.yellow)
+                    Text(Edit_Plate)
+                        .foregroundColor(.yellow)
 
-            }.padding(.top, 1)
-            
-            Button(action: {
+                }.padding(.top, 1)
                 
-                deletePlate()
+                Button(action: {
+                    
+                    deletePlate()
 
-            }, label: {
-                Image(systemName: "delete.forward")
-                    .foregroundColor(.red)
+                }, label: {
+                    Image(systemName: "delete.forward")
+                        .foregroundColor(.red)
 
-                Text(Delete_Plate)
-                    .foregroundColor(.red)
-            }).padding(.top, 1)
+                    Text(Delete_Plate)
+                        .foregroundColor(.red)
+                }).padding(.top, 1)
+
+            }
 
 
 
@@ -141,6 +147,9 @@ struct AddToCart: View {
             Edit_Plate = translation.Edit_Plate
             Delete_Plate = translation.Delete_Plate
             DT = translation.DT
+
+            print("restaurant user id: "+restaurant.user)
+            print("user id: "+userID)
 
         })
 

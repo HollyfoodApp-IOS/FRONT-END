@@ -9,8 +9,9 @@ import SwiftUI
 
 struct Menu: View {
     
-    @Binding var restaurant : String
-    @Binding var restaurantName : String
+    //@Binding var restaurant : String
+    //@Binding var restaurantName : String
+    @Binding var restaurant : RestaurantElement
 
     @ObservedObject var plateViewModel = PlateViewModel()
     @StateObject var cartData = CartViewModel()
@@ -37,6 +38,8 @@ struct Menu: View {
     @State var All : String = ""
     
     @State var selectedCategory = categories[0]
+    
+    @State var userID:String = UserViewModel.session?.id ?? ""
 
     var body: some View {
         
@@ -48,7 +51,7 @@ struct Menu: View {
                     
                     VStack(alignment: .leading, spacing: 5, content: {
                         
-                        Text(restaurantName)
+                        Text(restaurant.name)
                             .font(.title)
                             .foregroundColor(.black)
                         Text(Menu)
@@ -62,14 +65,14 @@ struct Menu: View {
                     Spacer()
                     
                     NavigationLink(destination:
-                                    MenuQRCode(text: $qrCodeText, restaurantName: $restaurantName)
+                                    MenuQRCode(text: $qrCodeText, restaurantName: $restaurant.name)
                             .environmentObject(cartData)
                             .navigationBarBackButtonHidden(false),
                         isActive: $goToQRCode) {
 
                         Button(action: {
                             
-                            qrCodeText = restaurantName+" Menu"
+                            qrCodeText = restaurant.name+" Menu"
                             
                             plateViewModel.plates.forEach{ plate in
                                 
@@ -97,7 +100,7 @@ struct Menu: View {
                     }
                     
                     NavigationLink(destination:
-                        Cart(restaurant: $restaurant, restaurantName: $restaurantName)
+                                    Cart(restaurant: $restaurant.id, restaurantName: $restaurant.name)
                             .environmentObject(cartData)
                             .navigationBarBackButtonHidden(false),
                         isActive: $goToCart) {
@@ -140,7 +143,7 @@ struct Menu: View {
                                     selectedCategory = tab
                                 }
                                 
-                                plateViewModel.getPlatesByRestaurant(restaurant: restaurant, category: selectedCategory)
+                                plateViewModel.getPlatesByRestaurant(restaurant: restaurant.id, category: selectedCategory)
 
                             }, label: {
                                             
@@ -189,32 +192,36 @@ struct Menu: View {
                             }
                     }
                     .onAppear(perform:{
-                        plateViewModel.getPlatesByRestaurant(restaurant: restaurant, category: selectedCategory)
+                        plateViewModel.getPlatesByRestaurant(restaurant: restaurant.id, category: selectedCategory)
                     })
                     .padding()
                     
-                    NavigationLink(destination: AddPlate(restaurant: $restaurant).navigationBarBackButtonHidden(false), isActive: $addPlate) {
-                        
-                        Button(action: {
-                            addPlate = true
-                        })
-                        {
-
-                            Text(Add_Plate)
-                                .font(.system(size: 20))
-                                .foregroundColor(.white)
-                                .fontWeight(.bold)
-                                .padding(.vertical)
-                                .frame(width: UIScreen.main.bounds.width - 70)
-                                .background(
-                                    LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("PrimaryColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                                )
+                    if restaurant.user == userID
+                    {
+                        NavigationLink(destination: AddPlate(restaurant: $restaurant.id).navigationBarBackButtonHidden(false), isActive: $addPlate) {
                             
-                        }
-                        .cornerRadius(15)
-                        .padding(.horizontal, 25)
+                            Button(action: {
+                                addPlate = true
+                            })
+                            {
 
-                    }.padding()
+                                Text(Add_Plate)
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.white)
+                                    .fontWeight(.bold)
+                                    .padding(.vertical)
+                                    .frame(width: UIScreen.main.bounds.width - 70)
+                                    .background(
+                                        LinearGradient(gradient: .init(colors: [Color("PrimaryColor"), Color("PrimaryColor")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                    )
+                                
+                            }
+                            .cornerRadius(15)
+                            .padding(.horizontal, 25)
+
+                        }.padding()
+
+                    }
 
                 }
                 
@@ -230,7 +237,7 @@ struct Menu: View {
 
             })
 
-            AddToCart(selectedPlate: $selectedPlate, restaurantID: $restaurant, animation: animation)
+            AddToCart(selectedPlate: $selectedPlate, restaurant: $restaurant, animation: animation)
                 .environmentObject(cartData)
                 .environmentObject(plateViewModel)
                 .offset(y: cartData.showCart ? cartData.startAnimation ? 500 : 0 : 500)

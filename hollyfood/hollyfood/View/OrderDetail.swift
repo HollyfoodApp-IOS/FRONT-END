@@ -34,6 +34,7 @@ struct OrderDetail: View {
     @State var Quantity : String = ""
     @State var DT : String = ""
     @State var Total_Price : String = ""
+    
 
 
     var body: some View {

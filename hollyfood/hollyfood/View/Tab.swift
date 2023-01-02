@@ -25,8 +25,6 @@ struct Tab: View {
             translation.Translate()
             back = translation.back
         })
-
-
         
     }
 }
@@ -65,10 +63,10 @@ struct Main: View{
                 Settings()
                     .ignoresSafeArea(.all, edges: .all)
                     .tag("gearshape.fill")
-                Restaurants()
+                RestaurantsView()
                     .ignoresSafeArea(.all, edges: .all)
                     .tag("fork.knife")
-                MyRestaurants()
+                MyRestaurantsView()
                     .ignoresSafeArea(.all, edges: .all)
                     .tag("house.fill")
             }

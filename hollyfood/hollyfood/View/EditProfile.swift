@@ -58,6 +58,39 @@ struct EditProfile_Code:  View {
                 
                 VStack{
                     
+                        if let selectedImage = selectedImage {
+                        
+                            Image(uiImage:selectedImage) .resizable()
+                                .cornerRadius(7)
+                                .padding(1) // Width of the border
+                                .background(Color.gray.opacity(0.10))
+                                .cornerRadius(10)
+                                
+                                .clipShape(Circle())
+                                
+                                .scaledToFit()
+                               
+                                .frame(width: 100, height: 100)
+                                .offset(x:3,y:40)
+                                .padding(.top,10)
+                        
+                        }
+                        else
+                        {
+                            AsyncImage(url: URL(string: Statics.URL+"img/"+(UserViewModel.session?.image ??  "") ),
+                                       content:{ image in
+                                
+                                        image
+                                            .resizable()
+                                            .aspectRatio( contentMode: .fill)
+                                            .clipped()
+                                            .clipShape(Rectangle())
+                                            .frame( width:80, height: 80).cornerRadius(20.0)
+                                
+                            },placeholder: { })
+                            
+                        }
+                    
                         GeometryReader{_ in
                                 
                                 VStack{
@@ -137,6 +170,12 @@ struct EditProfile_Code:  View {
                                     }
                                 }
                             }
+                .sheet(isPresented: $showImagePicker)
+                {
+                    
+                    ImagePicker(sourceType: .photoLibrary, selectedImage: $selectedImage)
+                    
+                }
 
             }
             
@@ -173,7 +212,7 @@ struct EditProfile_Code:  View {
         if fullname != "" && email != "" && phone != ""
         {
             
-            viewModel.editProfile(id: id, fullname:fullname, email:email, phone:phone,imageName: image, image: selectedImage!,  onSuccess: {(message) in
+            viewModel.editProfile(id: id, fullname:fullname, email:email, phone:phone, onSuccess: {(message) in
                 
                 if message == "Email already exist"
                 {

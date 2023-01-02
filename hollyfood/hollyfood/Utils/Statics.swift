@@ -9,5 +9,5 @@ import Foundation
 
 class Statics {
 
-    static var URL="http://127.0.0.1:9090/"
+    static var URL="http://192.168.43.124:9090/"
 }

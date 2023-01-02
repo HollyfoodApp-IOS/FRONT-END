@@ -145,6 +145,8 @@ struct Login: View{
     
     @ObservedObject var userViewModel = UserViewModel()
     @State private var isLogin = false
+    @State private var goToOtherLoginWays = false
+
     @State var visible = false
     @State var color = Color("DarkColor").opacity(0.7)
     @State var alert = false
@@ -152,6 +154,8 @@ struct Login: View{
     @State var message = ""
     @State var forgotPassword = false
     @State var verifyAccount = false
+    @State var termsOfService = false
+
     @AppStorage("lastUserEmail") var lastUserEmail: String = ""
     @AppStorage("lastUserPassword") var lastUserPassword: String = ""
     
@@ -264,7 +268,7 @@ struct Login: View{
                         .padding(.horizontal, 25)
                         .padding(.top, 25)
                         
-                        NavigationLink(destination: Tab().navigationBarBackButtonHidden(true), isActive: $isLogin){
+                        NavigationLink(destination: Location().navigationBarBackButtonHidden(true), isActive: $isLogin){
                             
                             Button(action: {
                                 
@@ -308,6 +312,48 @@ struct Login: View{
                         }
                         .padding(.horizontal, 25)
                         .padding(.top, 30)
+                        
+                        
+                        NavigationLink(destination: GoogleAuthentification().navigationBarBackButtonHidden(false), isActive: $goToOtherLoginWays){
+                            
+                            Button(action: {
+                                
+                                goToOtherLoginWays = true
+                                
+                            }) {
+                                HStack(spacing: 35){
+                                    Image(systemName: "person.crop.circle.fill.badge.questionmark.ar")
+                                        .font(.system(size: 26))
+                                        .foregroundColor(Color("PrimaryColor"))
+                                    
+                                    Text("Other Login Ways")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(Color("PrimaryColor"))
+                                    
+                                    Spacer(minLength: 0)
+                                }
+                                .padding()
+                                .background(RoundedRectangle(cornerRadius: 8).stroke(Color("PrimaryColor"), lineWidth: 1))
+                            }
+                            .padding(.horizontal, 25)
+                            .padding(.top, 10)
+
+                        }
+                        
+                        NavigationLink(destination: TermsOfService(), isActive: $termsOfService){
+                          
+                            Button(action: { termsOfService=true }) {
+                                Text("Terms of Service")
+                                    .font(.system(size: 14))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("PrimaryColor"))
+                            }
+                            .padding(.top, 10)
+
+                        }
+
+                        
+
                                                 
                     }
                     .onAppear(perform: {
